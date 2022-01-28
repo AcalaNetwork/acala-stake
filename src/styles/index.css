@@ -1,0 +1,25 @@
+:root {
+	--color-primary: #645aff;
+	--font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		"Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+		"Helvetica Neue";
+}
+
+html,
+body {
+	font-size: 4px;
+	font-family: var(--font-montserrat);
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-variant-numeric: tabular-nums;
+}
+
+/* clear all outline */
+*,
+*::after,
+*::before {
+	outline: none !important;
+}
+
+/** some gradient background **/
