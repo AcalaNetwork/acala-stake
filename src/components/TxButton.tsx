@@ -82,7 +82,7 @@ export const TxButton: FC<TxButtonProps> = React.memo(
 			<Button
 				variant="filled"
 				color="primary"
-				className={`w-full mt-22 ${className}`}
+				className={`w-full ${className}`}
 				round="lg"
 				onClick={handleClick}
 				error={!!error}
