@@ -47,7 +47,7 @@ export const AddressAvatar: FC<AddressAvatarProps> = ({
   return (
     <div
       onClick={() => navigator.clipboard.writeText(address)}
-      className={`w-24 h-24 flex-center cursor-pointer rounded-full ${className} border-2 border-d6d3de`}
+      className={`w-${size} h-${size} flex-center cursor-pointer rounded-full ${className} border-2 border-d6d3de`}
     >
       <Identicon
         size={size}
