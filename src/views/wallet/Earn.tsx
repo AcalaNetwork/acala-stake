@@ -12,7 +12,7 @@ export const Earn = () => {
 		<Layout>
 			<WalletSubPageTabs active={2} />
 			<div className="container">
-				<EnsureSDKReady requires={['wallet']}>
+				<EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
 					<Spacing h={40} />
 					<EarnOverview />
 					<Spacing h={68} />

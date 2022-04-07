@@ -82,7 +82,7 @@ export const CrossChainCreate: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
           <NumInput
             className="font-4 font-semibold h-[60px] w-full"
             value={bridgeAmount}
-            onChange={(e) => setBridgeAmount(Number(e))}
+            onChange={(e) => setBridgeAmount(e)}
           />
         </div>
       </FormPanel>

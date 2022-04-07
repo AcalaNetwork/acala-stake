@@ -23,7 +23,7 @@ export const WithdrawLiquidityTab = () => {
     message,
     err,
     setSelectToken,
-    onSlelectChange,
+    onSlelectAmountChange,
     onMax,
     setSlippage,
   ] = useWithdrawLiquidityForm();
@@ -54,9 +54,9 @@ export const WithdrawLiquidityTab = () => {
           <div className="mt-8">
             <BalanceInput
               max={180}
-              value={slelectValue}
-              onChange={onSlelectChange}
-              currency={{ token: selectToken }}
+              value={slelectValue.amount.toString()}
+              onChange={onSlelectAmountChange}
+              currency={selectToken}
               onMax={onMax}
             />
           </div>

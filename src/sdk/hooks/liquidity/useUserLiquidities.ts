@@ -18,7 +18,7 @@ export const useLiquidityOverviewOfUser = () => {
     if (!liquidity) return;
 
     if (!active) return;
-    return liquidity.subscribeAllUserPools(active.address).subscribe({
+    return liquidity.subscribeAllUserLiquidityDetails(active.address).subscribe({
       next: setData
     })
   }, [active, liquidity]);
@@ -48,7 +48,7 @@ export const useLiquidityValue = () => {
   useSubscription(() => {
     if (!liquidity || !active || !wallet) return;
 
-    return liquidity.subscribeAllUserPools(active.address).pipe(
+    return liquidity.subscribeAllUserLiquidityDetails(active.address).pipe(
       switchMap((data) => {
         const _tokens = [];
         Object.keys(data).forEach(key => tokens.push(key));

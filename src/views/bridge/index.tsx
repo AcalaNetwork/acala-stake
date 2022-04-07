@@ -30,7 +30,7 @@ const Inner: FC = () => {
 export const Bridge: FC = () => {
   return (
     <Layout>
-      <EnsureSDKReady requires={['wallet']}>
+      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
         <BridgeProvider>
           <Inner />
         </BridgeProvider>

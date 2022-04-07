@@ -37,7 +37,7 @@ const extractEvents = (
 						new Uint8Array([mod.index.toNumber(), mod.error.toNumber()])
 					);
 
-					message = `${error.section}.${error.name}`;
+					message = `${error.section}.${error.name}` as any;
 				} catch (error: any) {
 					message = error?.toString() || "unknown error";
 				}

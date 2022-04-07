@@ -14,7 +14,7 @@ const Inner = () => {
   const { step } = useContext(LiquidityProviderContext);
 
   return (
-    <EnsureSDKReady requires={['wallet']}>
+    <EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
       <div className="container mt-32">
         <Card
           shadow={"none"}

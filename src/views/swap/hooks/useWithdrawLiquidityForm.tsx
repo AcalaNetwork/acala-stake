@@ -44,6 +44,13 @@ export const useWithdrawLiquidityForm = () => {
     });
   }, [onSlelectChange, selectToken]);
 
+  const onSlelectAmountChange = useCallback((amount: string) => {
+    onSlelectChange({
+      amount: amount,
+      token: selectToken,
+    });
+  }, [selectToken, onSlelectChange])
+
   const [mockCall] = useExtrinsic({
     method: "removeLiquidity",
     params: [0, 0, 0, 0, 0, 0],
@@ -75,7 +82,7 @@ export const useWithdrawLiquidityForm = () => {
   useSubscription(() => {
     if (!liquidity || !selectToken) return;
 
-    return liquidity.subscribePoolDetail(selectToken).subscribe({
+    return liquidity.subscribePoolDetails(selectToken).subscribe({
       next: (data) => {
         const { amounts } = data;
         setAmounts(amounts);
@@ -123,7 +130,7 @@ export const useWithdrawLiquidityForm = () => {
     message,
     err,
     setSelectToken,
-    onSlelectChange,
+    onSlelectAmountChange,
     onMax,
     setSlippage,
   ] as const;

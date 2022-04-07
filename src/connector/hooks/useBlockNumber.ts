@@ -10,7 +10,7 @@ export function useBlockNumebr (network?: CONNECTED_NETWORK) {
   useSubscription(() => {
     if (!api?.api) return;
 
-    return api.api.query.system.number().subscribe({ next: (i) => setBlockNumber(i.toNumber()) });
+    return api.api.query.system.number().subscribe({ next: (i) => setBlockNumber(Number(i.toString())) });
   }, [api]);
 
   return blockNumber;

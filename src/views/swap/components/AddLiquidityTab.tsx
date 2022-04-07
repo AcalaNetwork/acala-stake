@@ -83,9 +83,9 @@ export const AddLiquidityTab = () => {
           }
         >
           <BalanceInput
-            onChange={(e) => onInputChange(1, e)}
-            value={token1Value}
-            currency={{ token: token1 }}
+            onChange={(e) => onInputChange(1, {token: token1, amount: e})}
+            value={token1Value.amount.toString()}
+            currency={token1}
             onMax={onTokenMax}
           />
         </FormPanel>
@@ -107,9 +107,9 @@ export const AddLiquidityTab = () => {
           }
         >
           <BalanceInput
-            onChange={(e) => onInputChange(2, e)}
-            value={token2Value}
-            currency={{ token: token2 }}
+            onChange={(e) => onInputChange(2, {token: token2, amount: e})}
+            value={token2Value.amount.toString()}
+            currency={token2}
             onMax={onTokenMax}
           />
         </FormPanel>

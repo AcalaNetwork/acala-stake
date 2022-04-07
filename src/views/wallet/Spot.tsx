@@ -9,7 +9,7 @@ export const Spot = () => {
 	return (
 		<Layout>
 			<WalletSubPageTabs active={1} />
-			<EnsureSDKReady requires={['wallet']}>
+			<EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
 				<div className="container">
 					<Spacing h={44} />
 					<AssetBalance />

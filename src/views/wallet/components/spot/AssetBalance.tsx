@@ -46,7 +46,7 @@ export const AssetBalance = () => {
 						<LinkButton
 							size="sm"
               round='sm'
-              link='/swap'
+              href='/swap'
 						>
 							Bug Crypto
 						</LinkButton>
@@ -54,7 +54,7 @@ export const AssetBalance = () => {
 							size="sm"
               round='sm'
 							variant="outline"
-              link='/swap'
+              href='/swap'
 						>
 							Bridge
 						</LinkButton>
@@ -62,7 +62,7 @@ export const AssetBalance = () => {
 							size="sm"
               round='sm'
 							variant="outline"
-              link='/swap'
+              href='/swap'
 						>
 							Transfer
 						</LinkButton>

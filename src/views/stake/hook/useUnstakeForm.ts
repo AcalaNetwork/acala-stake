@@ -38,7 +38,7 @@ const DEFAULT_SWAP_SLIPPAGE = new FixedPointNumber(1 - 0.001);
 
 function calculateRedeem(api: ApiRx, current: string, swapResult: SwapParameters, redeemResult: EstimateRedeemResult, fastRedeem: boolean): RedeemResult {
   // use normal redeem
-  if (!redeemResult.canTryFastReddem && !fastRedeem) {
+  if (!redeemResult.canTryFastRedeem && !fastRedeem) {
     return {
       receive: redeemResult.receive,
       fee: redeemResult.fee,
@@ -56,7 +56,7 @@ function calculateRedeem(api: ApiRx, current: string, swapResult: SwapParameters
   const receiveFromSwap = swapResult.output.balance.mul(DEFAULT_SWAP_SLIPPAGE);
   const receiveFromFastRedeem = redeemResult.receive;
 
-  if (receiveFromSwap.gt(receiveFromFastRedeem) && !redeemResult.canTryFastReddem) {
+  if (receiveFromSwap.gt(receiveFromFastRedeem) && !redeemResult.canTryFastRedeem) {
     const feeFromSwap = swapResult.input.balance.mul(redeemResult.env.exchangeRate)
       .minus(swapResult.output.balance).max(FixedPointNumber.ZERO);
 

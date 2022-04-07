@@ -168,7 +168,7 @@ export const useAddLiquidityForm = () => {
   useSubscription(() => {
     if (!liquidity || !selected) return;
 
-    return liquidity.subscribePoolDetail(selected).subscribe({
+    return liquidity.subscribePoolDetails(selected).subscribe({
       next: (data) => {
         const { amounts, share } = data;
         setTotalShare(share);

@@ -5,8 +5,8 @@ import { SDKNetwork } from "../../../sdk/types";
 
 export const useRewardsCalculator = (type: SDKNetwork) => {
 	const apy = useHomaAPY(type);
-	const [amount, { onChange }] = useInput<number>({
-		init: 0,
+	const [amount, { onChange }] = useInput<string>({
+		init: '0',
 		rules: {
 			type: "number",
 			min: 0,
@@ -15,6 +15,6 @@ export const useRewardsCalculator = (type: SDKNetwork) => {
 	});
 
 	return useMemo(() => {
-		return [apy, (apy * amount) / 12, apy * amount, amount, onChange] as const;
+		return [apy, (apy * Number(amount)) / 12, apy * Number(amount), amount, onChange] as const;
 	}, [apy, amount, onChange]);
 };

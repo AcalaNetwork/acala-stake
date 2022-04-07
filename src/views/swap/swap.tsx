@@ -14,7 +14,7 @@ export const Swap = () => {
 				<LiquidityOverview />
 			</TopBoard>
 			<SwapSubPageTabs active={0} />
-			<EnsureSDKReady requires={['wallet']}>
+			<EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
 				<div className="container mt-32 ">
 					<Card variant="gradient-border" className="pt-36 pb-46">
 						<SwapConsole />
