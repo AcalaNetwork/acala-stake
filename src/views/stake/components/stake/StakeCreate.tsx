@@ -4,24 +4,24 @@ import {
   InformationCircleIcon,
   ChevronLeftIcon,
 } from "@heroicons/react/outline";
-import { Button } from "../../../../components/Button";
-import { Card } from "../../../../components/Card";
-import { BalanceInput, FormPanel } from "../../../../components/form";
-import { FormatBalance } from "../../../../components/FormatBalance";
+import { Button } from "@components/Button";
+import { Card } from "@components/Card";
+import { BalanceInput, FormPanel } from "@components/form";
+import { FormatBalance } from "@components/FormatBalance";
 import {
   List,
   ListItem,
   ListLabel,
   ListValue,
-} from "../../../../components/List";
-import { Popover } from "../../../../components/Popover";
-import { Spacing } from "../../../../components/Spacing";
-import { ExchangeRate } from "../../../../components/ExchangeRate";
+} from "@components/List";
+import { Popover } from "@components/Popover";
+import { Spacing } from "@components/Spacing";
+import { ExchangeRate } from "@components/ExchangeRate";
 import { useContext } from "react";
 import { StakeProviderContext } from "./StakeContext";
-import { TokenName } from "../../../../components/TokenName";
+import { TokenName } from "@components/TokenName";
 import { useStakeCall } from "../../../../sdk/hooks/stake/useStakeCall";
-import { FormatRatio } from "../../../../components/FormatRatio";
+import { FormatRatio } from "@components/FormatRatio";
 
 export const StakeCreate = () => {
   const {

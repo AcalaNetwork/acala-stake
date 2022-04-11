@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { StakeLayout } from "../../components/layout";
-import { Spacing } from "../../components/Spacing";
+import { StakeLayout } from "@components/layout";
+import { Spacing } from "@components/Spacing";
 import { EnsureSDKReady } from "../../sdk/components/EnsureSDKReady";
 import { TabsCard } from "./components/mystake/TabsCard";
 import { TotalStake } from "./components/mystake/TotalStake";

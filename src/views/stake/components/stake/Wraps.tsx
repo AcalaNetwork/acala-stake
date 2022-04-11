@@ -1,5 +1,5 @@
-import { Card } from "../../../../components/Card";
-import { WrapInfo } from "../../../../components/WrapInfo";
+import { Card } from "@components/Card";
+import { WrapInfo } from "@components/WrapInfo";
 
 export const Wraps = () => {
   return (

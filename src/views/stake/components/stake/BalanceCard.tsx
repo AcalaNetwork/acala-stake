@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { Card } from "../../../../components/Card";
-import { FormatBalance } from "../../../../components/FormatBalance";
-import { FormatRatio } from "../../../../components/FormatRatio";
-import { TokenName } from "../../../../components/TokenName";
+import { Card } from "@components/Card";
+import { FormatBalance } from "@components/FormatBalance";
+import { FormatRatio } from "@components/FormatRatio";
+import { TokenName } from "@components/TokenName";
 import { useStakeBalance } from "../../hook/useStakeBalance";
 
 export const BalanceCard: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {

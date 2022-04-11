@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { FormatBalance } from "../../../components/FormatBalance";
-import { FormatValue } from "../../../components/FormatValue";
-import { TokenImage } from "../../../components/TokenImage";
-import { TopBoard } from "../../../components/TopBoard";
+import { FormatBalance } from "@components/FormatBalance";
+import { FormatValue } from "@components/FormatValue";
+import { TokenImage } from "@components/TokenImage";
+import { TopBoard } from "@components/TopBoard";
 import { useTotalStaking } from "../hook/useTotalStaking";
 
 export const StakeTopBoard: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
