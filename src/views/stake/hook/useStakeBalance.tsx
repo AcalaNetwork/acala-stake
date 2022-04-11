@@ -15,7 +15,7 @@ interface StakingBalance {
 }
 
 export const useStakeBalance = (token: "KSM" | "DOT") => {
-  const { address } = useActiveAccount();
+  const activeAccount = useActiveAccount();
   const network = useMemo(
     () => (token === "KSM" ? "karura" : "acala"),
     [token]
@@ -35,8 +35,8 @@ export const useStakeBalance = (token: "KSM" | "DOT") => {
       .pipe(
         switchMap(() => {
           return combineLatest({
-            liquidBalance: wallet.subscribeBalance(liquidToken, address),
-            stakingBalance: wallet.subscribeBalance(stakingToken, address),
+            liquidBalance: wallet.subscribeBalance(liquidToken, activeAccount?.address),
+            stakingBalance: wallet.subscribeBalance(stakingToken, activeAccount?.address),
           });
         })
       )
@@ -50,7 +50,7 @@ export const useStakeBalance = (token: "KSM" | "DOT") => {
           });
         },
       });
-  }, [wallet, apy, token, address]);
+  }, [wallet, apy, token, activeAccount]);
 
   return result;
 };
