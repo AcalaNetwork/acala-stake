@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { StakeLayout } from "../../components/layout";
-import { Spacing } from "../../components/Spacing";
+import { StakeLayout } from "@components/layout";
+import { Spacing } from "@components/Spacing";
 import { UnstakeConfirmModal } from "../../modals/UnstakeConfirm";
 import { EnsureSDKReady } from "../../sdk/components/EnsureSDKReady";
 import { BalanceCard } from "./components/stake/BalanceCard";

@@ -2,19 +2,18 @@ import { Token } from "@acala-network/sdk-core";
 import { Switch } from "@headlessui/react";
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import { FC, useCallback, useContext } from "react";
-import { Button } from "../../../../components/Button";
-import { Card } from "../../../../components/Card";
-import { BalanceInput, FormPanel } from "../../../../components/form";
-import { FormatBalance } from "../../../../components/FormatBalance";
+import { Card } from "@components/Card";
+import { BalanceInput, FormPanel } from "@components/form";
+import { FormatBalance } from "@components/FormatBalance";
 import {
   List,
   ListItem,
   ListLabel,
   ListValue,
-} from "../../../../components/List";
-import { Popover } from "../../../../components/Popover";
-import { Spacing } from "../../../../components/Spacing";
-import { TxButton } from "../../../../components/TxButton";
+} from "@components/List";
+import { Popover } from "@components/Popover";
+import { Spacing } from "@components/Spacing";
+import { TxButton } from "@components/TxButton";
 import { useActiveAccount } from "../../../../connector";
 import { useOpenModal } from "../../../../state";
 import { ModalType } from "../../../../state/application/types";

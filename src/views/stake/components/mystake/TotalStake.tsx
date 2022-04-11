@@ -1,13 +1,13 @@
 import { InformationCircleIcon } from "@heroicons/react/outline";
 import Link from "next/link";
 import { FC } from "react";
-import { Button } from "../../../../components/Button";
-import { Card } from "../../../../components/Card";
-import { FormatBalance } from "../../../../components/FormatBalance";
-import { FormatRatio } from "../../../../components/FormatRatio";
-import { FormatValue } from "../../../../components/FormatValue";
-import { Popover } from "../../../../components/Popover";
-import { Spacing } from "../../../../components/Spacing";
+import { Button } from "@components/Button";
+import { Card } from "@components/Card";
+import { FormatBalance } from "@components/FormatBalance";
+import { FormatRatio } from "@components/FormatRatio";
+import { FormatValue } from "@components/FormatValue";
+import { Popover } from "@components/Popover";
+import { Spacing } from "@components/Spacing";
 import { useMyStake } from "../../hook/useMyStakes";
 
 export const TotalStake: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {

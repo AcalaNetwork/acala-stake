@@ -1,12 +1,12 @@
 import { FC, useContext } from "react";
-import { Card } from "../../../../components/Card";
-import { FormPanel } from "../../../../components/form";
+import { Card } from "@components/Card";
+import { FormPanel } from "@components/form";
 import SwapIcon from "/public/pages/bridge/swap-btn.svg";
 import { StakeProviderContext } from "./StakeContext";
-import { TokenImage } from "../../../../components/TokenImage";
-import { TokenName } from "../../../../components/TokenName";
-import { Address } from "../../../../components/Address";
-import { Button } from "../../../../components/Button";
+import { TokenImage } from "@components/TokenImage";
+import { TokenName } from "@components/TokenName";
+import { Address } from "@components/Address";
+import { Button } from "@components/Button";
 import { getTokenFullName, getTokenName } from "../../../../utils/token";
 import LockIcon from "/public/icons/lock.svg";
 import { useActiveAccount } from "../../../../connector";

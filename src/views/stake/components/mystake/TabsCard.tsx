@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Card } from "../../../../components/Card";
-import { Spacing } from "../../../../components/Spacing";
-import { Table } from "../../../../components/Table";
+import { Card } from "@components/Card";
+import { Spacing } from "@components/Spacing";
+import { Table } from "@components/Table";
 
 export const TabsCard = () => {
   const [tab, setTab] = useState(0);

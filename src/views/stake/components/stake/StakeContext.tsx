@@ -8,7 +8,7 @@ import React, {
   useMemo,
   useEffect,
 } from "react";
-import { ChainData } from "../../../../components/form";
+import { ChainData } from "@components/form";
 import { useApi } from "../../../../connector";
 import { usePresetTokens } from "../../../../connector/hooks/usePresetTokens";
 import { useSubscription } from "../../../../hooks/useSubscription";

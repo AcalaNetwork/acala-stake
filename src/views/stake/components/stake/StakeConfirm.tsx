@@ -1,13 +1,13 @@
 import { FC, useContext } from "react";
-import { Card } from "../../../../components/Card";
-import { FormPanel } from "../../../../components/form";
+import { Card } from "@components/Card";
+import { FormPanel } from "@components/form";
 import { StakeProviderContext } from "./StakeContext";
-import { Button } from "../../../../components/Button";
-import { FormatBalance } from "../../../../components/FormatBalance";
-import { ListItem, ListLabel, ListValue } from "../../../../components/List";
-import { Spacing } from "../../../../components/Spacing";
+import { Button } from "@components/Button";
+import { FormatBalance } from "@components/FormatBalance";
+import { ListItem, ListLabel, ListValue } from "@components/List";
+import { Spacing } from "@components/Spacing";
 import { useStakeCall } from "../../../../sdk/hooks/stake/useStakeCall";
-import { TxButton } from "../../../../components/TxButton";
+import { TxButton } from "@components/TxButton";
 
 export const StakeConfirm: FC = () => {
   const { setStep, mintAmount, stakingToken, liquidToken, params, available } =

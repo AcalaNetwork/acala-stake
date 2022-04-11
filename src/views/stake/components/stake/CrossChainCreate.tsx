@@ -1,13 +1,13 @@
 import { FC, useContext } from "react";
-import { ChainSelector, FormPanel } from "../../../../components/form";
+import { ChainSelector, FormPanel } from "@components/form";
 import { StakeProviderContext } from "./StakeContext";
 import SwapIcon from "/public/pages/bridge/swap-btn.svg";
 import LockIcon from "/public/icons/lock.svg";
-import { NumInput } from "../../../../components/form/NumInput";
-import { Address } from "../../../../components/Address";
-import { Button } from "../../../../components/Button";
-import { TokenImage } from "../../../../components/TokenImage";
-import { TokenName } from "../../../../components/TokenName";
+import { NumInput } from "@components/form/NumInput";
+import { Address } from "@components/Address";
+import { Button } from "@components/Button";
+import { TokenImage } from "@components/TokenImage";
+import { TokenName } from "@components/TokenName";
 import { useActiveAccount } from "../../../../connector";
 
 export const CrossChainCreate: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {

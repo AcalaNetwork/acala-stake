@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { Button } from "../../../../components/Button";
-import { Card } from "../../../../components/Card";
-import { Spacing } from "../../../../components/Spacing";
+import { Button } from "@components/Button";
+import { Card } from "@components/Card";
+import { Spacing } from "@components/Spacing";
 import { StakeProviderContext } from "./StakeContext";
 
 import Success from "/public/images/result-success.svg";

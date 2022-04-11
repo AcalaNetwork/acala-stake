@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { SubPageTabs, SubPageTabsProps } from "../../../components/SubPageTabs";
+import { SubPageTabs, SubPageTabsProps } from "@components/SubPageTabs";
 
 interface PageTabsProps {
   active: number;

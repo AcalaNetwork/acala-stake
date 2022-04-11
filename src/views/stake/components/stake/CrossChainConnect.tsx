@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { FC, useContext } from "react";
-import { Button } from "../../../../components/Button";
-import { Card } from "../../../../components/Card";
-import { Spacing } from "../../../../components/Spacing";
+import { Button } from "@components/Button";
+import { Card } from "@components/Card";
+import { Spacing } from "@components/Spacing";
 import { StakeProviderContext } from "./StakeContext";
 
 export const CrossChainConnect = () => {
