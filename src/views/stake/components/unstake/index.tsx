@@ -21,7 +21,6 @@ import { ModalType } from "../../../../state/application/types";
 import { useUnstakeForm } from "../../hook/useUnstakeForm";
 
 export const UnStakeCard: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
-  const { address } = useActiveAccount();
   const [
     staked,
     liquidToken,
@@ -31,7 +30,7 @@ export const UnStakeCard: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
     nativeToken,
     setIsFast,
     setAmount,
-  ] = useUnstakeForm(token, address);
+  ] = useUnstakeForm(token);
   const [redeemData, redeemReset] = redeem;
   const openModal = useOpenModal(ModalType.unstakeConfirm);
   const handleClick = useCallback(() => {
