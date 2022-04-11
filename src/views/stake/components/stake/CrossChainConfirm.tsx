@@ -9,9 +9,11 @@ import { Address } from "../../../../components/Address";
 import { Button } from "../../../../components/Button";
 import { getTokenFullName, getTokenName } from "../../../../utils/token";
 import LockIcon from "/public/icons/lock.svg";
+import { useActiveAccount } from "../../../../connector";
 
 export const CrossChainConfirm: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
-  const { setStep, bridgeAmount, selectToChain, selectFromChain, name, address } = useContext(StakeProviderContext);
+  const { name, address } = useActiveAccount();
+  const { setStep, bridgeAmount, selectToChain, selectFromChain } = useContext(StakeProviderContext);
 
   return (
     <Card variant="border" className="w-[630px] px-[55px] py-32 mx-auto">

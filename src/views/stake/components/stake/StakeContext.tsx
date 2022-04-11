@@ -9,7 +9,7 @@ import React, {
   useEffect,
 } from "react";
 import { ChainData } from "../../../../components/form";
-import { useActiveAccount, useApi } from "../../../../connector";
+import { useApi } from "../../../../connector";
 import { usePresetTokens } from "../../../../connector/hooks/usePresetTokens";
 import { useSubscription } from "../../../../hooks/useSubscription";
 import { useHoma, useHomaEnv } from "../../../../sdk/hooks/homa";
@@ -39,8 +39,6 @@ interface StakeContextProps {
   toChains: ChainData[];
   selectFromChain: ChainData;
   selectToChain: ChainData;
-  name: string;
-  address: string;
   tokenBalance: {
     stakingToken: FixedPointNumber;
     liquidToken: FixedPointNumber;
@@ -60,7 +58,6 @@ export const StakeProviderContext = createContext<StakeContextProps>(
 
 export const StakeProvider: FC = ({ children }) => {
   const { api } = useApi();
-  const { name, address } = useActiveAccount();
   const [step, _setStep] = useState<IStep>("wallet-overview");
   const [connect, _setConnect] = useState<boolean>(true);
   const [activeToken, _setActiveToken] = useState<"DOT" | "KSM">();
@@ -196,8 +193,6 @@ export const StakeProvider: FC = ({ children }) => {
     <StakeProviderContext.Provider
       value={{
         apy,
-        name,
-        address,
         step,
         setStep,
         connect,

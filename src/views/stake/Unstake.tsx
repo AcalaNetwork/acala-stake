@@ -34,7 +34,7 @@ export const Inner = () => {
 
 export const UnStake = () => {
   return (
-    <EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
+    <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
       <Inner />
       <UnstakeConfirmModal />
     </EnsureSDKReady>

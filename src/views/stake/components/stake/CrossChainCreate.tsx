@@ -8,6 +8,7 @@ import { Address } from "../../../../components/Address";
 import { Button } from "../../../../components/Button";
 import { TokenImage } from "../../../../components/TokenImage";
 import { TokenName } from "../../../../components/TokenName";
+import { useActiveAccount } from "../../../../connector";
 
 export const CrossChainCreate: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
   const {
@@ -18,9 +19,8 @@ export const CrossChainCreate: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
     toChains,
     selectFromChain,
     selectToChain,
-    name,
-    address,
   } = useContext(StakeProviderContext);
+  const { name, address } = useActiveAccount();
 
   const handleClick = () => {
     setStep("wallet-confirm");

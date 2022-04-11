@@ -15,6 +15,7 @@ import {
 import { Popover } from "../../../../components/Popover";
 import { Spacing } from "../../../../components/Spacing";
 import { TxButton } from "../../../../components/TxButton";
+import { useActiveAccount } from "../../../../connector";
 import { useOpenModal } from "../../../../state";
 import { ModalType } from "../../../../state/application/types";
 import { useUnstakeForm } from "../../hook/useUnstakeForm";
