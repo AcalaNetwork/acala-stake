@@ -10,7 +10,7 @@ import { useStakeCall } from "../../../../sdk/hooks/stake/useStakeCall";
 import { TxButton } from "../../../../components/TxButton";
 
 export const StakeConfirm: FC = () => {
-  const { setStep, mintAmount, stakingToken, liquidToken, params } =
+  const { setStep, mintAmount, stakingToken, liquidToken, params, available } =
     useContext(StakeProviderContext);
   const [call, fee] = useStakeCall(params);
 
@@ -24,12 +24,12 @@ export const StakeConfirm: FC = () => {
       <FormPanel>
         <ListItem>
           <ListLabel>Bridge Amount Amount</ListLabel>
-          <ListValue>2000 DOT</ListValue>
+          <ListValue>*** DOT</ListValue>
         </ListItem>
         <ListItem>
           <ListLabel>Available Amount</ListLabel>
           <ListValue>
-            <FormatBalance token={stakingToken} balance={mintAmount?.pay} />
+            <FormatBalance token={liquidToken} balance={available} />
           </ListValue>
         </ListItem>
         <ListItem>

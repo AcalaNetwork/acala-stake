@@ -15,7 +15,7 @@ const isDevelopment = process.env.NODE_ENV === "development";
 
 const acalaEndpoints = isDevelopment
 	? {
-			"Mandala": "wss://mandala.polkawallet.io",
+			"Mandala": "wss://acala-rpc-1.aca-api.network",
 	  }
 	: {
 			"Host By Onfinality": "wss://karura.api.onfinality.io/public-ws",

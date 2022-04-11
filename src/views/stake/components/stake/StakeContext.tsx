@@ -163,7 +163,8 @@ export const StakeProvider: FC = ({ children }) => {
         )
       )
       .subscribe({
-        error: () => {
+        error: (err) => {
+          console.log(err)
           setMintAmount(undefined);
         },
         next: setMintAmount,
