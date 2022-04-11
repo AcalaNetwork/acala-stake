@@ -11,20 +11,21 @@ export const useFlexiPayToken = (network: SDKNetwork) => {
   const { api } = useApi(network);
   const [token, setToken] = useState<Token>();
 
-  useSubscription(() => {
-    if (!api || !api.query?.transactionPayment || !api.query?.transactionPayment?.alternativeFeeSwapPath) return;
-    return api.query.transactionPayment.alternativeFeeSwapPath(active.address).subscribe({
-      next: (path) => {
-        const token = (path as any).data?.unwrapOrDefault()[0];
+  // useSubscription(() => {
+  //   if (!api || !api.query?.transactionPayment || !api.query?.transactionPayment?.alternativeFeeSwapPath) return;
 
-        if (token) {
-          return setToken(token);
-        }
+  //   return api.query.transactionPayment.alternativeFeeSwapPath(active.address).subscribe({
+  //     next: (path) => {
+  //       const token = (path as any).data?.unwrapOrDefault()[0];
 
-        setToken(presentTokens?.nativeToken);
-      }
-    });
-  }, [presentTokens, api, network]);
+  //       if (token) {
+  //         return setToken(token);
+  //       }
+
+  //       setToken(presentTokens?.nativeToken);
+  //     }
+  //   });
+  // }, [presentTokens, api, network]);
 
   return token;
 };
