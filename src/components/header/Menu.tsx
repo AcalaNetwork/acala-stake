@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { useRouter } from "next/router";
 import { Dropdown } from "../Dropdown";
+import { memo } from "react";
 
 type MenuItem = PropsWithChildren<{
   link:
@@ -14,7 +15,7 @@ type MenuItem = PropsWithChildren<{
   activeParams?: string[];
 }>;
 
-const MenuItem: FC<MenuItem> = ({ children, link, activeParams }) => {
+const MenuItem: FC<MenuItem> = memo(({ children, link, activeParams }) => {
   const { asPath } = useRouter();
   const baseClassName =
     "pt-8 pb-8 pl-36 pr-36 rounded-12 text-base font-medium";
@@ -44,31 +45,9 @@ const MenuItem: FC<MenuItem> = ({ children, link, activeParams }) => {
       )}
     </li>
   );
-};
+});
 
-export const Menu = () => {
-  return (
-    <ul className="flex flex-row">
-      <MenuItem activeParams={["/bridge"]} link="/">
-        Home
-      </MenuItem>
-      <MenuItem activeParams={["/bridge"]} link="/bridge">
-        Bridge
-      </MenuItem>
-      <MenuItem activeParams={["/borrow"]} link="/borrow">
-        Borrow
-      </MenuItem>
-      <MenuItem activeParams={["/swap"]} link="/swap">
-        Swap
-      </MenuItem>
-      <MenuItem activeParams={["/earn"]} link="/earn">
-        Earn
-      </MenuItem>
-    </ul>
-  );
-};
-
-export const StakeMenu = () => {
+export const Menu = memo(() => {
   return (
     <ul className="flex flex-row">
       <MenuItem activeParams={["/stake"]} link="/stake">
@@ -97,4 +76,4 @@ export const StakeMenu = () => {
       </MenuItem>
     </ul>
   );
-};
+});

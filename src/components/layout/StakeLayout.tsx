@@ -1,12 +1,13 @@
 import React, { FC } from "react";
+import { memo } from "react";
 import { StakeFooter } from "../footer";
-import { StakeHeader } from "../header";
+import { Header } from "../header";
 
-export const StakeLayout: FC = ({ children }) => {
+export const StakeLayout: FC = memo(({ children }) => {
 	return (
 		<div className="h-screen bg-body overflow-x-hidden overscroll-x-auto">
 			<div className='flex flex-col items-center justify-start min-w-full min-h-full'>
-				<StakeHeader />
+				<Header />
 				<main className="flex flex-col flex-1 pb-8">
 					{children}
 				</main>
@@ -14,4 +15,4 @@ export const StakeLayout: FC = ({ children }) => {
 			</div>
 		</div>
 	);
-};
+});

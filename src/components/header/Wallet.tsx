@@ -70,15 +70,3 @@ export const Wallet: FC<WalletProps> = ({ className }) => {
 
 	return <ConnectBtn className={rootClassName} />;
 };
-
-export const StakeWallet: FC<WalletProps> = ({ className }) => {
-	const rootClassName = `cursor-pointer h-38 bg-f1f0f2 rounded-12 border border-eae9f0 ${className}`;
-	const extension = useExtension();
-	const isConnected = extension.status === ConnectStatus.ready;
-
-	if (isConnected) {
-		return <Connected className={rootClassName} isStake={true} />;
-	}
-
-	return <ConnectBtn className={rootClassName} />;
-};
