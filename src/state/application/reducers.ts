@@ -1,12 +1,14 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { setBalanceVisible, setModal, setSelectedAddress, setSelectedEndpoint } from "./actions";
+import { setBalanceDisplayType, setBalanceVisible, setModal, setSelectedAddress, setSelectedEndpoint } from "./actions";
 import { ApplicationState, ModalType } from "./types";
 
 const initState: ApplicationState = {
 	modal: {
     [ModalType.ConnectExtension]: { visible: false } // show connector modal as default
   },
+	balanceVisible: true,
+	balanceDisplayType: 'AMOUNT'
 };
 
 export const applicationReducer = createReducer(initState, (builder) => {
@@ -44,5 +46,11 @@ export const applicationReducer = createReducer(initState, (builder) => {
       const { value } = action.payload;
 
       state.balanceVisible = value;
+    })
+
+    .addCase(setBalanceDisplayType, (state, action) => {
+      const { value } = action.payload;
+
+      state.balanceDisplayType = value;
     })
 });

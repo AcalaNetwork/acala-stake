@@ -1,6 +1,6 @@
 import { forceToCurrencyName } from "@acala-network/sdk-core";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TokenImage } from "../../../components/TokenImage";
@@ -13,7 +13,7 @@ interface TokenCardProps extends StakeData {
   type: 'USD' | 'TOKEN';
 }
 
-export const TokenCard: FC<TokenCardProps> = ({
+export const TokenCard: FC<TokenCardProps> = memo(({
   type,
   token,
   totalAmount,
@@ -82,4 +82,4 @@ export const TokenCard: FC<TokenCardProps> = ({
       </div>
     </Card>
   );
-};
+});

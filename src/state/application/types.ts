@@ -11,6 +11,8 @@ export enum ModalType {
   'flexibleFee'
 }
 
+export type BalanceDisplayType = 'USD' | 'AMOUNT';
+
 export interface ApplicationState {
   // save the modal data
   modal: { [key in ModalType]?: ModalData };
@@ -18,6 +20,7 @@ export interface ApplicationState {
   selectedEndpoint?: string;
   // save selected account as default select
   selectedAddress?: string;
-  // save balance visilable;
-  balanceVisible?: boolean;
+
+  balanceVisible: boolean;
+  balanceDisplayType: BalanceDisplayType
 }

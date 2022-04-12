@@ -1,1 +1,0 @@
-export type DisplayType = 'USD' | 'TOKEN';

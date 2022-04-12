@@ -8,3 +8,5 @@ export const setSelectedEndpoint = createAction<{ value: string }>('application/
 export const setSelectedAddress = createAction<{ value: string}>('application/setSelectedAddress');
 
 export const setBalanceVisible = createAction<{ value: boolean}>('application/setBalanceVisible');
+
+export const setBalanceDisplayType = createAction<{ value: }>('application/setBalanceDisplayType')

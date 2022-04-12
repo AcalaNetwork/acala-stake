@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { createContext, useState } from "react";
 import { StakeLayout } from "../../components/layout";
 import { Spacing } from "../../components/Spacing";
@@ -9,7 +10,7 @@ import { useStakesCalculator } from "./hook/useStakesCalculator";
 
 export const DisplayContext = createContext({} as unknown as any);
 
-export const StakeWallet = () => {
+export const Wallet = memo(() => {
   const [type, setType] = useState("USD");
 
   const changeType = (value: string) => setType(value);
@@ -35,7 +36,7 @@ export const StakeWallet = () => {
       </StakeLayout>
     </DisplayContext.Provider>
   );
-};
+});
 
 export const Inner = () => {
   const { result, total } = useStakesCalculator();

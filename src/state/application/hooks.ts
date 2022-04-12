@@ -1,8 +1,8 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreDispatch, StoreState } from "..";
-import { setBalanceVisible, setModal, setSelectedAddress, setSelectedEndpoint } from "./actions";
-import { ModalType } from "./types";
+import { setBalanceDisplayType, setBalanceVisible, setModal, setSelectedAddress, setSelectedEndpoint } from "./actions";
+import { BalanceDisplayType, ModalType } from "./types";
 
 // selected endpoint
 export const useSetSelectedEndpoint = () => {
@@ -10,7 +10,7 @@ export const useSetSelectedEndpoint = () => {
 
 	return useCallback(
 		(endpoint: string) => dispatch(setSelectedEndpoint({ value: endpoint })),
-		[dispatch]
+		[]
 	);
 };
 
@@ -20,12 +20,25 @@ export const useSetBalanceVisible = () => {
 
   return useCallback((visible: boolean) => {
     dispatch(setBalanceVisible({ value: visible }));
-  }, [dispatch]);
+  }, []);
 };
 
 export const useBalanceVisible = () => {
   return useSelector((state: StoreState) => state.application.balanceVisible);
 };
+
+// set balance display type
+export const useSetBalanceDisplayType = () => {
+	const dispatch = useDispatch<StoreDispatch>();
+
+	return useCallback((type: BalanceDisplayType) => {
+		dispatch(setBalanceDisplayType({ value: type }));
+	}, [])
+}
+
+export const useBalanceDisplayType = () => {
+	return useSelector((state: StoreState) => state.application.balanceDisplayType);
+}
 
 export const useSelectedEndpoint = () =>
 	useSelector((state: StoreState) => state.application.selectedEndpoint);
@@ -53,18 +66,9 @@ export const useOpenModal = <T = Record<string, any>>(type: ModalType) => {
 	const dispatch = useDispatch();
 
 	return useCallback(
-		(data?: T) => {
-			dispatch(
-				setModal({
-					key: type,
-					data: {
-						visible: true,
-						...data,
-					},
-				})
-			);
-		},
-		[dispatch]
+		(data?: T) => 
+			dispatch( setModal({ key: type, data: { visible: true, ...data, }, })),
+		[]
 	);
 };
 
@@ -72,13 +76,8 @@ export const useCloseModal = (type: ModalType) => {
 	const dispatch = useDispatch();
 
 	return useCallback(() => {
-		dispatch(
-			setModal({
-				key: type,
-				data: { visible: false },
-			})
-		);
-	}, [dispatch]);
+		dispatch( setModal({ key: type, data: { visible: false }, }));
+	}, []);
 };
 
 export const useModal = (type: ModalType) => {
