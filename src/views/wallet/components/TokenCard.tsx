@@ -1,16 +1,17 @@
 import { forceToCurrencyName } from "@acala-network/sdk-core";
+import { BalanceDisplayType } from "@state/application/types";
 import Link from "next/link";
 import { FC, memo } from "react";
-import { Button } from "../../../components/Button";
-import { Card } from "../../../components/Card";
-import { TokenImage } from "../../../components/TokenImage";
-import { TokenName } from "../../../components/TokenName";
-import { formatBalance } from "../../../utils/formatBalance";
-import { getTokenFullName } from "../../../utils/token";
+import { Button } from "@components/Button";
+import { Card } from "@components/Card";
+import { TokenImage } from "@components/TokenImage";
+import { TokenName } from "@components/TokenName";
+import { formatBalance } from "@utils/formatBalance";
+import { getTokenFullName } from "@utils/token";
 import { StakeData } from "../hook/useStakesCalculator";
 
 interface TokenCardProps extends StakeData {
-  type: 'USD' | 'TOKEN';
+  type: BalanceDisplayType
 }
 
 export const TokenCard: FC<TokenCardProps> = memo(({
@@ -24,10 +25,12 @@ export const TokenCard: FC<TokenCardProps> = memo(({
 }) => {
 
   return (
-    <Card variant="gradient-border" className="px-[52px] py-32">
+    <Card className="px-[52px] py-32"
+      variant="gradient-border">
       <div className="wallet-card-gradient-bg absolute w-full h-full top-0 left-0" />
       <div className="flex items-center">
-        <TokenImage token={token} size={52} />
+        <TokenImage size={52}
+          token={token} />
         <div className="ml-[17px]">
           <TokenName
             className="text-20 leading-[24px] text-494853 font-semibold"
@@ -41,7 +44,7 @@ export const TokenCard: FC<TokenCardProps> = memo(({
       <div className="mt-24 flex flex-between bg-primary bg-opacity-5 border border-eae9f0 rounded-16 h-[105px] px-[50px]">
         <div className="text-494853 flex-1">
           <div className="text-20 leading-[24px] font-semibold">
-          {formatBalance(type === 'TOKEN' ? totalAmount : totalValue)}
+            {formatBalance(type === 'AMOUNT' ? totalAmount : totalValue)}
           </div>
           <div className="text-14 leading-17 mt-8">Total Staked</div>
         </div>
@@ -67,16 +70,24 @@ export const TokenCard: FC<TokenCardProps> = memo(({
         </div>
       </div>
       <div className="mt-[33px] flex flex-between">
-        <Button className="w-[218px] h-40 py-0 text-14" size="sm" round="lg">
+        <Button className="w-[218px] h-40 py-0 text-14"
+          round="lg"
+          size="sm">
           Stake More
         </Button>
-        <Button className="w-[218px] h-40 py-0 text-14" size="sm" round="lg">
+        <Button className="w-[218px] h-40 py-0 text-14"
+          round="lg"
+          size="sm">
           Unstake
         </Button>
-        <Button className="w-[218px] h-40 py-0 text-14" size="sm" round="lg">
+        <Button className="w-[218px] h-40 py-0 text-14"
+          round="lg"
+          size="sm">
           Claim Airdrop
         </Button>
-        <Button className="w-[218px] h-40 py-0 text-14" size="sm" round="lg">
+        <Button className="w-[218px] h-40 py-0 text-14"
+          round="lg"
+          size="sm">
           <Link href={`/stake/${forceToCurrencyName(token)}/mystake`}>View Details</Link>
         </Button>
       </div>

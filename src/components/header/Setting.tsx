@@ -10,12 +10,13 @@ export const Setting = memo(() => {
   const openModal = useOpenModal(ModalType.flexibleFee);
   return (
     <Popover
-      location="down"
       content={
         <div className="cursor-pointer w-[200px] text-14">
-          <div className="px-30 py-10 hover:bg-gray-400 hover:text-fff rounded-8 duration-75" onClick={() => openModal()}>Flexible Fee</div>
+          <div className="px-30 py-10 hover:bg-gray-400 hover:text-fff rounded-8 duration-75"
+            onClick={() => openModal()}>Flexible Fee</div>
         </div>
       }
+      location="down"
     >
       <SettingIcon />
       <FlexibleFeeModal />

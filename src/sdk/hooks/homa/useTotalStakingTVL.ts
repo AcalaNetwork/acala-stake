@@ -2,7 +2,6 @@ import { useWallet } from ".."
 import { useSubscription } from "../../../hooks/useSubscription";
 import { useHoma } from "./useHoma";
 import { combineLatest } from 'rxjs';
-import { filter, switchMap } from 'rxjs/operators';
 import { useState } from "react";
 import { FixedPointNumber } from "@acala-network/sdk-core";
 
@@ -16,13 +15,6 @@ export const useTotalStakingTVL = () => {
   useSubscription(() => {
     if (!karuraHoma || !acalaHoma || !karuraWallet || !acalaWallet) return;
 
-
-    return combineLatest({
-      acalaHomaReady: acalaHoma.isReady$,
-      karuraHomaReady: karuraHoma.isReady$,
-    }).pipe(
-      filter(({ acalaHomaReady, karuraHomaReady }) => acalaHomaReady && karuraHomaReady),
-      switchMap(() => {
     const { stakingToken: acalaStakingToken } = acalaHoma.consts;
     const { stakingToken: karuraStakingToken } = karuraHoma.consts;
 
@@ -31,9 +23,7 @@ export const useTotalStakingTVL = () => {
       karuraHomaEnv: karuraHoma.subscribeEnv(),
       acalaStakingPrice: acalaWallet.subscribePrice(acalaStakingToken),
       karuraStakingPrice: karuraWallet.subscribePrice(karuraStakingToken)
-    });
-      })
-    ).subscribe({
+    }).subscribe({
       next: ({ acalaHomaEnv, karuraHomaEnv, acalaStakingPrice, karuraStakingPrice }) => {
         if (!acalaHomaEnv.totalStaking || !karuraHomaEnv.totalStaking || !acalaStakingPrice || !karuraStakingPrice) return;
 

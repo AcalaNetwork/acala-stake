@@ -3,15 +3,15 @@ import { useCallback, useState } from 'react';
 export const useBoolean = (init = false) => {
   const [value, setValue] = useState<boolean>(init);
 
-  const set = useCallback((value: boolean) => {
+  const update = useCallback((value: boolean) => {
     setValue(value);
   }, [setValue]);
 
-  const on = useCallback(() => {
+  const setTrue = useCallback(() => {
     setValue(true);
   }, [setValue]);
 
-  const off = useCallback(() => {
+  const setFalse = useCallback(() => {
     setValue(false);
   }, [setValue]);
 
@@ -19,5 +19,5 @@ export const useBoolean = (init = false) => {
     setValue((prev) => !prev);
   }, [setValue]);
 
-  return [value, toggle, on, off, set] as const;
+  return { value, toggle, setTrue, setFalse, update };
 };

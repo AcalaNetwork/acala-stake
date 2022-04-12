@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { polkadotIcon } from "@polkadot/ui-shared";
 import type { Circle } from "@polkadot/ui-shared/icons/types";
+import { memo } from "react";
 
 interface AddressAvatarProps {
   address?: string;
@@ -20,10 +21,14 @@ const renderCircle = (
   { cx, cy, fill, r }: Circle,
   key: number
 ): React.ReactNode => {
-  return <circle cx={cx} cy={cy} fill={fill} key={key} r={r} />;
+  return <circle cx={cx}
+    cy={cy}
+    fill={fill}
+    key={key}
+    r={r} />;
 };
 
-const Identicon = ({ address, size, style }) => {
+const Identicon = memo<{ address: string; size: number; style: React.CSSProperties }>(({ address, size, style }) => {
   return (
     <svg
       className="m-2"
@@ -34,26 +39,26 @@ const Identicon = ({ address, size, style }) => {
       viewBox="0 0 64 64"
       width={size}
     >
-      {polkadotIcon(address, { isAlternative: false }).map(renderCircle)}
+      {address && polkadotIcon(address, { isAlternative: false }).map(renderCircle)}
     </svg>
   );
-};
+});
 
-export const AddressAvatar: FC<AddressAvatarProps> = ({
+export const AddressAvatar: FC<AddressAvatarProps> = memo(({
   address,
   className = "",
   size = 24,
 }) => {
   return (
     <div
-      onClick={() => navigator.clipboard.writeText(address)}
       className={`w-${size} h-${size} flex-center cursor-pointer rounded-full ${className} border-2 border-d6d3de`}
+      onClick={() => navigator.clipboard.writeText(address)}
     >
       <Identicon
-        size={size}
         address={address}
+        size={size}
         style={{}}
       />
     </div>
   );
-};
+});

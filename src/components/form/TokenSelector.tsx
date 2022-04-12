@@ -6,6 +6,7 @@ import { TokenName } from "../TokenName";
 import { Selector } from "./Selector";
 import TriangleIcon from "/public/icons/triangle.svg";
 import { CheckIcon } from "@heroicons/react/solid";
+import { memo } from "react";
 
 interface TokenSelectorProps {
   tokens: Token[];
@@ -17,7 +18,7 @@ interface TokenSelectorProps {
   placeholder?: string;
 }
 
-export const TokenSelector: FC<TokenSelectorProps> = ({
+export const TokenSelector: FC<TokenSelectorProps> = memo(({
   tokens,
   value,
   tokenSize,
@@ -27,17 +28,18 @@ export const TokenSelector: FC<TokenSelectorProps> = ({
   listClassName,
 }) => {
   const memTokens = useMemoized(tokens);
-  const [focuse, , onFocuse, onBlur] = useBoolean();
+  const { value: focuse, setTrue: onFocuse, setFalse: onBlur } = useBoolean();
 
   const btnRender = useCallback(
     (value: Token) => {
       return value ? (
         <div className="flex flex-between px-[16px] h-full">
           <div className="flex flex-center">
-            <TokenImage token={value} size={tokenSize} />
+            <TokenImage size={tokenSize}
+              token={value} />
             <TokenName
-              token={value}
               className="ml-8 leading-20 text-16 font-medium text-494853"
+              token={value}
             />
           </div>
           <TriangleIcon aria-hidden="true" />
@@ -51,7 +53,7 @@ export const TokenSelector: FC<TokenSelectorProps> = ({
         </div>
       ) : null;
     },
-    [focuse, value, onFocuse]
+    [tokenSize, placeholder]
   );
 
   const itemRender = useCallback(
@@ -59,20 +61,22 @@ export const TokenSelector: FC<TokenSelectorProps> = ({
       return (value: Token) => (
         <div className="py-12 px-8 rounded-8 flex flex-between hover:bg-fff">
           <div className="flex flex-center">
-            <TokenImage token={value} size="sm" />
+            <TokenImage size="sm"
+              token={value} />
             <TokenName
-              token={value}
               className="ml-8 font-medium text-16 leading-20 text-7b7986"
+              token={value}
             />
           </div>
 
           {selected && selected.name === value.name && (
-            <CheckIcon className="h-[20px] w-[20px] text-primary" aria-hidden="true" />
+            <CheckIcon aria-hidden="true"
+              className="h-[20px] w-[20px] text-primary" />
           )}
         </div>
       );
     },
-    [value]
+    []
   );
 
   const items = useMemo(() => {
@@ -82,17 +86,17 @@ export const TokenSelector: FC<TokenSelectorProps> = ({
         render: itemRender(value),
       };
     });
-  }, [memTokens, value]);
+  }, [itemRender, memTokens, value]);
 
   return (
     <Selector
-      rootClassName={className}
-      listClassName={listClassName}
-      value={value}
       items={items}
-      render={btnRender}
-      onChange={onChange}
+      listClassName={listClassName}
       onBlur={onBlur}
+      onChange={onChange}
+      render={btnRender}
+      rootClassName={className}
+      value={value}
     />
   );
-};
+});

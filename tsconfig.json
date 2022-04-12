@@ -22,7 +22,17 @@
       "@views": ["views"],
       "@views/*": ["views/*"],
       "@pages": ["pages"],
-      "@pages/*": ["pages/*"]
+      "@pages/*": ["pages/*"],
+      "@sdk": ["sdk"],
+      "@sdk/*": ["sdk/*"],
+      "@utils": ["utils"],
+      "@utils/*": ["utils/*"],
+      "@hooks": ["hooks"],
+      "@hooks/*": ["hooks/*"],
+      "@connector": ["connector"],
+      "@connector/*": ["connector/*"],
+      "@state": ["state"],
+      "@state/*": ["state/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

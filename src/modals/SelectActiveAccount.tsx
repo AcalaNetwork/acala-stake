@@ -11,6 +11,7 @@ import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
 import CopyIcon from "/public/icons/copy.svg";
 import LinkIcon from "/public/images/link.svg";
 import { Copy } from "../components/Copy";
+import { memo } from "react";
 
 const btnRender = (active: InjectedAccount) => {
   return (
@@ -18,16 +19,16 @@ const btnRender = (active: InjectedAccount) => {
       <div className="flex flex-center">
         <AddressAvatar
           address={active?.address}
-          size={40}
           className="w-40 h-40 bg-[#E5EBF1]"
+          size={40}
         />
         <div className="ml-22">
           <span className="text-20 leading-[24px] font-medium text-333">
             {active?.name}
           </span>
           <Address
-            className="text-14 leading-17 text-494853 mt-8"
             address={active?.address}
+            className="text-14 leading-17 text-494853 mt-8"
           />
         </div>
       </div>
@@ -41,20 +42,20 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
     <div className="flex flex-center">
       <AddressAvatar
         address={value.address}
-        size={20}
         className="w-20 h-20 bg-[#E5EBF1]"
+        size={20}
       />
       <div className="ml-8 text-16 font-medium text-333">{value.name}</div>
     </div>
     <div className="flex flex-center gap-10">
       <Address
-        className="text-14 leading-17 text-494853"
         address={value.address}
+        className="text-14 leading-17 text-494853"
       />
       {selected && selected.address === value.address ? (
         <CheckIcon
-          className="h-[20px] w-[20px] text-primary"
           aria-hidden="true"
+          className="h-[20px] w-[20px] text-primary"
         />
       ) : (
         <div className="h-[20px] w-[20px]"></div>
@@ -63,7 +64,7 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
   </div>
 );
 
-export const SelectActiveAccount = () => {
+export const SelectActiveAccount = memo(() => {
   const type = ModalType.selectAccount;
   const [visible, , close] = useModal(type);
   const { injectedAccounts, active, setActive } = useExtension();
@@ -75,11 +76,11 @@ export const SelectActiveAccount = () => {
   const items = useMemo(() => {
     return injectedAccounts
       ? injectedAccounts.map((item) => {
-          return {
-            value: item,
-            render: ItemRender,
-          };
-        })
+        return {
+          value: item,
+          render: ItemRender,
+        };
+      })
       : [];
   }, [injectedAccounts]);
 
@@ -88,31 +89,32 @@ export const SelectActiveAccount = () => {
   return (
     <Modal
       contentClassName="pb-0"
-      visible={visible}
-      onClose={close}
       header={<ModalHeader onClose={close}>Choose Account</ModalHeader>}
+      onClose={close}
+      visible={visible}
     >
       <div className="px-40 pt-32 w-full">
         <Selector
+          items={items}
+          onChange={handleChange}
+          render={btnRender}
           rootClassName="border border-d6d3de rounded-16 h-[80px] relative"
           value={active}
-          onChange={handleChange}
-          items={items}
-          render={btnRender}
         />
         <div className="mt-14 ml-7 mb-36 text-primary text-14 leading-17 flex">
           <div className="flex items-center justify-start gap-8">
             <CopyIcon />
             <Copy
-              text={active?.address}
               displayText="Copy Address"
               successText="Copy Success"
+              text={active?.address}
             />
           </div>
           <a
-            href={"/"}
-            target={"_blank"}
             className="flex flex-center ml-68 gap-8"
+            href={"/"}
+            rel="noreferrer"
+            target={"_blank"}
           >
             <LinkIcon />
             View on Subscan
@@ -127,9 +129,10 @@ export const SelectActiveAccount = () => {
           <span className="text-primary leading-17">View All</span>
         </div>
         <div className=" max-h-[212px] overflow-y-auto">
-          {data.map((item) => {
+          {data.map((item, i) => {
             return (
-              <div className=" mt-32 flex flex-between">
+              <div className=" mt-32 flex flex-between"
+                key={i}>
                 <div className="text-2e2d33">{item.mint}</div>
                 <div className=" text-494853">{item.type}</div>
                 <div className="text-13 text-7b7986">{item.time}</div>
@@ -140,4 +143,4 @@ export const SelectActiveAccount = () => {
       </div>
     </Modal>
   );
-};
+});

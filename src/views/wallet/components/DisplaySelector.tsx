@@ -1,16 +1,18 @@
 import React, { FC } from "react";
-import { SwitchSelector, SwitchSelectorItem } from "../../../components/SwitchSelector";
+import { SwitchSelector, SwitchSelectorItem } from "@components/SwitchSelector";
+import { BalanceDisplayType } from "@state/application/types";
 
 interface DisplaySwitchSelectorProps {
-	onChange?:  React.Dispatch<React.SetStateAction<any>> | ((tab: string) => void) 
-	value?: string;
+	onChange?:  (type: BalanceDisplayType) => void;
+	value?: BalanceDisplayType;
 }
 
 export const DisplaySelector: FC<DisplaySwitchSelectorProps> = ({ onChange, value }) => {
-	return (
-    <SwitchSelector value={value} onChange={onChange}>
+  return (
+    <SwitchSelector onChange={onChange}
+      value={value}>
       <SwitchSelectorItem value='USD'>USD</SwitchSelectorItem>
-      <SwitchSelectorItem value='TOKEN'>Token</SwitchSelectorItem>
+      <SwitchSelectorItem value='AMOUNT'>Token</SwitchSelectorItem>
     </SwitchSelector>
-	);
+  );
 };

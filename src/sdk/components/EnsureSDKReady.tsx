@@ -48,7 +48,7 @@ const subscribeRequiredSDKReadyStatus = (
 export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(
 	({ requires, children, loading }) => {
 		const memoRequireds = useMemoized(requires);
-		const [isReady, , , , updateIsReady] = useBoolean();
+		const { value: isReady, update: updateIsReady } = useBoolean();
 		// acala sdk
 		const acalaWallet = useWallet("acala");
 		const acalaLiquidity = useLiquidity("acala");

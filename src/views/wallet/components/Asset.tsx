@@ -1,55 +1,57 @@
-import { FC, useCallback, useContext, useState } from "react";
-import { Address } from "../../../components/Address";
-import { Card } from "../../../components/Card";
-import { Copy } from "../../../components/Copy";
-import { useActiveAccount } from "../../../connector";
-import { useBalanceVisible, useOpenModal, useSetBalanceVisible } from "../../../state";
-import { ModalType } from "../../../state/application/types";
-import { formatNumber } from "../../../utils/formatNumber";
-import { Itotal } from "../hook/useStakesCalculator";
+import { FC, useCallback } from "react";
+import { Address } from "@components/Address";
+import { Card } from "@components/Card";
+import { Copy } from "@components/Copy";
+import { useActiveAccount } from "@connector";
+import { useBalanceDisplayType, useBalanceVisible, useOpenModal, useSetBalanceVisible } from "../../../state";
+import { ModalType } from "@state/application/types";
+import { formatNumber } from "@utils/formatNumber";
 import ChangeIcon from "/public/icons/change.svg";
 import CopyIcon from "/public/icons/copy.svg";
 import EyeIcon from "/public/icons/eye.svg";
 import EyeCloseIcon from "/public/icons/eye-close.svg";
 import WalletIcon from "/public/icons/wallet.svg";
-import { DisplayContext } from "..";
-import { AddressAvatar } from "../../../components/AddressAvatar";
+import { AddressAvatar } from "@components/AddressAvatar";
+import { Itotal } from "../hook/useStakesCalculator";
 
 export const Asset: FC<{data: Itotal}> = ({ data }) => {
-  const { type } = useContext(DisplayContext);
-  const { address, name } = useActiveAccount();
+  const active = useActiveAccount();
   const openModal = useOpenModal(ModalType.selectAccount);
-  const visible = useBalanceVisible();
+  const balanceDisplayType = useBalanceDisplayType();
+  const balanceVisible = useBalanceVisible();
   const change = useSetBalanceVisible();
-  const toggle = useCallback(() => change(!visible), [change, visible]);
+  const toggle = useCallback(() => change(!balanceVisible), [change, balanceVisible]);
+
+  if (!active) return null;
+
+  console.log(active);
 
   return (
     <div className="flex gap-29 h-[157px]">
       <Card
-        variant="border"
         className="pl-32 pr-24 pt-20 flex-1"
         style={{
           backgroundImage: `url("/images/top-board-bg.svg")`,
           backgroundSize: "cover",
         }}
+        variant="border"
       >
-        <div className="flex items-center justify-end cursor-pointer select-none" onClick={toggle}>
-          {visible ? <EyeIcon /> : <EyeCloseIcon className='w-16 h-16' />}
+        <div className="flex items-center justify-end cursor-pointer select-none"
+          onClick={toggle}>
+          {balanceVisible ? <EyeIcon /> : <EyeCloseIcon className='w-16 h-16' />}
           <p className="ml-8 text-abaab9 font-semibold text-[11px] leading-[13px]">
             Hide Balance
           </p>
         </div>
         <div className="flex items-center mt-15">
-          <div className="mr-40">
-            <WalletIcon />
-          </div>
+          <WalletIcon className="mr-40" />
           <div className="flex flex-1 items-center">
             <div className="flex-1">
               <p className="font-medium text-14 leading-17 text-7b7986 mb-12">
                 Estimated Portfolio
               </p>
               <div className="text-2e2d33 font-semibold text-[32px] leading-[39px]">
-                { visible ? formatNumber(type === 'USD' ? data?.totalValue : data?.totalAmount) : '******'}
+                { balanceVisible ? formatNumber(balanceDisplayType === 'USD' ? data?.totalValue : data?.totalAmount) : '******'}
               </div>
             </div>
             <div className="flex-1 ml-20">
@@ -57,26 +59,30 @@ export const Asset: FC<{data: Itotal}> = ({ data }) => {
                 Est. Earning
               </p>
               <div className="text-2e2d33 font-semibold text-[32px] leading-[39px]">
-              {visible ? formatNumber(data?.earning) : '******'}
+                {balanceVisible ? formatNumber(data?.earning) : '******'}
               </div>
             </div>
           </div>
         </div>
       </Card>
-      <Card variant="gradient-border" className="pl-32 pr-44 flex items-center">
+      <Card className="pl-32 pr-44 flex items-center"
+        variant="gradient-border">
         <div className="mr-34">
-          <AddressAvatar size={64} address={address} className="w-64 h-64" />
+          <AddressAvatar address={active.address}
+            className="w-64 h-64"
+            size={64} />
         </div>
         <div>
           <div className="text-333 text-20 leading-24 font-medium max-w-[180px] overflow-hidden overflow-ellipsis">
-            {name}
+            {active.name}
           </div>
           <Address
-            address={address}
+            address={active.address}
             className="mt-8 text-14 leading-17"
           />
           <div className="mt-[17px] flex text-13 text-primary cursor-pointer">
-            <div className="flex items-center" onClick={() => openModal()}>
+            <div className="flex items-center"
+              onClick={() => openModal()}>
               <ChangeIcon />
               <span className="ml-8">Change</span>
             </div>
@@ -84,9 +90,9 @@ export const Asset: FC<{data: Itotal}> = ({ data }) => {
               <CopyIcon />
               <Copy
                 className="ml-8 w-48"
-                text={address}
                 displayText="Copy"
                 successText="Copied"
+                text={active.address}
               />
             </div>
           </div>

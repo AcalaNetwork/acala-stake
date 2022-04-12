@@ -1,11 +1,10 @@
-import { useSubscription } from "../../../hooks/useSubscription";
-import { useWallet } from "../../../sdk";
-import { useHoma } from "../../../sdk/hooks/homa";
+import { useSubscription } from "@hooks/useSubscription";
+import { useWallet } from "@sdk";
+import { useHoma } from "@sdk/hooks/homa";
 import { combineLatest } from "rxjs";
-import { filter, switchMap } from "rxjs/operators";
 import { useState } from "react";
 import { FixedPointNumber, Token } from "@acala-network/sdk-core";
-import { useActiveAccount } from "../../../connector";
+import { useActiveAccount } from "@connector";
 
 export interface StakeData {
   token: Token;
@@ -23,41 +22,34 @@ export interface Itotal {
 }
 
 export const useStakesCalculator = () => {
-  const {address} = useActiveAccount();
+  const active = useActiveAccount();
   const karuraWallet = useWallet("karura");
   const acalaWallet = useWallet("acala");
   const karuraHoma = useHoma("karura");
   const acalaHoma = useHoma("acala");
-  const { liquidToken: karuraLiquidToken, stakingToken: karuraStakingToken } = karuraHoma.consts;
-  const { liquidToken: acalaLiquidToken, stakingToken: acalaStakingToken } = acalaHoma.consts;
   const [result, setResult] = useState<StakeData[]> ();
-  const [total, setTotal] = useState<Itotal>()
+  const [total, setTotal] = useState<Itotal>();
 
   useSubscription(() => {
-    if (!karuraHoma || !acalaHoma || !karuraWallet || !acalaWallet) return;
+    if (!(karuraHoma?.consts
+      && acalaHoma?.consts
+      && karuraWallet
+      && acalaWallet 
+      && active?.address
+    )) return;
+
+    const address = active.address;
+    const { liquidToken: karuraLiquidToken, stakingToken: karuraStakingToken } = karuraHoma.consts;
+    const { liquidToken: acalaLiquidToken, stakingToken: acalaStakingToken } = acalaHoma.consts;
 
     return combineLatest({
-      acalaHomaReady: acalaHoma.isReady$,
-      karuraHomaReady: karuraHoma.isReady$,
-      acalaWalletReady: acalaWallet.isReady$,
-      karuraWalletReady: karuraWallet.isReady$
+      acalaHomaEnv: acalaHoma.subscribeEnv(),
+      karuraHomaEnv: karuraHoma.subscribeEnv(),
+      acalaStakingPrice: acalaWallet.subscribePrice(acalaStakingToken),
+      karuraStakingPrice: karuraWallet.subscribePrice(karuraStakingToken),
+      acalaLiquidTokenBalace: acalaWallet.subscribeBalance(acalaLiquidToken, address),
+      karuraLiquidTokenBalance: karuraWallet.subscribeBalance(karuraLiquidToken, address)
     })
-      .pipe(
-        filter(
-          ({ acalaHomaReady, karuraHomaReady, acalaWalletReady, karuraWalletReady }) =>
-            acalaHomaReady && karuraHomaReady && acalaWalletReady && karuraWalletReady
-        ),
-        switchMap(() => {
-          return combineLatest({
-            acalaHomaEnv: acalaHoma.subscribeEnv(),
-            karuraHomaEnv: karuraHoma.subscribeEnv(),
-            acalaStakingPrice: acalaWallet.subscribePrice(acalaStakingToken),
-            karuraStakingPrice: karuraWallet.subscribePrice(karuraStakingToken),
-            acalaLiquidTokenBalace: acalaWallet.subscribeBalance(acalaLiquidToken, address),
-            karuraLiquidTokenBalance: karuraWallet.subscribeBalance(karuraLiquidToken, address)
-          });
-        })
-      )
       .subscribe({
         next: ({
           acalaHomaEnv,
@@ -93,17 +85,17 @@ export const useStakesCalculator = () => {
               apy: karuraApy,
               earning: karuraRarning
             },
-          ])
+          ]);
 
           setTotal({
             totalAmount: acalaStakingAmount.plus(karuraStakingAmount),
             totalValue: acalaStakingValue.plus(karuraStakingValue),
             earning: acalaEarning.plus(karuraRarning)
-          })
+          });
 
         },
       });
-  }, [karuraHoma, acalaHoma, karuraWallet, acalaWallet, address]);
+  }, [karuraHoma, acalaHoma, karuraWallet, acalaWallet, active?.address]);
 
-  return {result, total}
+  return {result, total};
 };

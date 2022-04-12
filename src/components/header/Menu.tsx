@@ -33,14 +33,15 @@ const MenuItem: FC<MenuItem> = memo(({ children, link, activeParams }) => {
         </Link>
       ) : (
         <Dropdown
-          content={<div className={`text-7b7986 font-medium`}>{children}</div>}
           childItems={link.map((item) => (
-            <div className={`w-100 border-b border-gray-300 text-center py-4 text-14`}>
+            <div className={`w-100 border-b border-gray-300 text-center py-4 text-14`}
+              key={item.path}>
               <Link href={item.path}>
                 <a className={asPath === item.path ? 'text-494853' : 'text-7b7986'}>{item.label}</a>
               </Link>
             </div>
           ))}
+          content={<div className={`text-7b7986 font-medium`}>{children}</div>}
         />
       )}
     </li>
@@ -50,7 +51,8 @@ const MenuItem: FC<MenuItem> = memo(({ children, link, activeParams }) => {
 export const Menu = memo(() => {
   return (
     <ul className="flex flex-row">
-      <MenuItem activeParams={["/stake"]} link="/stake">
+      <MenuItem activeParams={["/stake"]}
+        link="/stake">
         Home
       </MenuItem>
       <MenuItem
@@ -68,10 +70,12 @@ export const Menu = memo(() => {
       >
         Stake
       </MenuItem>
-      <MenuItem activeParams={["/stake/bridge"]} link="/stake/bridge">
+      <MenuItem activeParams={["/stake/bridge"]}
+        link="/stake/bridge">
         Bridge
       </MenuItem>
-      <MenuItem activeParams={["/stake/community"]} link="/stake/community">
+      <MenuItem activeParams={["/stake/community"]}
+        link="/stake/community">
         Community
       </MenuItem>
     </ul>

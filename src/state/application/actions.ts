@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import { ModalData, ModalType } from "./types";
+import { BalanceDisplayType, ModalData, ModalType } from "./types";
 
 export const setModal = createAction<{ key: ModalType; data: ModalData }>('application/setModal');
 
@@ -9,4 +9,4 @@ export const setSelectedAddress = createAction<{ value: string}>('application/se
 
 export const setBalanceVisible = createAction<{ value: boolean}>('application/setBalanceVisible');
 
-export const setBalanceDisplayType = createAction<{ value: }>('application/setBalanceDisplayType')
+export const setBalanceDisplayType = createAction<{ value: BalanceDisplayType }>('application/setBalanceDisplayType')
