@@ -55,12 +55,12 @@ export const Menu = memo(() => {
         link="/stake">
         Home
       </MenuItem>
-      <MenuItem
+      {/* <MenuItem
         activeParams={["/stake/what-is-staking"]}
         link="/stake/what-is-staking"
       >
         What is Staking
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem
         activeParams={["/stake/dot", "/stake/ksm"]}
         link={[
@@ -74,10 +74,10 @@ export const Menu = memo(() => {
         link="/stake/bridge">
         Bridge
       </MenuItem>
-      <MenuItem activeParams={["/stake/community"]}
+      {/* <MenuItem activeParams={["/stake/community"]}
         link="/stake/community">
         Community
-      </MenuItem>
+      </MenuItem> */}
     </ul>
   );
 });
