@@ -31,19 +31,19 @@ export const Information = () => {
       <Spacing h={120} />
       <div className="flex flex-between px-40">
         <InfoItem
+          desc="Acala Liquid Staking offers sustainable and consistent staking rewards. It aims to democratize premium staking service accessible to everyone."
           icon={<Stake1 />}
           title="Long Term Yield"
-          desc="Acala Liquid Staking offers sustainable and consistent staking rewards. It aims to democratize premium staking service accessible to everyone."
         />
         <InfoItem
+          desc="Acala Liquid Staking is a non-custodial protocol that allows you to stake and earn in a couple of clicks, with option to unstake without the wait."
           icon={<Stake2 />}
           title="Simple & Secure"
-          desc="Acala Liquid Staking is a non-custodial protocol that allows you to stake and earn in a couple of clicks, with option to unstake without the wait."
         />
         <InfoItem
+          desc="Stake DOT/KSM to earn immediately, and receive liquid asset (LDOT/LKSM) ready to trade, take out loans, provide liquidity etc. to grow your balance."
           icon={<Stake3 />}
           title="Earn & Grow Balance"
-          desc="Stake DOT/KSM to earn immediately, and receive liquid asset (LDOT/LKSM) ready to trade, take out loans, provide liquidity etc. to grow your balance."
         />
       </div>
     </div>

@@ -10,47 +10,48 @@ import Snz from "/public/trusted/snz.svg";
 import Ventures from "/public/trusted/ventures.svg";
 import Web3capital from "/public/trusted/web3capital.svg";
 
+const trusts = [
+  <Altonomy />,
+  <Bentons />,
+  <CoinFund />,
+  <P2pcapital />,
+  <Snz />,
+  <Ventures />,
+  <Web3capital />,
+  <Altonomy />,
+  <Bentons />,
+  <CoinFund />,
+  <Hashkey />,
+  <P2pcapital />,
+  <Snz />,
+  <Ventures />,
+  <Altonomy />,
+  <Bentons />,
+  <CoinFund />,
+  <Hashkey />,
+  <P2pcapital />,
+  <Snz />,
+  <Ventures />,
+  <Web3capital />,
+  <Altonomy />,
+  <Bentons />,
+  <CoinFund />,
+  <Hashkey />,
+  <P2pcapital />,
+  <Snz />,
+  <Ventures />,
+  <Web3capital />,
+  <Altonomy />,
+  <Bentons />,
+  <Hashkey />,
+  <P2pcapital />,
+  <Snz />,
+  <Ventures />,
+  <Web3capital />,
+];
+
 export const Trusted = () => {
   const [isAll, setIsAll] = useState<boolean>(false);
-  const trusts = [
-    <Altonomy />,
-    <Bentons />,
-    <CoinFund />,
-    <P2pcapital />,
-    <Snz />,
-    <Ventures />,
-    <Web3capital />,
-    <Altonomy />,
-    <Bentons />,
-    <CoinFund />,
-    <Hashkey />,
-    <P2pcapital />,
-    <Snz />,
-    <Ventures />,
-    <Altonomy />,
-    <Bentons />,
-    <CoinFund />,
-    <Hashkey />,
-    <P2pcapital />,
-    <Snz />,
-    <Ventures />,
-    <Web3capital />,
-    <Altonomy />,
-    <Bentons />,
-    <CoinFund />,
-    <Hashkey />,
-    <P2pcapital />,
-    <Snz />,
-    <Ventures />,
-    <Web3capital />,
-    <Altonomy />,
-    <Bentons />,
-    <Hashkey />,
-    <P2pcapital />,
-    <Snz />,
-    <Ventures />,
-    <Web3capital />,
-  ];
   return (
     <div className="bg-fff">
       <div className="container pt-56">
@@ -68,9 +69,9 @@ export const Trusted = () => {
         <Spacing h={20} />
         <div className="flex flex-center w-full mb-20">
           <Button
-            variant="outline"
-            onClick={() => setIsAll(!isAll)}
             className="rounded-[41px] w-[183px] font-normal h-56"
+            onClick={() => setIsAll(!isAll)}
+            variant="outline"
           >
             {isAll ? "VIEW LESS" : "VIEW ALL"}
           </Button>

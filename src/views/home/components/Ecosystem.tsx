@@ -34,75 +34,81 @@ export const Ecosystem = () => {
       </div>
       <div className="grid grid-cols-3 gap-x-17 gap-y-32">
         <Item
+          desc="Trade LDOT with other assets"
           icon={<AcalaSwap />}
           title="Acala Swap"
-          desc="Trade LDOT with other assets"
         />
         <Item
-          icon={<TokenImage token={"AUSD"} size={64} />}
-          title="Acala Dollar"
           desc="Use LDOT as collateral to borrow aUSD"
+          icon={<TokenImage size={64}
+            token={"AUSD"} />}
+          title="Acala Dollar"
         />
         <Item
+          desc="Trade stable assets efficiently"
           icon={<AcalaSwap />}
           title="Tapio"
-          desc="Trade stable assets efficiently"
         />
         <Item
+          desc="Trade LKSM with other assets"
           icon={<KaruraSwap />}
           title="Karura Swap"
-          desc="Trade LKSM with other assets"
         />
         <Item
-          icon={<TokenImage token={"KUSD"} size={64} />}
-          title="Karura Dollar"
           desc="Use LKSM as collateral to borrow kUSD"
+          icon={<TokenImage size={64}
+            token={"KUSD"} />}
+          title="Karura Dollar"
         />
         <Item
-          icon={<TokenImage token={"TAI"} size={64} />}
-          title="Taigo"
           desc="Trade stable assets efficiently"
+          icon={<TokenImage size={64}
+            token={"TAI"} />}
+          title="Taigo"
         />
         {isAll && (
           <>
             <Item
+              desc="Trade LDOT with other assets"
               icon={<AcalaSwap />}
               title="Acala Swap"
-              desc="Trade LDOT with other assets"
             />
             <Item
-              icon={<TokenImage token={"AUSD"} size={64} />}
-              title="Acala Dollar"
               desc="Use LDOT as collateral to borrow aUSD"
+              icon={<TokenImage size={64}
+                token={"AUSD"} />}
+              title="Acala Dollar"
             />
             <Item
+              desc="Trade stable assets efficiently"
               icon={<AcalaSwap />}
               title="Tapio"
-              desc="Trade stable assets efficiently"
             />
             <Item
+              desc="Trade LKSM with other assets"
               icon={<KaruraSwap />}
               title="Karura Swap"
-              desc="Trade LKSM with other assets"
             />
             <Item
-              icon={<TokenImage token={"KUSD"} size={64} />}
-              title="Karura Dollar"
               desc="Use LKSM as collateral to borrow kUSD"
+              icon={<TokenImage size={64}
+                token={"KUSD"} />}
+              title="Karura Dollar"
             />
             <Item
-              icon={<TokenImage token={"TAI"} size={64} />}
-              title="Taigo"
               desc="Trade stable assets efficiently"
+              icon={<TokenImage size={64}
+                token={"TAI"} />}
+              title="Taigo"
             />
           </>
         )}
       </div>
       <Spacing h={20} />
       <Button
-        variant="outline"
-        onClick={() => setIsAll(!isAll)}
         className=" rounded-[41px] w-[183px] font-normal h-56"
+        onClick={() => setIsAll(!isAll)}
+        variant="outline"
       >
         {isAll ? "VIEW LESS" : "VIEW ALL"}
       </Button>

@@ -1,5 +1,3 @@
-import { Express } from "../views/express";
+import { Home } from "../views/home";
 
-export default function App() {
-  return <Express />;
-}
+export default Home;

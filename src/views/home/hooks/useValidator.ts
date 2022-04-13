@@ -1,4 +1,4 @@
-import { useApi } from "../../../connector"
+import { useApi } from "../../../connector";
 import { useSubscription } from "../../../hooks/useSubscription";
 import { ValidatorId } from '@acala-network/types/interfaces';
 import { useState } from "react";
@@ -10,10 +10,10 @@ export const useValidator = () => {
   useSubscription(() => {
     return api.query.session.validators().subscribe({
       next: (data: any) => {
-        setData(data.slice(0, 4))
+        setData(data.slice(0, 4));
       }
-    })
-  }, [api])
+    });
+  }, [api]);
 
   return validators;
-}
+};

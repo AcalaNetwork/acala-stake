@@ -13,7 +13,8 @@ export const useValidatorDetail = (accountId: ValidatorId) => {
   useSubscription(() => {
     if (!api || !api.query || !api.query.identity) return;
 
-    // @ts-ignore TODO check if this still works IMPORTANT
+    // @ts-ignore
+    // TODO check if this still works IMPORTANT
     return api.query.identity.identityOf(convertAddress(accountId.toString(), 'kusama'))
       .subscribe({ next: setData });
   }, [accountId, api]);

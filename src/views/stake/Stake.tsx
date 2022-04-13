@@ -13,7 +13,7 @@ import { StakeConfirm } from "./components/stake/StakeConfirm";
 import { StakeResult } from "./components/stake/StakeResult";
 import { Step } from "@components/Step";
 import { Card } from "@components/Card";
-import { Ecosystem } from "../express/components/Ecosystem";
+import { Ecosystem } from "../home/components/Ecosystem";
 import { BridgeServer } from "./components/stake/BridgeServer";
 import { Wraps } from "./components/stake/Wraps";
 import { EnsureSDKReady } from "../../sdk/components/EnsureSDKReady";

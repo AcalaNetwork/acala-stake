@@ -27,30 +27,30 @@ export const StakeCard = () => {
       <StakeProvider>
         <div className="flex-1">
           <StakeItem
-            type="acala"
+            apy={acalaHomaAPY}
             className="flex-1"
-            token={acalaHoma.consts.stakingToken}
             desc={`Stake ${getTokenName(
               acalaHoma?.consts.stakingToken
             )} to receive daily rewards and retain control of your staked ${getTokenName(
               acalaHoma?.consts.stakingToken
             )}s in ${getTokenName(acalaHoma?.consts.liquidToken)}.`}
             staked={acalaTotalStaking}
-            apy={acalaHomaAPY}
+            token={acalaHoma.consts.stakingToken}
+            type="acala"
           />
         </div>
         <div className="flex-1">
           <StakeItem
-            type="karura"
+            apy={karuraHomaAPY}
             className="flex-1"
-            token={karuraHoma.consts.stakingToken}
             desc={`Stake ${getTokenName(
               karuraHoma?.consts.stakingToken
             )} to receive daily rewards and retain control of your staked ${getTokenName(
               karuraHoma?.consts.stakingToken
             )}s in ${getTokenName(karuraHoma?.consts.liquidToken)}.`}
             staked={karuraTotalStaking}
-            apy={karuraHomaAPY}
+            token={karuraHoma.consts.stakingToken}
+            type="karura"
           />
         </div>
       </StakeProvider>
@@ -86,12 +86,13 @@ const StakeItem: FC<StakeItemProps> = ({
   staked,
   apy,
 }) => {
-	const { setActiveToken } = useContext(StakeProviderContext);
+  const { setActiveToken } = useContext(StakeProviderContext);
   return (
     <Card
       className={`w-[566px] h-[454px] flex-1 flex-center flex-col pt-32 pb-30 px-40 bg-opacity-[0.8] shadow-[0px_1px_25px_rgba(100, 90, 255, 0.08)] backdrop-blur-[150px] ${className}`}
     >
-      <NetworkIcon type={type === "acala" ? "polkadot" : "kusama"} width={64} />
+      <NetworkIcon type={type === "acala" ? "polkadot" : "kusama"}
+        width={64} />
       <Spacing h={27} />
       <div className="tracking-[0.02em] text-center w-[322px]">
         <div className="text-20 leading-[24px] font-semibold ">
@@ -106,7 +107,8 @@ const StakeItem: FC<StakeItemProps> = ({
       <div className="flex w-full h-[99px] border border-d6d3de rounded-[24px] py-11 text-28">
         <div className="flex-1 flex-col flex justify-around items-center border-r border-d6d3de">
           <span className="font-bold leading-34 text-primary">
-            <FormatBalance balance={staked} human />
+            <FormatBalance balance={staked}
+              human />
           </span>
           <span className="mt-8 text-16 leading-20 font-medium text-494853 opacity-80">
             Staked
@@ -115,8 +117,8 @@ const StakeItem: FC<StakeItemProps> = ({
         <div className="flex-1 flex-col flex justify-around items-center">
           <div className="relative">
             <FormatRatio
-              data={apy}
               className="font-bold leading-34 text-primary"
+              data={apy}
             />
             {token.toString() === "DOT" && (
               <div className="text-e40c5b border border-e40c5b py-2 px-9 leading-[13px] text-[11px] rounded-8 absolute top-0 right-0 transform translate-x-full">
@@ -147,7 +149,7 @@ const StakeItem: FC<StakeItemProps> = ({
           href={`/stake/${type === "karura" ? "ksm" : "dot"}`}
           onClick={() => setActiveToken(type === "acala" ? "DOT" : "KSM")}
         >
-          Let's Go
+          {"Let's Go"}
         </LinkButton>
       </div>
     </Card>

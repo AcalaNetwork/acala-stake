@@ -10,4 +10,4 @@ export const useHoma = (type?: SDKNetwork) => {
   }
 
   return sdk.acala.homa;
-}
+};

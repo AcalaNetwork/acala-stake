@@ -15,18 +15,19 @@ export const useSDKConnector = (api?: ApiRx) => {
 
     const wallet = new Wallet(api);
     const swap = new SwapRx(api);
-    const liquidity = new Liquidity(api, wallet);
-    const homa = new Homa(api, wallet);
+    
 
     setWallet(wallet);
     setSwap(swap);
-    setLiquidity(liquidity);
-    setHoma(homa);
+    setLiquidity(wallet.liquidity);
+    setHoma(wallet.homa);
   }, [setWallet, setSwap, setLiquidity]);
 
   useEffect(() => {
-    if (api) init(api);
-  }, [api]);
+    if (!api) return;
+
+    init(api);
+  }, [api, init]);
 
   return { wallet, swap, liquidity, homa };
-}
+};
