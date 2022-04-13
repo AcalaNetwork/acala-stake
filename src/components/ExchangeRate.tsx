@@ -36,7 +36,8 @@ export const ExchangeRate: FC<ExchangeRateProps> = memo(({ balance1, balance2, c
         pair={pairData}
         pairSymbol='≈'
       />
-      <div className='ml-6 cursor-pointer' onClick={handleSwapDirection}>
+      <div className='ml-6 cursor-pointer'
+        onClick={handleSwapDirection}>
         <SwapIcon />
       </div>
     </div>

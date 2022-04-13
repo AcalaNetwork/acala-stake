@@ -42,12 +42,12 @@ const itemRender = (value: ChainData, selected: ChainData) => (
 
     {selected && selected.chainName === value.chainName && (
       <CheckIcon
-        className="h-[20px] w-[20px] text-primary"
         aria-hidden="true"
+        className="h-[20px] w-[20px] text-primary"
       />
     )}
   </div>
-)
+);
 
 export const ChainSelector: FC<ChainSelectorProps> = ({
   chains,
@@ -69,12 +69,12 @@ export const ChainSelector: FC<ChainSelectorProps> = ({
 
   return (
     <Selector
+      items={items}
+      onBlur={onBlur}
+      onChange={onChange}
+      render={btnRender}
       rootClassName={className}
       value={value}
-      items={items}
-      render={btnRender}
-      onChange={onChange}
-      onBlur={onBlur}
     />
   );
 };

@@ -17,7 +17,7 @@ const Inner = ({ children }) => {
     );
   }
 
-  return children
+  return children;
 };
 
 export const SetTokenCom: FC = ({ children }) => {

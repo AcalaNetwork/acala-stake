@@ -33,10 +33,10 @@ export const Toggle: React.FC<ToggleProps> = ({
       }}
     >
       <div
-        id="toggle-effect"
         className={`${
           active ? "" : "hidden"
         } ${firstLoaded ? "" : "animate-ping-once"} absolute w-52 h-24 px-2 rounded-full bg-primary`}
+        id="toggle-effect"
       ></div>
       <div
         className={`flex flex-row items-center px-2 w-52 h-24 p-1 border border-ABAAB9 rounded-full cursor-pointer ${

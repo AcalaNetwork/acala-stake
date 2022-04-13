@@ -23,10 +23,10 @@ export const ListLabel = React.memo(({ children }) => {
   return (
     <div className='text-14 leading-17 text-494853'>{children}</div>
   );
-})
+});
 
 export const ListValue = React.memo(({ children }) => {
   return (
     <div className='text-14 leading-17 text-2e2d33 font-medium'>{children}</div>
   );
-})
+});

@@ -11,7 +11,8 @@ export const Dropdown: FC<{
 
   return (
     <div className={className}>
-      <Menu as="div" className="relative">
+      <Menu as="div"
+        className="relative">
         <div>
           <Menu.Button>{content}</Menu.Button>
         </div>

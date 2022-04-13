@@ -1,6 +1,6 @@
 import {
-	MaybeCurrency,
-	Token,
+  MaybeCurrency,
+  Token,
 } from "@acala-network/sdk-core";
 import React, { FC, useCallback, useMemo } from "react";
 import { TokenImage } from "../TokenImage";
@@ -38,75 +38,79 @@ interface CurrencyInputProps {
 }
 
 const CurrencyInput: FC<CurrencyInputProps> = React.memo(
-	({ size, value, focuse, onFocuse }) => {
-		return (
-			<BaseInputRoot focuse={focuse} className="border-none">
-				<div className="flex-1 flex items-center" onClick={onFocuse}>
-					<TokenImage token={value} size={size} />
-					<TokenName
-						token={value}
-						className="mx-8 leading-20 text-16 font-medium text-494853"
-					/>
-				</div>
-				<TriangleIcon aria-hidden="true" />
-			</BaseInputRoot>
-		);
-	}
+  ({ size, value, focuse, onFocuse }) => {
+    return (
+      <BaseInputRoot className="border-none"
+        focuse={focuse}>
+        <div className="flex-1 flex items-center"
+          onClick={onFocuse}>
+          <TokenImage size={size}
+            token={value} />
+          <TokenName
+            className="mx-8 leading-20 text-16 font-medium text-494853"
+            token={value}
+          />
+        </div>
+        <TriangleIcon aria-hidden="true" />
+      </BaseInputRoot>
+    );
+  }
 );
 
 function defaultCurrencyItemRender(value: Token) {
-	return (
-		<div className="py-12 px-8 rounded-8 flex items-center hover:bg-fff">
-			<TokenImage token={value} size="sm" />
-			<TokenName
-				token={value}
-				className="ml-8 font-medium text-16 leading-20 text-7b7986"
-			/>
-		</div>
-	);
+  return (
+    <div className="py-12 px-8 rounded-8 flex items-center hover:bg-fff">
+      <TokenImage size="sm"
+        token={value} />
+      <TokenName
+        className="ml-8 font-medium text-16 leading-20 text-7b7986"
+        token={value}
+      />
+    </div>
+  );
 }
 
 export const CurrencySelector: FC<CurrencySelectorProps> = ({
-	currencies,
-	value,
-	onChange,
-	className,
-	rootClassName
+  currencies,
+  value,
+  onChange,
+  className,
+  rootClassName
 }) => {
-	const memCurrencies = useMemoized(currencies);
-	const [focuse, , onFocuse, onBlur] = useBoolean();
+  const memCurrencies = useMemoized(currencies);
+  const [focuse, , onFocuse, onBlur] = useBoolean();
 
-	const items = useMemo(() => {
-		return memCurrencies.map((item) => {
-			return {
-				value: item.token,
-				render: item.render ? item.render : defaultCurrencyItemRender,
-			};
-		});
-	}, [memCurrencies]);
+  const items = useMemo(() => {
+    return memCurrencies.map((item) => {
+      return {
+        value: item.token,
+        render: item.render ? item.render : defaultCurrencyItemRender,
+      };
+    });
+  }, [memCurrencies]);
 
-	const render = useCallback(
-		(value: Token) => {
-			return (
-				<CurrencyInput
-					value={value}
-					focuse={focuse}
-					onFocuse={onFocuse}
-					className={className}
-				/>
-			);
-		},
-		[focuse, value, onFocuse]
-	);
+  const render = useCallback(
+    (value: Token) => {
+      return (
+        <CurrencyInput
+          className={className}
+          focuse={focuse}
+          onFocuse={onFocuse}
+          value={value}
+        />
+      );
+    },
+    [focuse, value, onFocuse]
+  );
 
-	return (
-		<Selector
-			rootClassName={rootClassName}
-			value={value}
-			onChange={onChange}
-			items={items}
-			render={render}
-			onBlur={onBlur}
-		/>
-	);
+  return (
+    <Selector
+      items={items}
+      onBlur={onBlur}
+      onChange={onChange}
+      render={render}
+      rootClassName={rootClassName}
+      value={value}
+    />
+  );
 };

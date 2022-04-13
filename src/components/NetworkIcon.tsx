@@ -11,4 +11,4 @@ export const NetworkIcon = React.memo<{ type: NetworkIconType } & Record<string,
   if (type === 'kusama') return <KusamaPink {...remained} />;
 
   return null;
-})
+});

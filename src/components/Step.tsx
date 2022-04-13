@@ -64,11 +64,14 @@ const StepItem: FC<StepItemProps> = ({ active, id, desc }) => {
   return (
     <div className="flex flex-col">
       {isCompleted ? (
-        <CompletedItem id={id} desc={desc} />
+        <CompletedItem desc={desc}
+          id={id} />
       ) : isActive ? (
-        <ActiveItem id={id} desc={desc} />
+        <ActiveItem desc={desc}
+          id={id} />
       ) : (
-        <NextItem id={id} desc={desc} />
+        <NextItem desc={desc}
+          id={id} />
       )}
     </div>
   );
@@ -78,14 +81,16 @@ export const Step: FC<StepProps> = ({ active, data }) => {
   return (
     <div className="flex flex-between flex-row w-full mt-12 mb-24 px-32">
       {data.flatMap((item, i) => {
-        const stepItem = <StepItem key={item.id} {...item} active={active} />;
+        const stepItem = <StepItem key={item.id}
+          {...item}
+          active={active} />;
 
         if (i !== data.length - 1) {
           return [
             stepItem,
             <div
-              key={`spacer-${item.id}`}
               className={`h-1 w-full ${i < active - 1 ? "bg-primary" : "bg-abaab9"}`}
+              key={`spacer-${item.id}`}
             ></div>,
           ];
         }

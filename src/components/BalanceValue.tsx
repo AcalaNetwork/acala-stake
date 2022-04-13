@@ -12,9 +12,10 @@ interface BalanceValueProps extends Omit<FormatNumberProps, 'data'> {
 }
 
 export const BalanceValue = React.memo<BalanceValueProps>(
-	({ network, token, balance, ...remained }) => {
-		const value = useBalanceValue(network, token, balance);
+  ({ network, token, balance, ...remained }) => {
+    const value = useBalanceValue(network, token, balance);
 
-		return <FormatValue data={value} {...remained} />;
-	}
+    return <FormatValue data={value}
+      {...remained} />;
+  }
 );

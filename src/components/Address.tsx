@@ -15,22 +15,22 @@ export interface AddressProps {
 }
 
 export const Address: FC<AddressProps> = ({
-	address,
-	className,
-	mini = true,
-	name,
-	ss58 = defaults.prefix,
-	showBoth = false,
-	nameClassName,
-	addressClassName,
-	spaceIcon
+  address,
+  className,
+  mini = true,
+  name,
+  ss58 = defaults.prefix,
+  showBoth = false,
+  nameClassName,
+  addressClassName,
+  spaceIcon
 }) => {
-	const _name = name ?? 'Unknow';
-	const _address = address ? formatAddress(address, ss58, mini) : '';
+  const _name = name ?? 'Unknow';
+  const _address = address ? formatAddress(address, ss58, mini) : '';
 
-	if(showBoth) {
-		return <div className={className}><span className={nameClassName}>{_name}</span>{spaceIcon}<span className={addressClassName}>{_address}</span></div>
-	} else {
-		return <p className={className}>{name ? _name : _address}</p>
-	}
+  if(showBoth) {
+    return <div className={className}><span className={nameClassName}>{_name}</span>{spaceIcon}<span className={addressClassName}>{_address}</span></div>;
+  } 
+  return <p className={className}>{name ? _name : _address}</p>;
+	
 };

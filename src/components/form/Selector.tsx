@@ -3,7 +3,7 @@ import React, { FC, ReactNode, useCallback, useEffect, useMemo } from "react";
 import { uniqueId } from "lodash";
 import { BaseInputElementProps } from "./BaseInputRoot";
 
-export interface SelectorItem<T extends any> {
+export interface SelectorItem<T> {
 	value: T;
 	render: (value: T, selected: T) => ReactNode;
 	className?: string;
@@ -25,58 +25,61 @@ interface SelectorProps<T> extends BaseInputElementProps {
 }
 
 export const Selector = React.memo(
-	<T extends unknown>({
-		value,
-		onChange,
+	<T,>({
+    value,
+    onChange,
     onBlur,
-		render,
-		items,
+    render,
+    items,
     rootClassName,
-		listClassName,
-		placeholder
-	}: SelectorProps<T>) => {
-		const uuid = useMemo(() => uniqueId("list-"), []);
+    listClassName,
+    placeholder
+  }: SelectorProps<T>) => {
+	  const uuid = useMemo(() => uniqueId("list-"), []);
 
-    const handleChange = useCallback((value: T) => {
-      if (onChange) {
-        onChange(value);
-      }
-    }, [onChange]);
+	  const handleChange = useCallback((value: T) => {
+	    if (onChange) {
+	      onChange(value);
+	    }
+	  }, [onChange]);
 
-		return (
-			<Listbox value={value} onChange={handleChange}>
-				{({ open }) => (
-					<div className={rootClassName || 'relative'}>
-            <AutoBlur open={open} handleBlur={onBlur} />
-						<Listbox.Button as='div' className='h-full cursor-pointer'>
-							{render ? render(value) : null}
-						</Listbox.Button>
-						<Transition
-							show={open}
-							leave="transition ease-in duration-200" 
-							leaveFrom="opacity-100"
-							leaveTo="opacity-0"
-							className="absolute mt-1 w-full outline-none left-0 z-10 focus:outline-none"
-							style={{ top: "calc(100% + 8px)" }}
-              unmount={false}
-						>
-							<Listbox.Options className={`rounded-8 shadow-lg bg-f1f0f2 px-8 py-14 cursor-pointer z-10 ${listClassName}`}>
-								{items.map((item, i) => (
-									<Listbox.Option
-										className={item?.className || ""}
-										key={item?.key || uuid + i}
-										value={item.value}
-										disabled={item.disabled}
-									>
-										{item.render(item.value, value)}
-									</Listbox.Option>
-								))}
-							</Listbox.Options>
-						</Transition>
-					</div>
-				)}
-			</Listbox>
-		);
+	  return (
+	    <Listbox onChange={handleChange}
+	      value={value}>
+	      {({ open }) => (
+	        <div className={rootClassName || 'relative'}>
+	          <AutoBlur handleBlur={onBlur}
+	            open={open} />
+	          <Listbox.Button as='div'
+	            className='h-full cursor-pointer'>
+	            {render ? render(value) : null}
+	          </Listbox.Button>
+	          <Transition
+	            className="absolute mt-1 w-full outline-none left-0 z-10 focus:outline-none"
+	            leave="transition ease-in duration-200" 
+	            leaveFrom="opacity-100"
+	            leaveTo="opacity-0"
+	            show={open}
+	            style={{ top: "calc(100% + 8px)" }}
+	            unmount={false}
+	          >
+	            <Listbox.Options className={`rounded-8 shadow-lg bg-f1f0f2 px-8 py-14 cursor-pointer z-10 ${listClassName}`}>
+	              {items.map((item, i) => (
+	                <Listbox.Option
+	                  className={item?.className || ""}
+	                  disabled={item.disabled}
+	                  key={item?.key || uuid + i}
+	                  value={item.value}
+	                >
+	                  {item.render(item.value, value)}
+	                </Listbox.Option>
+	              ))}
+	            </Listbox.Options>
+	          </Transition>
+	        </div>
+	      )}
+	    </Listbox>
+	  );
 	}
 );
 
@@ -86,4 +89,4 @@ const AutoBlur: FC<{ open: boolean, handleBlur?: () => void }> = React.memo(({ o
   }, [open, handleBlur]);
 
   return null;
-})
+});

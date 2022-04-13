@@ -1,6 +1,6 @@
-import { Bridge } from "../views/bridge"
+import { Bridge } from "../views/bridge";
 
 export const BridgePage = () => {
-  return <Bridge />
-}
+  return <Bridge />;
+};
 export default BridgePage;

@@ -15,57 +15,57 @@ type CardProps = PropsWithChildren<{
 }>;
 
 function getClassName(
-	round: CardRoundSize,
-	variant: CardVariant,
-	shadow: CardShadow
+  round: CardRoundSize,
+  variant: CardVariant,
+  shadow: CardShadow
 ) {
-	const rounds = {
-		default: "rounded-xl",
-	};
+  const rounds = {
+    default: "rounded-xl",
+  };
 
-	const variants = {
-		"gradient-border": "card-gradient-border",
-		border: "border border-eae9f0",
-	};
+  const variants = {
+    "gradient-border": "card-gradient-border",
+    border: "border border-eae9f0",
+  };
 
-	const shadows = {
-		0: "shadow",
-		1: "shadow-1",
-	};
+  const shadows = {
+    0: "shadow",
+    1: "shadow-1",
+  };
 
-	return `${rounds[round] ?? ""} relative bg-fff w-ful ${
-		variants[variant] ?? ""
-	} ${shadows[shadow] ?? ""}`;
+  return `${rounds[round] ?? ""} relative bg-fff w-ful ${
+    variants[variant] ?? ""
+  } ${shadows[shadow] ?? ""}`;
 }
 
 export const Card: FC<CardProps> = ({
-	className,
-	children,
-	variant,
-	round = "default",
-	loading = false,
-	shadow = 1,
-	style
+  className,
+  children,
+  variant,
+  round = "default",
+  loading = false,
+  shadow = 1,
+  style
 }) => {
-	const extraClassName = getClassName(round, variant, shadow);
+  const extraClassName = getClassName(round, variant, shadow);
 
-	return (
-		<div
-			style={style}
-			className={`${className} ${extraClassName} ${
-				loading ? "overflow-hidden" : ""
-			}`}
-		>
-			{loading ? <CardLoading /> : null}
-			{children}
-		</div>
-	);
+  return (
+    <div
+      className={`${className} ${extraClassName} ${
+        loading ? "overflow-hidden" : ""
+      }`}
+      style={style}
+    >
+      {loading ? <CardLoading /> : null}
+      {children}
+    </div>
+  );
 };
 
 const CardLoading = () => {
-	return (
-		<div className="absolute z-50 top-0 left-0 w-full h-full bg-fff pointer-events-none flex items-center justify-center">
-			<Loading />
-		</div>
-	);
+  return (
+    <div className="absolute z-50 top-0 left-0 w-full h-full bg-fff pointer-events-none flex items-center justify-center">
+      <Loading />
+    </div>
+  );
 };

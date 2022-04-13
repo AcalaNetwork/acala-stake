@@ -1,7 +1,7 @@
-import { StakeBridge } from "../../views/stakeBridge"
+import { StakeBridge } from "../../views/stakeBridge";
 
 export const StakeBridgePage = () => {
-  return <StakeBridge />
+  return <StakeBridge />;
 };
 
 export default StakeBridgePage;

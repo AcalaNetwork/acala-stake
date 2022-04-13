@@ -62,14 +62,14 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
         filter
           ? (item) => filter(item, inputRef.current.value)
           : (item) => {
-              const inputRefValueLowerCase =
+            const inputRefValueLowerCase =
                 inputRef.current.value.toLowerCase();
 
-              const itemValue = item.value.toLowerCase();
+            const itemValue = item.value.toLowerCase();
 
-              if (itemValue.startsWith(inputRefValueLowerCase)) return true;
-              return false;
-            }
+            if (itemValue.startsWith(inputRefValueLowerCase)) return true;
+            return false;
+          }
       )
     );
   };
@@ -110,17 +110,17 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
           className={`w-full h-58 text-20 pl-22 bg-transparent ${
             isLocked ? "cursor-not-allowed" : ""
           }`}
-          ref={inputRef}
-          onFocus={() => {
-            setShowDropdown(true);
-          }}
           disabled={isLocked}
           onChange={() => {
             onChange(inputRef.current.value);
             updateSearchResults();
           }}
-          type="text"
+          onFocus={() => {
+            setShowDropdown(true);
+          }}
           placeholder={placeholder}
+          ref={inputRef}
+          type="text"
         />
         <div
           onClick={() => {
@@ -141,18 +141,18 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
       </div>
       {showDropDown ? (
         <div
-          ref={dropDownRef}
           className="absolute flex-center flex-col w-full bg-white rounded-8 transform translate-y-[64px] z-10 border p-20 shadow-md"
+          ref={dropDownRef}
         >
           {searchReults.length > 0 ? (
             searchReults.map((item, i) => (
               <div
+                className="flex flex-row justify-start items-center gap-16 w-full p-8 text-20 hover:bg-gray-100 rounded-8 cursor-pointer self-start"
+                key={`search-${i}`}
                 onClick={() => {
                   inputRef.current.value = item.value;
                   setShowDropdown(false);
                 }}
-                key={`search-${i}`}
-                className="flex flex-row justify-start items-center gap-16 w-full p-8 text-20 hover:bg-gray-100 rounded-8 cursor-pointer self-start"
               >
                 {item.value === inputRef.current.value
                   ? item.render(item.value, true)

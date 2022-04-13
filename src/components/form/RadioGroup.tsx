@@ -21,9 +21,12 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   className,
 }) => {
   return (
-    <Radio value={value} onChange={onChange} className={className}>
+    <Radio className={className}
+      onChange={onChange}
+      value={value}>
       {options.map((option, index) => (
-        <Radio.Option value={option.value} key={index}>
+        <Radio.Option key={index}
+          value={option.value}>
           {({ checked }) => (
             <div className="cursor-pointer flex flex-center">
               {checked ? (

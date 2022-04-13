@@ -18,7 +18,7 @@ const TOKEN_SIZES = {
   'md': 32,
   'default': 36,
   'lg': 42,
-}
+};
 
 const TokenWrapper = styled.div<{ size: TokenSize }>`
   width: ${({ size }) => TOKEN_SIZES[size] ?? size }px;
@@ -63,7 +63,8 @@ export const TokenImage: FC<TokenProps> = ({ className, token, size = 'md' }) =>
     const [token1, token2] = unzipDexShareName(name);
 
     return (
-      <LPWrapper size={size} className={className}>
+      <LPWrapper className={className}
+        size={size}>
         <TokenWrapper size={size}>{getTokenImage(token1)}</TokenWrapper>
         <TokenWrapper size={size}>{getTokenImage(token2)}</TokenWrapper>
       </LPWrapper>
@@ -72,6 +73,7 @@ export const TokenImage: FC<TokenProps> = ({ className, token, size = 'md' }) =>
 
   // render single token
   return (
-    <TokenWrapper size={size} className={className}>{getTokenImage(name)}</TokenWrapper> 
+    <TokenWrapper className={className}
+      size={size}>{getTokenImage(name)}</TokenWrapper> 
   );
 };

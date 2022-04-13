@@ -13,14 +13,14 @@ export const Popover: FC<{
       {({ open }) => (
         <>
           <Transition
-            show={open}
+            className="absolute mt-1 w-full outline-none z-10 focus:outline-none"
             enter="transition-opacity duration-200"
             enterFrom="opacity-0"
             enterTo="opacity-100"
             leave="transition-opacity duration-150"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
-            className="absolute mt-1 w-full outline-none z-10 focus:outline-none"
+            show={open}
             style={position}
           >
             <CPopover.Panel

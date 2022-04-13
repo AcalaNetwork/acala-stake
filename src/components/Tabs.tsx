@@ -1,9 +1,9 @@
 import React, {
-	createContext,
-	ReactNode,
-	useCallback,
-	useContext,
-	useState,
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useState,
 } from "react";
 
 export interface TabProps {
@@ -13,26 +13,26 @@ export interface TabProps {
 }
 
 export const Tab = React.memo<TabProps>(({ value, children, onChange }) => {
-	const { active, onChange: onTabChange } = useContext(InnerTabsContext);
+  const { active, onChange: onTabChange } = useContext(InnerTabsContext);
 
-	const handleClick = useCallback(() => {
-		if (onChange) {
-			onChange(value);
-		}
+  const handleClick = useCallback(() => {
+    if (onChange) {
+      onChange(value);
+    }
 
-		onTabChange(value);
-	}, [value, onChange, onTabChange]);
+    onTabChange(value);
+  }, [value, onChange, onTabChange]);
 
-	return (
-		<div
-			className={`text-16 text-center w-[120px] pb-8 cursor-pointer ${
-				value === active ? "text-primary border-b-2 border-primary" : ""
-			}`}
-			onClick={handleClick}
-		>
-			{children}
-		</div>
-	);
+  return (
+    <div
+      className={`text-16 text-center w-[120px] pb-8 cursor-pointer ${
+        value === active ? "text-primary border-b-2 border-primary" : ""
+      }`}
+      onClick={handleClick}
+    >
+      {children}
+    </div>
+  );
 });
 
 interface TabsPanelProps {
@@ -41,11 +41,11 @@ interface TabsPanelProps {
 }
 
 export const TabsPanel = React.memo<TabsPanelProps>(({ value, children }) => {
-	const { active } = useContext(InnerTabsContext);
+  const { active } = useContext(InnerTabsContext);
 
-	if (value === active) return <>{children}</>;
+  if (value === active) return <>{children}</>;
 
-	return null;
+  return null;
 });
 
 interface TabsContextProps {
@@ -54,15 +54,15 @@ interface TabsContextProps {
 }
 
 export const TabsContext = React.memo<TabsContextProps>(
-	({ children, init }) => {
-		const [active, setActive] = useState<string>(init);
+  ({ children, init }) => {
+    const [active, setActive] = useState<string>(init);
 
-		return (
-			<InnerTabsContext.Provider value={{ active, onChange: setActive }}>
-				{children}
-			</InnerTabsContext.Provider>
-		);
-	}
+    return (
+      <InnerTabsContext.Provider value={{ active, onChange: setActive }}>
+        {children}
+      </InnerTabsContext.Provider>
+    );
+  }
 );
 
 interface TabsProps {
@@ -72,13 +72,13 @@ interface TabsProps {
 }
 
 export const Tabs = React.memo<TabsProps>(({ className, children }) => {
-	return (
-		<div
-			className={`flex flex-center gap-48 tracking-[1px] font-semibold text-16 leading-[32px] ${className}`}
-		>
-			{children}
-		</div>
-	);
+  return (
+    <div
+      className={`flex flex-center gap-48 tracking-[1px] font-semibold text-16 leading-[32px] ${className}`}
+    >
+      {children}
+    </div>
+  );
 });
 
 interface TabsContextData {

@@ -1,7 +1,7 @@
-import { WhatIsStaking } from "../../views/what-is-staking"
+import { WhatIsStaking } from "../../views/what-is-staking";
 
 export const WhatIsStakingPage = () => {
-  return <WhatIsStaking />
-}
+  return <WhatIsStaking />;
+};
 
 export default WhatIsStakingPage;

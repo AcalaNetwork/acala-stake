@@ -20,76 +20,76 @@ interface TxButtonProps {
 }
 
 export const TxButton: FC<TxButtonProps> = React.memo(
-	({
-		className,
-		children,
-		error,
-		call,
-		message,
-		network = PRIMARY_NETWORK,
-		onError: onCustomErrorHandler,
-		onSuccess: onCustomSuccessHandler,
-	}) => {
-		const sendTx = useSendTx();
-		const extension = useExtension();
-		const openConnectExtension = useOpenModal(ModalType.ConnectExtension);
-		const [trackId, setTrackId] = useState<string>("-1");
-		const txData = useTxTracker(trackId);
+  ({
+    className,
+    children,
+    error,
+    call,
+    message,
+    network = PRIMARY_NETWORK,
+    onError: onCustomErrorHandler,
+    onSuccess: onCustomSuccessHandler,
+  }) => {
+    const sendTx = useSendTx();
+    const extension = useExtension();
+    const openConnectExtension = useOpenModal(ModalType.ConnectExtension);
+    const [trackId, setTrackId] = useState<string>("-1");
+    const txData = useTxTracker(trackId);
 
-		const needConnect = extension.status !== ConnectStatus.ready;
+    const needConnect = extension.status !== ConnectStatus.ready;
 
-		const handleClick = useCallback(
-			() => {
-				if (needConnect) {
-					openConnectExtension();
+    const handleClick = useCallback(
+      () => {
+        if (needConnect) {
+          openConnectExtension();
 
-					return;
-				}
+          return;
+        }
 
-				if (call && !error) {
-					const id = sendTx({
-						call,
-						message,
-						status: SendSatuts.pending,
-						network,
-						onFailed: () => {
-							setTrackId("-1");
-							onCustomErrorHandler && onCustomErrorHandler();
-						},
-						onSuccess: () => {
-							setTrackId("-1");
-							onCustomSuccessHandler && onCustomSuccessHandler();
-						}
-					});
-					setTrackId(id);
-				}
-			},
-			[setTrackId, openConnectExtension, needConnect, call, error, network]
-		);
+        if (call && !error) {
+          const id = sendTx({
+            call,
+            message,
+            status: SendSatuts.pending,
+            network,
+            onFailed: () => {
+              setTrackId("-1");
+              onCustomErrorHandler && onCustomErrorHandler();
+            },
+            onSuccess: () => {
+              setTrackId("-1");
+              onCustomSuccessHandler && onCustomSuccessHandler();
+            }
+          });
+          setTrackId(id);
+        }
+      },
+      [setTrackId, openConnectExtension, needConnect, call, error, network]
+    );
 
-		const disabled = useMemo(() => {
-			if (!txData) return false;
+    const disabled = useMemo(() => {
+      if (!txData) return false;
 
-			return (
-				txData.status === SendSatuts.pending ||
+      return (
+        txData.status === SendSatuts.pending ||
 				txData.status === SendSatuts.sending
-			);
-		}, [txData]);
+      );
+    }, [txData]);
 
-		const content = error ? error : needConnect ? "Connect Wallet" : children;
+    const content = error ? error : needConnect ? "Connect Wallet" : children;
 
-		return (
-			<Button
-				variant="filled"
-				color="primary"
-				className={`w-full ${className}`}
-				round="lg"
-				onClick={handleClick}
-				error={!!error}
-				disabled={disabled}
-			>
-				{content}
-			</Button>
-		);
-	}
+    return (
+      <Button
+        className={`w-full ${className}`}
+        color="primary"
+        disabled={disabled}
+        error={!!error}
+        onClick={handleClick}
+        round="lg"
+        variant="filled"
+      >
+        {content}
+      </Button>
+    );
+  }
 );

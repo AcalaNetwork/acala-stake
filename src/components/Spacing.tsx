@@ -7,5 +7,6 @@ interface SpacingProps {
 }
 
 export const Spacing: FC<SpacingProps> = React.memo(({ w, h, className }) => {
-	return <div style={{ width: w, height: h }} className={className} />;
+  return <div className={className}
+    style={{ width: w, height: h }} />;
 });

@@ -1857,5 +1857,5 @@ const Terms = styled((props) => {
 export default () => {
   return <Layout>
     <Terms />
-  </Layout>
+  </Layout>;
 };

@@ -14,17 +14,25 @@ export const Footer = () => {
         <AcaIcon className="w-[120px] h-[40px]" />
         <div className="flex flex-center text-16 text-7b7986 font-medium leading-20">
           <div className="pr-16 border-r border-solid border-d6d3de">
-            Block: <a href={`https://karura.subscan.io/block/${currentHeight}`} target='_blank' className='text-31c26b'> {`#${currentHeight}`}</a>
+            Block: <a className='text-31c26b'
+              href={`https://karura.subscan.io/block/${currentHeight}`}
+              rel="noreferrer"
+              target='_blank'> {`#${currentHeight}`}</a>
           </div>
           <div className="pl-16">
             <Link href='/terms'>Terms of Use</Link>
           </div>
-					<a href="https://discord.gg/6QHVY4X" target='_blank' className="ml-[52px] mr-[32px]">
+          <a className="ml-[52px] mr-[32px]"
+            href="https://discord.gg/6QHVY4X"
+            rel="noreferrer"
+            target='_blank'>
           	<DiscordIcon className="w-[36px]" />
-					</a>
-					<a href="https://linktr.ee/acalanetwork" target='_blank'>
+          </a>
+          <a href="https://linktr.ee/acalanetwork"
+            rel="noreferrer"
+            target='_blank'>
           	<BookIcon />
-					</a>
+          </a>
         </div>
       </div>
     </div>
