@@ -12,7 +12,7 @@ import { useSuggestInput, useTokens } from "../../../sdk";
 import { useLiquidity } from "../../../sdk/hooks/liquidity";
 
 export const useWithdrawLiquidityForm = () => {
-  const { api } = useApi();
+  const { api } = useApi('acala');
   const account = useActiveAccount();
   const liquidity = useLiquidity();
   const enabledCurrencies = useTokens(TokenType.DEX_SHARE);

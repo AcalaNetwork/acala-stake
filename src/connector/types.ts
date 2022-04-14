@@ -1,8 +1,8 @@
 import { ApiRx } from "@polkadot/api";
 import { SubmittableExtrinsic } from "@polkadot/api/types";
 import { InjectedExtension, InjectedAccount } from "@polkadot/extension-inject/types";
+import { ConnectedNetworks } from "config";
 import { ReactNode } from "react";
-import { CONNECTED_NETWORK } from "../config";
 
 export enum ConnectStatus {
   'disconnected',
@@ -25,7 +25,7 @@ export interface SubmitData {
   message: ReactNode;
   status: SendSatuts;
   hash?: string;
-  network: CONNECTED_NETWORK;
+  network: ConnectedNetworks;
   onSuccess?: () => void;
   onFailed?: () => void;
   onInBlock?: () => void;
@@ -33,15 +33,14 @@ export interface SubmitData {
 
 export interface SubstrateConnectorData {
 	api: ApiRx | null; // use `null` as default
-  network: CONNECTED_NETWORK; // the target network of the connection
+  network: ConnectedNetworks; // the target network of the connection
 	status: ConnectStatus; // the api connect status
-  isPrimary: boolean; // mark the network is primary
   isConnected: () => Promise<boolean>; // wait app connect
 }
 
 export interface SubstrateConnectorConfig {
   isPrimary: boolean;
-  network: CONNECTED_NETWORK;
+  network: ConnectedNetworks;
   endpoints: Record<string, string>;
   first?: string; // set the top priority endpoint
 }

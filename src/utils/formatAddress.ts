@@ -4,4 +4,4 @@ export const formatAddress = (address: string, ss58: number | string, mini = tru
   const addWithSS58 = encodeAddress(address, Number(ss58));
 
   return mini ? addWithSS58.replace(/(\w{6})\w*?(\w{6}$)/, '$1...$2') : addWithSS58;
-}
+};

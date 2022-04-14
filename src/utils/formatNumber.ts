@@ -23,6 +23,7 @@ export const formatNumber = (num: string | number | FixedPointNumber | undefined
     _num = (new FixedPointNumber(num || 0)).toString(18, 2);
   }
 
+  // eslint-disable-next-line prefer-const
   let [i, d] = _num.split('.');
 
   // test if the i is a validate number at first

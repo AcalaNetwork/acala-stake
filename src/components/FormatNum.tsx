@@ -15,6 +15,7 @@ export type FormatNumberProps = {
 	prefix?: string;
 	suffix?: string;
 	className?: string;
+  placeholder?: string;
 };
 
 export const FormatNumber: FC<FormatNumberProps> = memo(
@@ -34,7 +35,7 @@ export const FormatNumber: FC<FormatNumberProps> = memo(
             .replace("G", "B")
             .replace("k", "K"),
           "",
-				  ]
+        ]
         : formatNumber(data, formatNumberConfig).split(".");
     }, [data, formatNumberConfig, human]);
 

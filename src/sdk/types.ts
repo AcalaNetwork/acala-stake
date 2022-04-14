@@ -1,4 +1,4 @@
-import { Homa, Liquidity, Wallet } from '@acala-network/sdk';
+import { CrossChain, Homa, Liquidity, Wallet } from '@acala-network/sdk';
 import { SwapRx } from '@acala-network/sdk-swap';
 
 export interface SDK {
@@ -8,6 +8,10 @@ export interface SDK {
   homa?: Homa;
 }
 
-export type SDKNetwork = 'acala' | 'karura';
+export type SDKNetwork = 'karura' | 'acala';
 
-export type SDKStore = Record<SDKNetwork, SDK>;
+export type SDKStore = {
+  [k in SDKNetwork]: SDK;
+} & {
+  crossChain: CrossChain
+}

@@ -8,7 +8,7 @@ import { SDKNetwork } from '../../types';
 
 
 export const useSetFlexiPayToken = (network: SDKNetwork) => {
-  const {api} = useApi();
+  const {api} = useApi(network);
   const presetTokens = usePresetTokens(network);
 
   return useCallback((token?: MaybeCurrency) => {

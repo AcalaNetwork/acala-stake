@@ -1,15 +1,17 @@
 import { BaseSDK } from "@acala-network/sdk/types";
 import React, { FC, ReactElement, useMemo } from "react";
-import { combineLatest, of } from "rxjs";
-import { map, switchMap, filter } from "rxjs/operators";
+import { combineLatest } from "rxjs";
+import { map } from "rxjs/operators";
 import { useWallet } from "..";
 import { PageLoading } from "../../components/PageLoading";
 import { useBoolean, useMemoized } from "../../hooks";
 import { useSubscription } from "../../hooks/useSubscription";
 import { useLiquidity } from "../hooks/liquidity";
 import { useHoma } from "../hooks/homa/useHoma";
+import { useCrossChain } from "@sdk/hooks/crosschain/useCrossChian";
 
 type SDKType =
+	| 'crosschain'
 	| "acala-wallet"
 	| "acala-swap"
 	| "acala-liquidity"
@@ -26,10 +28,8 @@ interface EnsureSDKProps {
 const subscribeRequiredSDKReadyStatus = (
   sdks: Partial<Record<SDKType, BaseSDK>>
 ) => {
-  if (
-    Object.values(sdks).filter((i) => !!i).length !== Object.values(sdks).length
-  )
-    return false;
+  if (Object.values(sdks).filter((i) => !!i).length !== Object.values(sdks).length) return false;
+
   return (requires: SDKType[]) => {
     return combineLatest(
       Object.fromEntries(
@@ -57,9 +57,12 @@ export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(
     const karuraWallet = useWallet("karura");
     const karuraLiquidity = useLiquidity("karura");
     const karuraHoma = useHoma("karura");
+    // crosschain
+    const crossChian = useCrossChain();
 
     const subscribeReadyStatus = useMemo(() => {
       return subscribeRequiredSDKReadyStatus({
+        "crosschain": crossChian,
         "acala-wallet": acalaWallet,
         "acala-homa": acalaHoma,
         "acala-liquidity": acalaLiquidity,
@@ -67,14 +70,7 @@ export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(
         "karura-homa": karuraHoma,
         "karura-liquidity": karuraLiquidity,
       });
-    }, [
-      acalaWallet,
-      acalaLiquidity,
-      acalaHoma,
-      karuraWallet,
-      karuraLiquidity,
-      karuraHoma,
-    ]);
+    }, [crossChian, acalaWallet, acalaHoma, acalaLiquidity, karuraWallet, karuraHoma, karuraLiquidity]);
 
     useSubscription(() => {
       if (!subscribeReadyStatus) return;

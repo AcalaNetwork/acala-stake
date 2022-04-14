@@ -92,7 +92,7 @@ function calculateRedeem(api: ApiRx, current: string, swapResult: SwapParameters
 }
 
 export function useRedeemResult(amount: number, fastRedeem: boolean) {
-  const { api } = useApi();
+  const { api } = useApi('acala');
   const swap = useSwap();
   const homa = useHoma();
   const current = useActiveAccount();

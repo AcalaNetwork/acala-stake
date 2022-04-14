@@ -56,8 +56,6 @@ export const ChainSelector: FC<ChainSelectorProps> = ({
   className,
 }) => {
   const memChains = useMemoized(chains);
-  const [focuse, , onFocuse, onBlur] = useBoolean();
-
   const items = useMemo(() => {
     return memChains.map((item) => {
       return {
@@ -65,12 +63,11 @@ export const ChainSelector: FC<ChainSelectorProps> = ({
         render: itemRender,
       };
     });
-  }, [memChains, value]);
+  }, [memChains]);
 
   return (
     <Selector
       items={items}
-      onBlur={onBlur}
       onChange={onChange}
       render={btnRender}
       rootClassName={className}

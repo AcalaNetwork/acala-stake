@@ -1,13 +1,13 @@
 import { SubmittableExtrinsic } from "@polkadot/api/types";
 import React, { FC, useCallback, useMemo, useState } from "react";
-import { CONNECTED_NETWORK, PRIMARY_NETWORK } from "../config";
-import { useExtension } from "../connector";
-import { useSendTx } from "../connector/hooks/useSendTx";
-import { useTxTracker } from "../connector/hooks/useTxTracker";
-import { ConnectStatus, SendSatuts } from "../connector/types";
-import { useOpenModal } from "../state";
-import { ModalType } from "../state/application/types";
+import { useExtension } from "@connector";
+import { useSendTx } from "@connector/hooks/useSendTx";
+import { useTxTracker } from "@connector/hooks/useTxTracker";
+import { ConnectStatus, SendSatuts } from "@connector/types";
+import { useOpenModal } from "@state";
+import { ModalType } from "@state/application/types";
 import { Button } from "./Button";
+import { CONNECTED_NETWORK } from "../config";
 
 interface TxButtonProps {
 	className?: string;
@@ -26,7 +26,7 @@ export const TxButton: FC<TxButtonProps> = React.memo(
     error,
     call,
     message,
-    network = PRIMARY_NETWORK,
+    network,
     onError: onCustomErrorHandler,
     onSuccess: onCustomSuccessHandler,
   }) => {

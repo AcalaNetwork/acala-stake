@@ -1,15 +1,3 @@
-export type CONNECTED_NETWORK = 'acala' | 'polkadot' | 'karura' | 'kusama';
-export interface ApplicationConfig {
-	appName: string;
-	apis: Record<
-		CONNECTED_NETWORK,
-		{
-			network: CONNECTED_NETWORK;
-			endpoints: Record<string, string>;
-			isPrimary: boolean;
-		}
-	>;
-}
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
@@ -62,28 +50,42 @@ const configs = {
     acala: {
       network: 'acala',
       endpoints: acalaEndpoints,
-      isPrimary: true,
+      isParachain: false,
+      parachian: 'polkadot'
     },
     polkadot: {
       network: 'polkadot',
       endpoints: polkadotEndpoints,
-      isPrimary: false,
+      isParachain: true,
+      parachian: 'null'
     },
     karura: {
       network: 'karura',
       endpoints: karuraEndpoints,
-      isPrimary: true,
+      isParachain: false,
+      parachian: 'kusama'
     },
     kusama: {
       network: 'kusama',
       endpoints: kusamaEndpoints,
-      isPrimary: false,
+      isParachain: true,
+      parachian: 'null'
     },
   },
-} as ApplicationConfig;
-
-export const PRIMARY_NETWORK = Object.values(configs.apis).find(
-  (item) => item.isPrimary
-)?.network as CONNECTED_NETWORK;
+};
 
 export default configs;
+
+export type ConnectedNetworks = keyof typeof configs.apis;
+
+export interface ApplicationConfig {
+	appName: string;
+  apis: {
+    [k in ConnectedNetworks]: {
+      network: ConnectedNetworks;
+      endpoints: Record<string, string>;
+      isParachain: boolean;
+      parachian: string;
+    }
+  }
+}
