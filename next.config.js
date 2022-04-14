@@ -1,4 +1,9 @@
 module.exports = {
+  images: {
+    domains: [
+      'resources.acala.network'
+    ]
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.mjs$/,

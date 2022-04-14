@@ -17,7 +17,7 @@ export const AddLiquidityConfirmModal = () => {
       header={<ModalHeader onClose={close}>Confirm Add Liquidity</ModalHeader>}
     >
       <div className="pt-[40px] px-[40px] flex flex-center flex-col">
-        <p className="text-[18px] text-7b7986 font-normal leading-[27px]">
+        <p className="text-[18px] text-grey-3 font-normal leading-[27px]">
           Adding liquidity in one token will swap part of the share value into
           another token according to the exchange rate. Transaction fees and
           slippage fees will affect your share amount.

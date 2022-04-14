@@ -23,64 +23,64 @@ function mapper(data: {
 	balances: Record<string, BalanceData>;
 	prices: Record<string, FixedPointNumber>;
 }): Omit<BalanceOverviewItem, "display">[] {
-	const { balances, prices } = data;
+  const { balances, prices } = data;
 
-	return Object.entries(balances).map(([name, balance]) => {
-		const token = balance.token;
-		const total = balance.free;
-		const price = prices[name];
+  return Object.entries(balances).map(([name, balance]) => {
+    const token = balance.token;
+    const total = balance.free;
+    const price = prices[name];
 
-		return {
-			token,
-			total,
-			price,
-		};
-	});
+    return {
+      token,
+      total,
+      price,
+    };
+  });
 }
 
 export function useAccountBalanceOverview(configs: Configs) {
-	const { address, display } = configs;
-	const allTokens = useTokens();
-	const wallet = useWallet();
-	const [data, setData] = useState<Omit<BalanceOverviewItem, "display">[]>([]);
+  const { address, display } = configs;
+  const allTokens = useTokens();
+  const wallet = useWallet();
+  const [data, setData] = useState<Omit<BalanceOverviewItem, "display">[]>([]);
 
-	useSubscription(() => {
-		if (!wallet || !address || !allTokens?.length) return;
+  useSubscription(() => {
+    if (!wallet || !address || !allTokens?.length) return;
 
-		const balances$ = combineLatest({
-			...Object.fromEntries(
-				allTokens.map((item) => [
-					item.name,
-					wallet.subscribeBalance(item, address),
-				])
-			),
-		});
+    const balances$ = combineLatest({
+      ...Object.fromEntries(
+        allTokens.map((item) => [
+          item.name,
+          wallet.subscribeBalance(item, address),
+        ])
+      ),
+    });
 
-		const price$ = combineLatest({
-			...Object.fromEntries(
-				allTokens.map((item) => [item.name, wallet.subscribePrice(item)])
-			),
-		});
+    const price$ = combineLatest({
+      ...Object.fromEntries(
+        allTokens.map((item) => [item.name, wallet.subscribePrice(item)])
+      ),
+    });
 
-		return combineLatest({
-			balances: balances$,
-			prices: price$,
-		}).subscribe((data) => {
-			setData(mapper(data));
-		});
-	}, [wallet, address, allTokens]);
+    return combineLatest({
+      balances: balances$,
+      prices: price$,
+    }).subscribe((data) => {
+      setData(mapper(data));
+    });
+  }, [wallet, address, allTokens]);
 
-	return useMemo(() => {
-		return data.map((item) => {
-			return {
-				...item,
-				display:
+  return useMemo(() => {
+    return data.map((item) => {
+      return {
+        ...item,
+        display:
 					display === "TOKEN" ? (
-						<FormatBalance balance={item.total} />
+					  <FormatBalance balance={item.total} />
 					) : (
-						<FormatValue data={item.total && item.price ? item.total.mul(item.price) : null} />
+					  <FormatValue data={item.total && item.price ? item.total.mul(item.price) : null} />
 					),
-			};
-		});
-	}, [data, display]);
+      };
+    });
+  }, [data, display]);
 }

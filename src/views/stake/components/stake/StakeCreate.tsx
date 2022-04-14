@@ -61,7 +61,7 @@ export const StakeCreate = () => {
               <FormatBalance balance={available} human token={activeToken} className="text-2e2d33 font-medium" />
             </div>
             <div className="flex flex-between">
-              <span className="text-7b7986">Stake & Lock Amount</span>
+              <span className="text-grey-3">Stake & Lock Amount</span>
               <span className="text-494853">
                 Available via Bridge:{" "}
                 <span className=" text-2e2d33 font-medium">
@@ -77,7 +77,7 @@ export const StakeCreate = () => {
           value={stakeAmount}
           onChange={(e) => setStakeAmount(e)}
         />
-        <div className="mt-8 text-7b7986">
+        <div className="mt-8 text-grey-3">
           Minimum amount required:{" "}
           <span className=" text-494853 font-medium">1 {activeToken}</span>
         </div>

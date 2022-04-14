@@ -8,11 +8,12 @@ export const useValidator = () => {
   const [validators, setData] = useState<ValidatorId[]>([]);
 
   useSubscription(() => {
-    return api.query.session.validators().subscribe({
-      next: (data: any) => {
-        setData(data.slice(0, 4));
-      }
-    });
+    return undefined;
+    // return api.query.session.validators().subscribe({
+    //   next: (data: any) => {
+    //     setData(data.slice(0, 4));
+    //   }
+    // });
   }, [api]);
 
   return validators;

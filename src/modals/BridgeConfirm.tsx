@@ -17,7 +17,7 @@ export const BridgeConfirmModal = () => {
       header={<ModalHeader onClose={close}>Confirm Transaction</ModalHeader>}
     >
       <div className="pt-[40px] px-[40px] flex flex-center flex-col">
-        <p className="text-[18px] text-7b7986 font-normal leading-[27px]">
+        <p className="text-[18px] text-grey-3 font-normal leading-[27px]">
           Withdrawing tokens directly to an{" "}
           <strong>exchange is not supported.</strong> You need to bridge assets
           to your own account on its original network (e.g. DOT to the Polkadot

@@ -64,7 +64,7 @@ export const TokenSelector: FC<TokenSelectorProps> = memo(({
             <TokenImage size="sm"
               token={value} />
             <TokenName
-              className="ml-8 font-medium text-16 leading-20 text-7b7986"
+              className="ml-8 font-medium text-16 leading-20 text-grey-3"
               token={value}
             />
           </div>

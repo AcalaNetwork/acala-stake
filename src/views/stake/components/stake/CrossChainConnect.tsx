@@ -52,7 +52,7 @@ export const CrossChainConnect = () => {
             Connect Wallet
           </Button>
           <Spacing h={16} />
-          <div className="text-14 leading-17 font-medium text-7b7986">
+          <div className="text-14 leading-17 font-medium text-grey-3">
             Remo more on wallet guide{" "}
             <Link href="http://www.google.com">
               <span className="text-primary border-b border-primary cursor-pointer">

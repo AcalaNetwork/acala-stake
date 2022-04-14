@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { forceToCurrencyName, isDexShareName, unzipDexShareName, MaybeCurrency } from '@acala-network/sdk-core';
+import { forceToCurrencyName, isDexShareName, unzipDexShareName, MaybeCurrency, Token } from '@acala-network/sdk-core';
 import React, { FC } from 'react';
 import { getTokenImage } from '../utils/token';
 import { Size } from './types';
@@ -7,7 +7,7 @@ import { Size } from './types';
 export type TokenSize = Size | number;
 
 export interface TokenProps {
-  token: MaybeCurrency;
+  token: Token;
   size?: TokenSize
   className?: string;
   wh?: number;
@@ -55,25 +55,8 @@ const LPWrapper = styled.div<{ size: TokenSize }>`
 export const TokenImage: FC<TokenProps> = ({ className, token, size = 'md' }) => {
   if (!token) return null;
 
-  const name = forceToCurrencyName(token);
-  const isLPToken = isDexShareName(name);
-
-  // render lp token
-  if (isLPToken) {
-    const [token1, token2] = unzipDexShareName(name);
-
-    return (
-      <LPWrapper className={className}
-        size={size}>
-        <TokenWrapper size={size}>{getTokenImage(token1)}</TokenWrapper>
-        <TokenWrapper size={size}>{getTokenImage(token2)}</TokenWrapper>
-      </LPWrapper>
-    );
-  }
-
-  // render single token
   return (
     <TokenWrapper className={className}
-      size={size}>{getTokenImage(name)}</TokenWrapper> 
+      size={size}>{getTokenImage(token)}</TokenWrapper> 
   );
 };

@@ -29,7 +29,7 @@ export const AssetTable = () => {
         <div className="flex items-center text-494853">
           <TokenImage size="sm" token={props.value} />
           <div className="mx-8 text-14 text-494853">{props.value}</div>
-          <span className="text-12 font-medium text-7b7986">({getTokenFullName(props.value)})</span>
+          <span className="text-12 font-medium text-grey-3">({getTokenFullName(props.value)})</span>
         </div>
       ),
     },

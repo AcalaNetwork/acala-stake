@@ -23,7 +23,7 @@ const btnRender = (value: ChainData) => (
   <div className="flex flex-between h-full px-16">
     <div className="flex flex-center">
       <TokenImage token={value.chainName} />
-      <span className="ml-12 font-medium text-14 leading-17 text-7b7986">
+      <span className="ml-12 font-medium text-14 leading-17 text-grey-3">
         {value.name}
       </span>
     </div>
@@ -35,7 +35,7 @@ const itemRender = (value: ChainData, selected: ChainData) => (
   <div className="py-12 px-8 rounded-8 flex flex-between hover:bg-fff">
     <div className="flex flex-center">
       <TokenImage token={value.chainName} />
-      <span className="ml-8 font-medium text-16 leading-20 text-7b7986">
+      <span className="ml-8 font-medium text-16 leading-20 text-grey-3">
         {value.chainName}
       </span>
     </div>

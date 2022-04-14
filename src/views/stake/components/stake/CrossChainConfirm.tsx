@@ -70,7 +70,7 @@ export const CrossChainConfirm: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
                 name={name}
                 address={address}
                 showBoth
-                nameClassName="ml-8 text-[12px] text-7b7986 leading-[15px] font-medium"
+                nameClassName="ml-8 text-[12px] text-grey-3 leading-[15px] font-medium"
                 addressClassName="ml-2 font-14 leading-17px tracking-[1.6px]"
               />
             </div>

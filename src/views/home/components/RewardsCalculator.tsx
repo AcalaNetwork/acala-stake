@@ -55,7 +55,7 @@ export const RewardsCalculator = () => {
                 className="text-24 leading-29 font-bold text-primary"
                 data={apy}
               />
-              <span className="text-14 leading-17 mt-12 text-7b7986">APY</span>
+              <span className="text-14 leading-17 mt-12 text-grey-3">APY</span>
             </div>
             <div className="flex-1 flex flex-col items-start">
               <FormatBalance
@@ -70,7 +70,7 @@ export const RewardsCalculator = () => {
                 network={type}
                 token={activeToken}
               />
-              <span className="text-14 leading-17 mt-12 text-7b7986">
+              <span className="text-14 leading-17 mt-12 text-grey-3">
                 {" "}
 								Est. Earning/Month{" "}
               </span>
@@ -88,7 +88,7 @@ export const RewardsCalculator = () => {
                 network={type}
                 token={activeToken}
               />
-              <span className="text-14 leading-17 mt-12 text-7b7986">
+              <span className="text-14 leading-17 mt-12 text-grey-3">
                 {" "}
 								Est. Earning/Year{" "}
               </span>

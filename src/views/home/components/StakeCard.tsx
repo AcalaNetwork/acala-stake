@@ -99,7 +99,7 @@ const StakeItem: FC<StakeItemProps> = ({
           {type === "acala" ? "Polkadot" : "Kusama"} Staking
         </div>
         <Spacing h={19} />
-        <div className="text-14 leading-[21px] font-medium text-7b7986">
+        <div className="text-14 leading-[21px] font-medium text-grey-3">
           {desc}
         </div>
       </div>

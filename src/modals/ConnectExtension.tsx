@@ -65,7 +65,7 @@ export const ConnectExtensionModal = () => {
 						<p className="font-semibold text-sm text-494853 mb-4">
 							Connect Wallet
 						</p>
-						<p className="text-sm text-7b7986">To start using Acala</p>
+						<p className="text-sm text-grey-3">To start using Acala</p>
 					</Dialog.Title>
 				)
 			}
@@ -83,7 +83,7 @@ export const ConnectExtensionModal = () => {
 					{isLoading ? <Loading size="sm" /> : <ColorArrow className="cursor-pointer" />}
 				</div>
 			</div>
-			<p className="text-center text-sm text-7b7986">
+			<p className="text-center text-sm text-grey-3">
 				By connecting, I accept Acala’s{" "}
 				<a className="text-primary font-medium">Terms of Service</a>
 			</p>
@@ -116,7 +116,7 @@ const OrderBefore = styled.div<{ order: number }>`
 
 const ErrorContent = () => {
 	return (
-		<div className="px-32 text-base2 text-7b7986 mb-12">
+		<div className="px-32 text-base2 text-grey-3 mb-12">
 			<OrderBefore className="mb-24" order={1}>
 				<div>
 					{"Download Polkadot{js}"} Extension to supported browser{" "}

@@ -83,7 +83,7 @@ export const UnStakeCard: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
           />
         </FormPanel>
         <FormPanel>
-          <div className="mt-8 text-14 font-medium text-7b7986">
+          <div className="mt-8 text-14 font-medium text-grey-3">
             <div className="my-6">
               Transferrable:{" "}
               <span className="text-333">**** {liquidToken.name}</span>

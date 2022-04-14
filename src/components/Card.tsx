@@ -25,7 +25,7 @@ function getClassName(
 
   const variants = {
     "gradient-border": "card-gradient-border",
-    border: "border border-eae9f0",
+    border: "border border-grey-66",
   };
 
   const shadows = {

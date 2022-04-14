@@ -22,7 +22,7 @@ const TokenCard: FC<{ token: Token }> = ({ token }) => {
         <TokenImage size={44} token={token} />
       </div>
       <div className="flex flex-between w-full pl-8 mt-38 mr-16">
-        <div className="text-14 text-7b7986">The pool will start once</div>
+        <div className="text-14 text-grey-3">The pool will start once</div>
         <CircleProcess process={55} />
       </div>
       <div className="w-full h-[142px] flex flex-between mt-32">
@@ -175,17 +175,17 @@ export const BootstrapConsole = () => {
         <Card className="flex flex-center flex-col py-30 w-[314px]">
           <div className="w-64 h-64 bg-gray-400 rounded-circle"></div>
           <div className="pt-22 pb-16 text-16 leading-20 font-semibold text-494853">Bootstrap</div>
-          <div className="text-14 leading-20 text-7b7986 max-w-[253px] font-medium text-center tracking-[0.04em]">A new swap pool will start trading after bootstrap requirements are met to achieve better liquidity and rate discovery.</div>
+          <div className="text-14 leading-20 text-grey-3 max-w-[253px] font-medium text-center tracking-[0.04em]">A new swap pool will start trading after bootstrap requirements are met to achieve better liquidity and rate discovery.</div>
         </Card>
         <Card className="flex flex-center flex-col py-30 w-[314px]">
           <div className="w-64 h-64 bg-gray-400 rounded-circle"></div>
           <div className="pt-22 pb-16 text-16 leading-20 font-semibold text-494853">Add Liquidity</div>
-          <div className="text-14 leading-20 text-7b7986 max-w-[253px] font-medium text-center tracking-[0.04em]">A new swap pool will start trading after bootstrap requirements are met to achieve better liquidity and rate discovery.</div>
+          <div className="text-14 leading-20 text-grey-3 max-w-[253px] font-medium text-center tracking-[0.04em]">A new swap pool will start trading after bootstrap requirements are met to achieve better liquidity and rate discovery.</div>
         </Card>
         <Card className="flex flex-center flex-col py-30 w-[314px]">
           <div className="w-64 h-64 bg-gray-400 rounded-circle"></div>
           <div className="pt-22 pb-16 text-16 leading-20 font-semibold text-494853">Bootstrap</div>
-          <div className="text-14 leading-20 text-7b7986 max-w-[253px] font-medium text-center tracking-[0.04em]">A new swap pool will start trading after bootstrap requirements are met to achieve better liquidity and rate discovery.</div>
+          <div className="text-14 leading-20 text-grey-3 max-w-[253px] font-medium text-center tracking-[0.04em]">A new swap pool will start trading after bootstrap requirements are met to achieve better liquidity and rate discovery.</div>
         </Card>
       </div>
     </div>

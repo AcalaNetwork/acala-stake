@@ -70,7 +70,7 @@ export const AddLiquidityTab = () => {
         <FormPanel
           className="mt-32"
           label={
-            <div className="flex flex-between text-13 leading-16 text-7b7986 font-medium">
+            <div className="flex flex-between text-13 leading-16 text-grey-3 font-medium">
               <div>Amount</div>
               <div className="text-14 flex">
                 Avaliable:{" "}
@@ -94,7 +94,7 @@ export const AddLiquidityTab = () => {
         <FormPanel
           className="mt-32"
           label={
-            <div className="flex flex-between text-13 leading-16 text-7b7986 font-medium">
+            <div className="flex flex-between text-13 leading-16 text-grey-3 font-medium">
               <div>Amount</div>
               <div className="text-14 flex">
                 Avaliable:{" "}

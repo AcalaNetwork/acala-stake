@@ -20,7 +20,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
           </div>
           <div className="flex flex-between w-full mt-24 text-center">
             <div>
-              <div className="text-14 leading-17 text-7b7986">
+              <div className="text-14 leading-17 text-grey-3">
                 Liquidity Provided
               </div>
               <div className="text-20 leading-[24px] text-2e2d33 mt-18">
@@ -28,7 +28,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
               </div>
             </div>
             <div>
-              <div className="text-14 leading-17 text-7b7986">
+              <div className="text-14 leading-17 text-grey-3">
                 Est. LP Share
               </div>
               <div className="text-20 leading-[24px] text-2e2d33 mt-18">
@@ -36,7 +36,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
               </div>
             </div>
             <div>
-              <div className="text-14 leading-17 text-7b7986">
+              <div className="text-14 leading-17 text-grey-3">
                 Est. LP Token
               </div>
               <div className="text-20 leading-[24px] text-2e2d33 mt-18">
@@ -46,7 +46,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
           </div>
         </Card>
         <Card className="py-36 px-72 mt-28">
-          <div className="flex flex-center text-20 text-7b7986 font-medium">
+          <div className="flex flex-center text-20 text-grey-3 font-medium">
             Provide Liquidity to Bootstrap KAR-KSM
             <TokenImage className="ml-6" size={28} token={token} />
           </div>
@@ -120,7 +120,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
             )}
           </div>
           <div className="mt-30 border border-d6d3de rounded-[24px] py-10 text-14 leading-17 flex flex-center flex-col">
-            <p className=" text-7b7986 font-medium">
+            <p className=" text-grey-3 font-medium">
               Exchange Ratio after provision
             </p>
             <p className="text-494853 font-semibold my-8">1 ACA : 0.0212 DOT</p>
@@ -133,19 +133,19 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
           </div>
           <div className="mt-34 w-full font-medium">
             <div className="flex flex-between">
-              <div className="text-14 leading-17 text-7b7986">
+              <div className="text-14 leading-17 text-grey-3">
                 To receive LP shares with current ratio:
               </div>
               <div className="text-16 leading-20 text-494853">48.2%</div>
             </div>
             <div className="flex flex-between mt-9">
-              <div className="text-14 leading-17 text-7b7986 font-medium">
+              <div className="text-14 leading-17 text-grey-3 font-medium">
                 To receive LP tokens with current ratio:
               </div>
               <div className="text-16 leading-20 text-494853">1001</div>
             </div>
           </div>
-          <div className="w-full text-14 leading-20 text-7b7986 bg-eae9f0 mt-20 rounded-8 px-20 py-5">
+          <div className="w-full text-14 leading-20 text-grey-3 bg-eae9f0 mt-20 rounded-8 px-20 py-5">
             Note: The actual LP shares will be determined when the program ends.
           </div>
           <div className="flex flex-center mt-22">
@@ -175,7 +175,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
           </div>
           <div className="mt-12 text-14 leading-17 text-494853 text-right">20000 KAR</div>
         </div>
-        <div className="my-24 text-16 leading-20 text-7b7986 font-medium">OR</div>
+        <div className="my-24 text-16 leading-20 text-grey-3 font-medium">OR</div>
         <div className=" w-[226px] flex justify-start flex-col">
           <div className="text-14 leading-17 text-494853">14455 KSM <span className="text-primary font-medium">55%</span></div>
           <div className="w-full h-12 rounded-8 bg-eae9f0 mt-10 relative">
@@ -183,7 +183,7 @@ export const BootstrapDetail: FC<{ token: string }> = ({ token }) => {
           </div>
           <div className="mt-12 text-14 leading-17 text-494853 text-right">20000 KAR</div>
         </div>
-        <div className=" mt-44 text-14 leading-17 text-7b7986 font-medium">The target hasn't been met yet...</div>
+        <div className=" mt-44 text-14 leading-17 text-grey-3 font-medium">The target hasn't been met yet...</div>
       </Card>
     </div>
   );

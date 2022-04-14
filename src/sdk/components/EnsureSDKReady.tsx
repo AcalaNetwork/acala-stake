@@ -24,66 +24,68 @@ interface EnsureSDKProps {
 }
 
 const subscribeRequiredSDKReadyStatus = (
-	sdks: Partial<Record<SDKType, BaseSDK>>
+  sdks: Partial<Record<SDKType, BaseSDK>>
 ) => {
-	if (
-		Object.values(sdks).filter((i) => !!i).length !== Object.values(sdks).length
-	)
-		return false;
-	return (requires: SDKType[]) => {
-		return combineLatest(
-			Object.fromEntries(
-				requires.map((name) => {
-					return [name as string, sdks[name]?.isReady$];
-				})
-			)
-		).pipe(
-			map(
-				(result) => Object.values(result).filter((item) => !item).length === 0
-			)
-		);
-	};
+  if (
+    Object.values(sdks).filter((i) => !!i).length !== Object.values(sdks).length
+  )
+    return false;
+  return (requires: SDKType[]) => {
+    return combineLatest(
+      Object.fromEntries(
+        requires.map((name) => {
+          return [name as string, sdks[name]?.isReady$];
+        })
+      )
+    ).pipe(
+      map(
+        (result) => Object.values(result).filter((item) => !item).length === 0
+      )
+    );
+  };
 };
 
 export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(
-	({ requires, children, loading }) => {
-		const memoRequireds = useMemoized(requires);
-		const { value: isReady, update: updateIsReady } = useBoolean();
-		// acala sdk
-		const acalaWallet = useWallet("acala");
-		const acalaLiquidity = useLiquidity("acala");
-		const acalaHoma = useHoma("acala");
-		// karura sdk
-		const karuraWallet = useWallet("karura");
-		const karuraLiquidity = useLiquidity("karura");
-		const karuraHoma = useHoma("karura");
+  ({ requires, children, loading }) => {
+    const memoRequireds = useMemoized(requires);
+    const { value: isReady, update: updateIsReady } = useBoolean();
+    // acala sdk
+    const acalaWallet = useWallet("acala");
+    const acalaLiquidity = useLiquidity("acala");
+    const acalaHoma = useHoma("acala");
+    // karura sdk
+    const karuraWallet = useWallet("karura");
+    const karuraLiquidity = useLiquidity("karura");
+    const karuraHoma = useHoma("karura");
 
-		const subscribeReadyStatus = useMemo(() => {
-			return subscribeRequiredSDKReadyStatus({
-				"acala-wallet": acalaWallet,
-				"acala-homa": acalaHoma,
-				"acala-liquidity": acalaLiquidity,
-				"karura-wallet": karuraWallet,
-				"karura-homa": karuraHoma,
-				"karura-liquidity": karuraLiquidity,
-			});
-		}, [
-			acalaWallet,
-			acalaLiquidity,
-			acalaHoma,
-			karuraWallet,
-			karuraLiquidity,
-			karuraHoma,
-		]);
+    const subscribeReadyStatus = useMemo(() => {
+      return subscribeRequiredSDKReadyStatus({
+        "acala-wallet": acalaWallet,
+        "acala-homa": acalaHoma,
+        "acala-liquidity": acalaLiquidity,
+        "karura-wallet": karuraWallet,
+        "karura-homa": karuraHoma,
+        "karura-liquidity": karuraLiquidity,
+      });
+    }, [
+      acalaWallet,
+      acalaLiquidity,
+      acalaHoma,
+      karuraWallet,
+      karuraLiquidity,
+      karuraHoma,
+    ]);
 
-		useSubscription(() => {
-			if (!subscribeReadyStatus) return;
+    useSubscription(() => {
+      if (!subscribeReadyStatus) return;
 
-			return subscribeReadyStatus(memoRequireds).subscribe({ next: updateIsReady });
-		}, [subscribeReadyStatus, memoRequireds]);
+      return subscribeReadyStatus(memoRequireds).subscribe({ next: updateIsReady });
+    }, [subscribeReadyStatus, memoRequireds]);
 
-		if (!isReady) return loading || <PageLoading />;
+    console.log(isReady);
 
-		return <>{children}</>;
-	}
+    if (!isReady) return loading || <PageLoading />;
+
+    return <>{children}</>;
+  }
 );

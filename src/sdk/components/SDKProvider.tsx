@@ -1,3 +1,4 @@
+import { Wallet } from '@acala-network/sdk';
 import { Token } from '@acala-network/sdk-core';
 import React, { FC, useMemo } from 'react';
 import { useApi } from '../../connector';

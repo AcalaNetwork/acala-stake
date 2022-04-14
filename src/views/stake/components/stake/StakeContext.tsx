@@ -14,7 +14,7 @@ import { usePresetTokens } from "../../../../connector/hooks/usePresetTokens";
 import { useSubscription } from "../../../../hooks/useSubscription";
 import { useHoma, useHomaEnv } from "../../../../sdk/hooks/homa";
 import { eliminateGap } from "../../../../utils/eliminateGap";
-import { useStakeBalance } from "../../hook/useStakeBalance";
+import { useBalanceOverview } from "../../hook/useBalanceOverview";
 
 type IWalletStep = "wallet-overview" | "wallet-create" | "wallet-confirm";
 type IStakeStep = "stake-create" | "stake-confirm" | "stake-result";
@@ -73,7 +73,7 @@ export const StakeProvider: FC = ({ children }) => {
   const [stakeAmount, _setStakeAmount] = useState<string>();
   const [mintAmount, setMintAmount] = useState<EstimateMintResult>();
   const [collateralize, setCollateralize] = useState<boolean>(false);
-  const { available, apy } = useStakeBalance(activeToken);
+  const { available, apy } = useBalanceOverview(network);
   const homaEnv = useHomaEnv(network);
   const homa = useHoma(network);
   const { liquidToken, stakingToken } = homa.consts;

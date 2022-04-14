@@ -5,7 +5,7 @@ import { useActiveAccount, useApi, useExtrinsic } from "../../../connector";
 import { useSubscription } from "../../../hooks/useSubscription";
 import { useSwap } from "../../../sdk";
 import { useHoma, useHomaConts } from "../../../sdk/hooks/homa";
-import { useStakeBalance } from "./useStakeBalance"
+import { useStakeBalance } from "./useBalanceOverview";
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
@@ -75,20 +75,20 @@ function calculateRedeem(api: ApiRx, current: string, swapResult: SwapParameters
         ]]
       }
     };
-  } else {
-    return {
-      receive: receiveFromFastRedeem,
-      fee: redeemResult.fee,
-      params: {
-        method: 'batch',
-        section: 'utility',
-        params: [[
-          api.tx.homa.requestRedeem(redeemResult.request.toChainData(), true),
-          api.tx.homa.fastMatchRedeems([current])
-        ]]
-      }
-    };
-  }
+  } 
+  return {
+    receive: receiveFromFastRedeem,
+    fee: redeemResult.fee,
+    params: {
+      method: 'batch',
+      section: 'utility',
+      params: [[
+        api.tx.homa.requestRedeem(redeemResult.request.toChainData(), true),
+        api.tx.homa.fastMatchRedeems([current])
+      ]]
+    }
+  };
+  
 }
 
 export function useRedeemResult(amount: number, fastRedeem: boolean) {
@@ -155,4 +155,4 @@ export const useUnstakeForm = (token: 'KSM' | 'DOT') => {
     setIsFast,
     setAmount
   ] as const;
-}
+};

@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext } from "react";
 import { SDKContext } from "../..";
 import { SDKNetwork } from "../../types";
 
@@ -10,4 +10,4 @@ export const useWallet = (type?: SDKNetwork) => {
   }
 
   return sdk.acala.wallet;
-}
+};

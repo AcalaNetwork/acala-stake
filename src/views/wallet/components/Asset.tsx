@@ -47,7 +47,7 @@ export const Asset: FC<{data: Itotal}> = ({ data }) => {
           <WalletIcon className="mr-40" />
           <div className="flex flex-1 items-center">
             <div className="flex-1">
-              <p className="font-medium text-14 leading-17 text-7b7986 mb-12">
+              <p className="font-medium text-14 leading-17 text-grey-3 mb-12">
                 Estimated Portfolio
               </p>
               <div className="text-2e2d33 font-semibold text-[32px] leading-[39px]">
@@ -55,7 +55,7 @@ export const Asset: FC<{data: Itotal}> = ({ data }) => {
               </div>
             </div>
             <div className="flex-1 ml-20">
-              <p className="font-medium text-14 leading-17 text-7b7986 mb-12">
+              <p className="font-medium text-14 leading-17 text-grey-3 mb-12">
                 Est. Earning
               </p>
               <div className="text-2e2d33 font-semibold text-[32px] leading-[39px]">

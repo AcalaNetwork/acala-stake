@@ -13,7 +13,7 @@ export const ShareOverview = () => {
       >
         <div className="w-48 h-48 bg-gray-300 rounded-circle"></div>
         <div className="ml-24">
-          <div className="text-16 leading-20 text-7b7986 font-medium">
+          <div className="text-16 leading-20 text-grey-3 font-medium">
             Total Liquidity Share
           </div>
           <div className="text-28 leading-34 text-494853 font-semibold mt-14">
@@ -29,7 +29,7 @@ export const ShareOverview = () => {
         <div className="flex flex-center">
           <div className="w-48 h-48 bg-gray-300 rounded-circle"></div>
           <div className="ml-24">
-            <div className="text-16 leading-20 text-7b7986 font-medium">
+            <div className="text-16 leading-20 text-grey-3 font-medium">
               Total Unclaimed Rewards
             </div>
             <div className="text-28 leading-34 text-494853 font-semibold mt-14">

@@ -10,7 +10,7 @@ export const FormPanel: FC<FormPanelProps> = ({ className, extra, children, labe
   return (
     <div className={className}>
       {label ? (
-        <div className="text-13 leading-16 text-7b7986 mb-8">{label}</div>
+        <div className="text-13 leading-16 text-grey-3 mb-8">{label}</div>
       ) : null}
       {children}
       {extra ? <div className="mt-8">{extra}</div> : null}

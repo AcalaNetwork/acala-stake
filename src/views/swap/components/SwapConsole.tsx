@@ -120,7 +120,7 @@ const BalanceLabel = ({
 }) => {
 	return (
 		<div className="flex items-center justify-end mt-8 text-14 leading-17 font-medium">
-			<p className="text-7b7986 mr-4">Balance:</p>
+			<p className="text-grey-3 mr-4">Balance:</p>
 			<div className="text-333">
 				<FormatBalance balance={amount} token={token} />
 			</div>

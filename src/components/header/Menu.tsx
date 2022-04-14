@@ -2,8 +2,11 @@ import React, { FC } from "react";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { useRouter } from "next/router";
-import { Dropdown } from "../Dropdown";
 import { memo } from "react";
+import { Menu as UIMenu, Transition } from "@headlessui/react";
+import clsx from "clsx";
+import { useBoolean } from "@hooks";
+import { useCallback } from "react";
 
 type MenuItem = PropsWithChildren<{
   link:
@@ -17,32 +20,51 @@ type MenuItem = PropsWithChildren<{
 
 const MenuItem: FC<MenuItem> = memo(({ children, link, activeParams }) => {
   const { asPath } = useRouter();
-  const baseClassName =
-    "pt-8 pb-8 pl-36 pr-36 rounded-12 text-base font-medium";
-  const activeClassName = "bg-eae9f0 text-494853";
-  const isActive = activeParams.includes(asPath);
-  const className = `${baseClassName} ${
-    isActive ? activeClassName : "text-7b7986"
-  }`;
+  const isActive = activeParams?.includes(asPath) || asPath === link;
+  const { value: openStatus, setTrue: open, setFalse: close }  = useBoolean(false, 200);
 
   return (
-    <li className={className}>
+    <li
+      className={
+        clsx(
+          "w-[120px] flex-shrink-0 flex-grow-0 py-8 px-36 rounded-12 text-base font-medium cursor-pointer relative",
+          isActive ? 'bg-grey-200 text-grey-1': "text-grey-3"
+        )
+      }
+      onMouseEnter={open}
+      onMouseLeave={close}
+    >
       {typeof link === "string" ? (
         <Link href={link}>
           <a>{children}</a>
         </Link>
       ) : (
-        <Dropdown
-          childItems={link.map((item) => (
-            <div className={`w-100 border-b border-gray-300 text-center py-4 text-14`}
-              key={item.path}>
-              <Link href={item.path}>
-                <a className={asPath === item.path ? 'text-494853' : 'text-7b7986'}>{item.label}</a>
-              </Link>
+        <>
+          {children}
+          <Transition
+            enter="transition-opacity duration-75"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-150"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+            show={openStatus}
+            unmount={false} 
+          >
+            <div className='absolute top-48 left-0 bg-white rounded-8 shadow-2 overflow-hidden'>
+              {
+                link.map((item) => (
+                  <div className={`w-[128px] text-center px-16 py-12 hover:bg-gray-200`}
+                    key={item.path}>
+                    <Link href={item.path}>
+                      <a className={clsx({ 'text-grey-2': asPath === item.path})}>{item.label}</a>
+                    </Link>
+                  </div>
+                ))
+              }
             </div>
-          ))}
-          content={<div className={`text-7b7986 font-medium`}>{children}</div>}
-        />
+          </Transition>
+        </>
       )}
     </li>
   );
@@ -51,8 +73,7 @@ const MenuItem: FC<MenuItem> = memo(({ children, link, activeParams }) => {
 export const Menu = memo(() => {
   return (
     <ul className="flex flex-row">
-      <MenuItem activeParams={["/stake"]}
-        link="/stake">
+      <MenuItem link="/">
         Home
       </MenuItem>
       {/* <MenuItem
@@ -61,11 +82,10 @@ export const Menu = memo(() => {
       >
         What is Staking
       </MenuItem> */}
-      <MenuItem
-        activeParams={["/stake/dot", "/stake/ksm"]}
+      <MenuItem activeParams={["/stake/acala", "/stake/karura"]}
         link={[
-          { path: "/stake/dot", label: "Stake DOT" },
-          { path: "/stake/ksm", label: "Stake KSM" },
+          { path: "/stake/acala", label: "Stake DOT" },
+          { path: "/stake/karura", label: "Stake KSM" },
         ]}
       >
         Stake

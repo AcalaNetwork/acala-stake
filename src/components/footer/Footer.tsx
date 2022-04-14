@@ -12,7 +12,7 @@ export const Footer = () => {
     <div className="w-full h-100  bg-white">
       <div className="container flex flex-between h-full">
         <AcaIcon className="w-[120px] h-[40px]" />
-        <div className="flex flex-center text-16 text-7b7986 font-medium leading-20">
+        <div className="flex flex-center text-16 text-grey-3 font-medium leading-20">
           <div className="pr-16 border-r border-solid border-d6d3de">
             Block: <a className='text-31c26b'
               href={`https://karura.subscan.io/block/${currentHeight}`}

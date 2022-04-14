@@ -25,12 +25,12 @@ export const OverviewCard = () => {
                 <span className="text-[20px] leading-[24px] text-494853 font-semibold">
                   {token}
                 </span>
-                <div className="mt-12 text-16 leading-[20px] text-7b7986 font-medium">
+                <div className="mt-12 text-16 leading-[20px] text-grey-3 font-medium">
                   Liquid KSM
                 </div>
               </div>
             </div>
-            <div className="mt-[39px] text-16 leading-[20px] text-7b7986 font-medium">
+            <div className="mt-[39px] text-16 leading-[20px] text-grey-3 font-medium">
               Total Collateral:
               <span className="ml-8 text-24 leading-29 text-494853 font-semibold tracking-[0.02em]">{`$${formatNumber(
                 total

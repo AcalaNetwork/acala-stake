@@ -20,7 +20,7 @@ export const TotalStake: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
           <div className="text-20 leading-[24px] font-semibold flex gap-10">
             <FormatBalance balance={totalAmount} human /> {token}
           </div>
-          <div className="text-14 leading-17 my-12 text-7b7986 font-medium">
+          <div className="text-14 leading-17 my-12 text-grey-3 font-medium">
             <FormatValue data={totalValue} />
           </div>
           <div className="text-14 leading-17 mb-8 flex">
@@ -41,7 +41,7 @@ export const TotalStake: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
           <div className="text-20 leading-[24px] font-semibold flex gap-10">
             <FormatBalance balance={earningAmount} human /> {token}
           </div>
-          <div className="text-14 leading-17 my-12 text-7b7986 font-medium">
+          <div className="text-14 leading-17 my-12 text-grey-3 font-medium">
             <FormatValue data={earningValue} />
           </div>
           <div className="text-14 leading-17 mb-8 flex">
@@ -66,7 +66,7 @@ export const TotalStake: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
         </div>
         <div className="flex flex-col items-center">
           <div className="text-20 leading-[24px] font-semibold">*** ACA</div>
-          <div className="text-14 leading-17 my-12 text-7b7986 font-medium">
+          <div className="text-14 leading-17 my-12 text-grey-3 font-medium">
             *****
           </div>
           <div className="text-14 leading-17 mb-8">Airdrop</div>

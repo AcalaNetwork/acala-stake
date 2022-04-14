@@ -5,7 +5,7 @@ export const LiquidityOverview = () => {
 	return (
 		<div className="flex flex-between w-full h-full min-h-126">
 			<div>
-				<p className="text-16 leading-20 text-7b7986 mb-12">
+				<p className="text-16 leading-20 text-grey-3 mb-12">
 					Trading Liquidity
 				</p>
 				<p className="text-28 leading-34 text-2e2d33 font-semibold">

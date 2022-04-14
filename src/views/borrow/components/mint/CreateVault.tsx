@@ -25,7 +25,7 @@ export const CreateOverview = () => {
     <Card variant="border" className="w-[630px] h-[560px] px-40 pt-36 pb-52">
       <Step active={getActive(step)} data={steps} />
       <div className="mt-52">
-        <div className="text-14 leading-17 text-7b7986 font-medium">
+        <div className="text-14 leading-17 text-grey-3 font-medium">
           Collateral Amount
         </div>
         <div className="mt-8 h-58 w-full border border-645aff bg-f1f0f2 rounded-8 flex flex-between pr-20 py-14 focus-within:border-primary">
@@ -45,14 +45,14 @@ export const CreateOverview = () => {
             </div>
           </div>
         </div>
-        <div className="mt-8 text-14 leading-17 text-7b7986 font-medium">
+        <div className="mt-8 text-14 leading-17 text-grey-3 font-medium">
           Amount available:{" "}
           <span className=" text-494853">1000 {collateralToken}</span>
         </div>
       </div>
 
       <div className="mt-32">
-        <div className="text-14 leading-17 text-7b7986 font-medium">
+        <div className="text-14 leading-17 text-grey-3 font-medium">
           I want to mint
         </div>
         <div className="mt-8 h-58 w-full border border-645aff bg-f1f0f2 rounded-8 flex flex-between pr-20 py-14 focus-within:border-primary">
@@ -69,11 +69,11 @@ export const CreateOverview = () => {
             </div>
           </div>
         </div>
-        <div className="mt-8 text-14 leading-17 text-7b7986 font-medium">
+        <div className="mt-8 text-14 leading-17 text-grey-3 font-medium">
           Maximum available to mint:{" "}
           <span className=" text-494853">500 {debitToken}</span>
         </div>
-        <div className="mt-8 text-14 leading-17 text-7b7986 font-medium">
+        <div className="mt-8 text-14 leading-17 text-grey-3 font-medium">
           Minimum Required to mint:{" "}
           <span className=" text-494853">20 {debitToken}</span>
         </div>

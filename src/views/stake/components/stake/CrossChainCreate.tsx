@@ -94,7 +94,7 @@ export const CrossChainCreate: FC<{ token: "KSM" | "DOT" }> = ({ token }) => {
               address={address}
               showBoth
               spaceIcon="-"
-              nameClassName="ml-8 mr-4 text-[12px] text-7b7986 leading-15 font-medium"
+              nameClassName="ml-8 mr-4 text-[12px] text-grey-3 leading-15 font-medium"
               addressClassName="ml-4 text-[14px] leading-17px tracking-[1.6px] font-normal"
             />
           </div>

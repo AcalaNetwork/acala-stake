@@ -13,7 +13,7 @@ const MintCard = () => {
           {formatNumber(1524)}
           <TokenName className="ml-4" token={"AUSD"} />
         </div>
-        <div className="mt-4 text-14 leading-20 text-7b7986 font-medium">
+        <div className="mt-4 text-14 leading-20 text-grey-3 font-medium">
           ≈ US $6,325.95
         </div>
       </div>
@@ -63,7 +63,7 @@ const WithdrawCard = () => {
           {formatNumber(1000)}
           <TokenName className="ml-4" token={"LDOT"} />
         </div>
-        <div className="mt-4 text-14 leading-20 text-7b7986 font-medium">
+        <div className="mt-4 text-14 leading-20 text-grey-3 font-medium">
         ≈ US $4,500 
         </div>
       </div>

@@ -95,7 +95,7 @@ export const BridgeConsole: FC = () => {
               address="5FHsjtkGbHMpW7nhUqT91fju4WzUDz7sL6WSx3tGnTQgjcZW"
               showBoth
               spaceIcon="-"
-              nameClassName="ml-8 mr-4 text-[12px] text-7b7986 leading-15 font-medium"
+              nameClassName="ml-8 mr-4 text-[12px] text-grey-3 leading-15 font-medium"
               addressClassName="ml-4 text-[14px] leading-17px tracking-[1.6px] font-normal"
             />
           </div>

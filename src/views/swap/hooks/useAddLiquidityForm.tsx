@@ -222,17 +222,17 @@ export const useAddLiquidityForm = () => {
     {
       value: LIQUIDITY_MODE.MODE_BOTH,
       label: `Add ${getTokenName(selected)}`,
-      className: "ml-8 text-12 text-7b7986 font-medium",
+      className: "ml-8 text-12 text-grey-3 font-medium",
     },
     {
       value: LIQUIDITY_MODE.MODE_TOKEN1,
       label: `Add ${getTokenName(token1)}`,
-      className: "ml-8 text-12 text-7b7986 font-medium",
+      className: "ml-8 text-12 text-grey-3 font-medium",
     },
     {
       value: LIQUIDITY_MODE.MODE_TOKEN2,
       label: `Add ${getTokenName(token2)}`,
-      className: "ml-8 text-12 text-7b7986 font-medium",
+      className: "ml-8 text-12 text-grey-3 font-medium",
     },
   ];
 

@@ -1,9 +1,11 @@
-import { Button } from "@components/Button";
+import { Button, BaseComponentProps } from "@components";
+import clsx from "clsx";
+import { memo } from "react";
 
-export const BridgeServer = () => {
+export const UserGuide = memo<BaseComponentProps>(({ className }) => {
   return (
     <div
-      className="container mt-36 h-[119px] flex flex-between rounded-[24px] px-100"
+      className={clsx("flex flex-between rounded-[24px] px-100 py-30", className)}
       style={{ backgroundImage: `url("/images/top-board-bg.svg")` }}
     >
       <div>
@@ -15,9 +17,12 @@ export const BridgeServer = () => {
         </div>
       </div>
       <div className="flex flex-center gap-20">
-        <Button className="h-[45px] w-[150px]" size="sm">Watch Video</Button>
-        <Button className="h-[45px] w-[150px]" size="sm" variant="outline">User Guide</Button>
+        <Button className="h-[45px] w-[150px]"
+          size="sm">Watch Video</Button>
+        <Button className="h-[45px] w-[150px]"
+          size="sm"
+          variant="outline">User Guide</Button>
       </div>
     </div>
   );
-};
+});

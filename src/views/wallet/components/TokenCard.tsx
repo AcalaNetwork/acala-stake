@@ -36,7 +36,7 @@ export const TokenCard: FC<TokenCardProps> = memo(({
             className="text-20 leading-[24px] text-494853 font-semibold"
             token={token}
           />
-          <div className="text-16 leading-20 font-medium text-7b7986 mt-8">
+          <div className="text-16 leading-20 font-medium text-grey-3 mt-8">
             {getTokenFullName(token)}
           </div>
         </div>

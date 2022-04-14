@@ -14,7 +14,7 @@ export const UnstakeConfirmModal = () => {
       header={<ModalHeader onClose={close}>Unstake Request</ModalHeader>}
     >
       <div className="pt-[40px] px-[40px] flex flex-center flex-col">
-        <p className="text-[18px] text-7b7986 font-normal leading-[27px]">
+        <p className="text-[18px] text-grey-3 font-normal leading-[27px]">
           Unstake Request will put your unstake amount in a queue for
           processing. New Unstake Request will replace currently queued request
         </p>

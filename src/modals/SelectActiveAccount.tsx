@@ -135,7 +135,7 @@ export const SelectActiveAccount = memo(() => {
                 key={i}>
                 <div className="text-2e2d33">{item.mint}</div>
                 <div className=" text-494853">{item.type}</div>
-                <div className="text-13 text-7b7986">{item.time}</div>
+                <div className="text-13 text-grey-3">{item.time}</div>
               </div>
             );
           })}
