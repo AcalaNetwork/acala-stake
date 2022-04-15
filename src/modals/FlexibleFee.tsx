@@ -17,7 +17,7 @@ import { ModalType } from "../state/application/types";
 export const FlexibleFeeModal = () => {
   const [network, setNetwork] = useState<SDKNetwork>("karura");
   const type = ModalType.flexibleFee;
-  const visible = useModalVisible(type)
+  const visible = useModalVisible(type);
   const closeModal = useCloseModal(type);
   const openModal = useOpenModal(ModalType.selectAccount);
   const tokens = useTokens(TokenType.BASIC);
@@ -25,7 +25,7 @@ export const FlexibleFeeModal = () => {
   const payToken = useFlexiPayToken(network);
   const [value, setValue] = useState<Token>();
   const setFlexiPayToken = useSetFlexiPayToken(network);
-  const [call, feeData] = useExtrinsic(setFlexiPayToken(value));
+  const { call, fee } = useExtrinsic(setFlexiPayToken(value));
 
   useEffect(() => {
     if (payToken) setValue(payToken);
@@ -33,9 +33,9 @@ export const FlexibleFeeModal = () => {
 
   return (
     <Modal
-      visible={visible}
       header={<ModalHeader onClose={closeModal}>Flexible Fee</ModalHeader>}
       onClose={() => {}}
+      visible={visible}
     >
       <div className="px-40 py-24">
         <div className="flex items-center gap-20 mb-20 text-333 font-medium">
@@ -66,15 +66,15 @@ export const FlexibleFeeModal = () => {
           Set the next default token
         </div>
         <TokenSelector
+          className="relative border border-333 h-60 rounded-16"
           listClassName="h-[150px] overflow-y-auto"
+          onChange={(e) => setValue(e)}
           tokens={allTokens}
           value={value}
-          onChange={(e) => setValue(e)}
-          className="relative border border-333 h-60 rounded-16"
         />
         <div className="border border-333 h-60 rounded-16 mt-24 flex flex-between px-16 text-494853 text-16 font-medium bg-d6d3de">
           <div>Flexible Fee</div>
-          <div><FormatBalance balance={feeData} token={value} /></div>
+          <div><FormatBalance balance={fee.amount} token={fee.token} /></div>
         </div>
         <div className="flex flex-center">
           <TxButton call={call} className="mt-24 w-100">Save</TxButton>

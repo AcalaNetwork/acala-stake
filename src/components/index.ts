@@ -33,6 +33,8 @@ export * from './TopBoard';
 export * from './TxButton';
 export * from './TxNotifications';
 export * from './WrapInfo';
+export * from './Switch';
+export  *from './InfoBox';
 export * from './form';
 export * from './layout';
 export * from './footer';

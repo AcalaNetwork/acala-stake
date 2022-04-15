@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useMemoized } from ".";
 
-interface UseInputConfigs<T extends unknown> {
+interface UseInputConfigs<T> {
   init?: T;
   validator?: (value: T) => Promise<boolean>;
   rules?: {
@@ -9,47 +9,46 @@ interface UseInputConfigs<T extends unknown> {
     min: number;
     max: number;
   }
-};
+}
 
-export const useInput = <T extends unknown>(configs: UseInputConfigs<T>) => {
-  const memConfigs = useMemoized(configs);
+export const useInput = <T>(configs: UseInputConfigs<T>) => {
   const [value, setValue] = useState<T>(configs?.init);
-  const [error, setError] = useState<Error>();
-  const valueRef = useRef<T>(memConfigs.init);
+  const [error, setError] = useState<string>();
+  const valueRef = useRef<T>(configs.init);
 
   const onChange = useCallback((value: T) => {
-    const { rules } = memConfigs;
+    const { rules } = configs;
 
-    if (rules.type === 'number' && Reflect.has(rules, 'max')) {
-      if (Number(value) >= memConfigs.rules.max) {
-        value = memConfigs.rules.max as T;
+    if (rules && rules.type === 'number' && Reflect.has(rules, 'max')) {
+      if (Number(value) >= configs.rules.max) {
+        value = configs.rules.max as unknown as  T;
       }
     }
 
-    if (rules.type === 'number' && Reflect.has(rules, 'min')) {
-      if (Number(value) <= memConfigs.rules.min) {
-        value = memConfigs.rules.min as T;
+    if (rules && rules.type === 'number' && Reflect.has(rules, 'min')) {
+      if (Number(value) <= configs.rules.min) {
+        value = configs.rules.min as unknown as T;
       }
     }
 
     valueRef.current = value;
     setValue(value);
-  }, [setValue]);
+  }, [configs]);
 
   const onMax = useCallback((value: T) => {
-    onChange(value)
-  }, [setValue]);
+    onChange(value);
+  }, [onChange]);
 
   useEffect(() => {
-    if (memConfigs?.validator) {
-      memConfigs.validator(value).then((result: boolean) => {
+    if (configs?.validator) {
+      configs.validator(value).then((result: boolean) => {
         result && setError(undefined);
       }).catch((e) => {
-        setError(e);
-      })
+        setError(e?.message || e.toString());
+      });
     }
-  }, [value, memConfigs?.validator]);
+  }, [value, configs?.validator, configs]);
 
 
   return [value, { onChange, onMax, error, ref: valueRef }] as const;
-}
+};

@@ -1,27 +1,27 @@
-import { useContext } from "react";
 import { StakeLayout } from "@components/layout";
 import { Spacing } from "@components/Spacing";
+import { useRouter } from "next/router";
+import { memo } from "react";
 import { EnsureSDKReady } from "../../sdk/components/EnsureSDKReady";
-import { TabsCard } from "./components/mystake/TabsCard";
-import { TotalStake } from "./components/mystake/TotalStake";
-import { StakeProviderContext } from "./components/stake/StakeContext";
+import { TabsCard } from "./components/my-stake/TabsCard";
+import { StakingOverview } from "./components/my-stake/StakingOverview";
 import { StakeSubPageTabs } from "./components/StakeSubTabs";
 import { StakeTopBoard } from "./components/StakeTopBoard";
 
-export const MyStake = () => {
-  const { activeToken } = useContext(StakeProviderContext);
+export const MyStake = memo(() => {
+  const router = useRouter();
+  const network = router.query.network as SDKNetwork;
+
   return (
-    <EnsureSDKReady requires={['acala-homa', 'karura-homa', 'acala-wallet', 'karura-wallet']}>
-      <StakeLayout>
-        <StakeTopBoard token={activeToken} />
-        <StakeSubPageTabs active={2} token={activeToken}/>
+    <StakeLayout>
+      <EnsureSDKReady requires={['acala-homa', 'karura-homa', 'acala-wallet', 'karura-wallet']}>
+        <StakeTopBoard network={network} />
+        <StakeSubPageTabs active={2} network={network} />
         <div className="container">
           <Spacing h={40} />
-          <TotalStake token={activeToken} />
-          <Spacing h={40} />
-          <TabsCard />
+          <StakingOverview network={network} />
         </div>
-      </StakeLayout>
-    </EnsureSDKReady>
+      </EnsureSDKReady>
+    </StakeLayout>
   );
-};
+});

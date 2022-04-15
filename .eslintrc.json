@@ -19,7 +19,7 @@
     "react/react-in-jsx-scope": 0,
     "react/jsx-sort-props": 2,
     "react/jsx-key": 2,
-    "react/jsx-max-props-per-line": [1, { "maximum": { "single": 1, "multi": 1 } }],
+    "react/jsx-max-props-per-line": [1, { "maximum": { "single": 2, "multi": 2 } }],
     "react/prop-types": 0
   }
 }

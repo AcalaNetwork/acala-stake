@@ -1,3 +1,4 @@
+import { FixedPointNumber, Token } from "@acala-network/sdk-core";
 import { ApiRx } from "@polkadot/api";
 import { SubmittableExtrinsic } from "@polkadot/api/types";
 import { InjectedExtension, InjectedAccount } from "@polkadot/extension-inject/types";
@@ -52,4 +53,9 @@ export interface ExtensionConnectorData {
   injectedAccounts: InjectedAccount[];
   active?: InjectedAccount;
   setActive: (account: InjectedAccount) => Promise<void>
+}
+
+export interface TokenAmount {
+  amount: FixedPointNumber;
+  token: Token;
 }

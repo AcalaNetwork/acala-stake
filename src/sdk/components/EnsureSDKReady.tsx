@@ -2,7 +2,7 @@ import { BaseSDK } from "@acala-network/sdk/types";
 import React, { FC, ReactElement, useMemo } from "react";
 import { combineLatest } from "rxjs";
 import { map } from "rxjs/operators";
-import { useWallet } from "..";
+import { useSwap, useWallet } from "..";
 import { PageLoading } from "../../components/PageLoading";
 import { useBoolean, useMemoized } from "../../hooks";
 import { useSubscription } from "../../hooks/useSubscription";
@@ -13,11 +13,9 @@ import { useCrossChain } from "@sdk/hooks/crosschain/useCrossChian";
 type SDKType =
 	| 'crosschain'
 	| "acala-wallet"
-	| "acala-swap"
 	| "acala-liquidity"
 	| "acala-homa"
 	| "karura-wallet"
-	| "karura-swap"
 	| "karura-liquidity"
 	| "karura-homa";
 interface EnsureSDKProps {
@@ -77,8 +75,6 @@ export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(
 
       return subscribeReadyStatus(memoRequireds).subscribe({ next: updateIsReady });
     }, [subscribeReadyStatus, memoRequireds]);
-
-    console.log(isReady);
 
     if (!isReady) return loading || <PageLoading />;
 

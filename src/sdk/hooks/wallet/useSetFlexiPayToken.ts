@@ -30,6 +30,7 @@ export const useSetFlexiPayToken = (network: SDKNetwork) => {
     }
 
     return {
+      network,
       method: 'setAlternativeFeeSwapPath',
       params: path,
       section: 'transactionPayment'

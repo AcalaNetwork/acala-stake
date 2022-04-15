@@ -39,8 +39,6 @@ const Connected: FC<Omit<WalletProps, "isConnected">> = memo(({ className, isSta
 
   if (!active) return null;
 
-  console.log(active);
-
   return (
     <div className={`flex items-stretch font-medium ${className}`}>
       <div

@@ -7,14 +7,14 @@ import { ConnectStatus, SendSatuts } from "@connector/types";
 import { useOpenModal } from "@state";
 import { ModalType } from "@state/application/types";
 import { Button } from "./Button";
-import { CONNECTED_NETWORK } from "../config";
+import { ConnectedNetworks } from "config";
 
 interface TxButtonProps {
 	className?: string;
 	error?: string;
 	call?: SubmittableExtrinsic<"rxjs">;
 	message?: string;
-	network?: CONNECTED_NETWORK;
+	network: ConnectedNetworks;
 	onSuccess?: () => void;
 	onError?: () => void;
 }
@@ -64,7 +64,7 @@ export const TxButton: FC<TxButtonProps> = React.memo(
           setTrackId(id);
         }
       },
-      [setTrackId, openConnectExtension, needConnect, call, error, network]
+      [needConnect, call, error, openConnectExtension, sendTx, message, network, onCustomErrorHandler, onCustomSuccessHandler]
     );
 
     const disabled = useMemo(() => {

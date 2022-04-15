@@ -17,7 +17,7 @@ export const StakeSubPageTabs: FC<PageTabsProps> = ({ active, network }) => {
       href: `/stake/${network}/unstake`
     },{
       content: 'My Stakes',
-      href: `/stake/${network}/mystake`
+      href: `/stake/${network}/user`
     },
   ], [network]);
 

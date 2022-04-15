@@ -6,6 +6,7 @@ import AcalaSwap from "/public/pages/express/acala-swap.svg";
 import KaruraSwap from "/public/pages/express/karura-swap.svg";
 import { TokenImage } from "../../../components/TokenImage";
 import { useState } from "react";
+import { useGetToken } from "@sdk";
 
 interface ItemProps {
   title: string;
@@ -27,6 +28,9 @@ const Item: FC<ItemProps> = ({ title, desc, icon }) => {
 
 export const Ecosystem = () => {
   const [isAll, setIsAll] = useState<boolean>(false);
+  const getAcalaToken = useGetToken('acala');
+  const getKaruraToken = useGetToken('karura');
+
   return (
     <div className="text-center container">
       <div className="text-[34px] leading-[44px] tracking-[0.04em] text-2e2d33 font-bold mb-64">
@@ -41,7 +45,7 @@ export const Ecosystem = () => {
         <Item
           desc="Use LDOT as collateral to borrow aUSD"
           icon={<TokenImage size={64}
-            token={"AUSD"} />}
+            token={getAcalaToken('AUSD')} />}
           title="Acala Dollar"
         />
         <Item
@@ -55,15 +59,15 @@ export const Ecosystem = () => {
           title="Karura Swap"
         />
         <Item
-          desc="Use LKSM as collateral to borrow kUSD"
+          desc="Use LKSM as collateral to borrow aUSD"
           icon={<TokenImage size={64}
-            token={"KUSD"} />}
+            token={getKaruraToken("AUSD")} />}
           title="Karura Dollar"
         />
         <Item
           desc="Trade stable assets efficiently"
           icon={<TokenImage size={64}
-            token={"TAI"} />}
+            token={getKaruraToken("TAI")} />}
           title="Taigo"
         />
         {isAll && (

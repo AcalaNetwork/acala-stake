@@ -1,4 +1,4 @@
-import { BridgeConsole } from "@views/bridge/BridgeConsole";
+import { BridgeConsole } from "@views/bridge/components/BridgeConsole";
 import { memo } from "react";
 import { StakeCover } from "./StakeCover";
 import { StakeSteps, useStakeContext } from "./StakeProvider";
@@ -9,7 +9,7 @@ export const StakeConsole = memo(() => {
 
   if (step === StakeSteps.INIT) return (
     <StakeCover className={baseClassName} />
-  )
+  );
 
   if (step === StakeSteps.BRIDGE) return (
     <BridgeConsole className={baseClassName}

@@ -1,6 +1,5 @@
-import { Token } from "@acala-network/sdk-core";
 import { FC, useMemo } from "react";
-import { useBoolean, useMemoized } from "../../hooks";
+import { useMemoized } from "../../hooks";
 import { TokenImage } from "../TokenImage";
 import { Selector } from "./Selector";
 import TriangleIcon from "/public/icons/triangle.svg";

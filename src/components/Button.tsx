@@ -100,10 +100,11 @@ export const LinkButton: FC<ButtonProps & { href?: string }> = React.memo(({ hre
     if (onClick) {
       onClick(e);
     }
+
     if (href) {
       router.push(href);
     }
-  }, [href, onClick]);
+  }, [href, onClick, router]);
 
   return <Button {...rest}
     onClick={handleLink} />;

@@ -30,9 +30,7 @@ export const Stake = memo(() => {
         ]}
       >
         <StakeTopBoard network={network} />
-        <StakeSubPageTabs
-          active={0}
-          network={network}
+        <StakeSubPageTabs active={0} network={network}
         />
         <div className="container">
           {

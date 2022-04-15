@@ -1,8 +1,7 @@
 import { Token } from "@acala-network/sdk-core";
 import { CurrencyId } from "@acala-network/types/interfaces";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useApi } from "..";
-import { useWallet } from "../../sdk";
 import { SDKNetwork } from "../../sdk/types";
 
 interface PresetToken {
@@ -14,11 +13,14 @@ interface PresetToken {
 }
 
 export const usePresetTokens = (network: SDKNetwork): PresetToken => {
-  const { api } = useApi(network);
+  const apiConnector = useApi(network);
   const [data, setData] = useState<PresetToken>();
 
   useEffect(() => {
+    const api = apiConnector?.api;
+
     if(!api || !api.isReady || !api.consts) return;
+
     const data = {} as PresetToken;
 
     data.nativeToken = Token.fromCurrencyId(
@@ -35,7 +37,7 @@ export const usePresetTokens = (network: SDKNetwork): PresetToken => {
     );
 
     setData(data);
-  }, [api, api?.consts]);
+  }, [apiConnector?.api]);
 
   return data;
 };

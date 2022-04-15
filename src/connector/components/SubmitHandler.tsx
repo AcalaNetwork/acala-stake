@@ -12,155 +12,156 @@ import { has, remove } from "lodash";
 const MAX_TX_WAITING_TIME = 60 * 1000;
 
 const extractEvents = (
-	result: SubmittableResult,
-	api: ApiRx
+  result: SubmittableResult,
+  api: ApiRx
 ): { isDone: boolean; errorMessage?: string } => {
-	const events = result.events.filter((event): boolean => !!event.event);
+  const events = result.events.filter((event): boolean => !!event.event);
 
-	for (const {
-		event: { data, method, section },
-	} of events) {
-		// extrinsic success
-		if (section === "system" && method === "ExtrinsicSuccess") {
-			return { isDone: true };
-		}
+  for (const {
+    event: { data, method, section },
+  } of events) {
+    // extrinsic success
+    if (section === "system" && method === "ExtrinsicSuccess") {
+      return { isDone: true };
+    }
 
-		// extrinsic failed
-		if (section === "system" && method === "ExtrinsicFailed") {
-			const [dispatchError] = data as unknown as ITuple<[DispatchError]>;
-			let message = dispatchError.type;
+    // extrinsic failed
+    if (section === "system" && method === "ExtrinsicFailed") {
+      const [dispatchError] = data as unknown as ITuple<[DispatchError]>;
+      let message = dispatchError.type;
 
-			if (dispatchError.isModule) {
-				try {
-					const mod = dispatchError.asModule;
-					const error = api.registry.findMetaError(
-						new Uint8Array([mod.index.toNumber(), mod.error.toNumber()])
-					);
+      if (dispatchError.isModule) {
+        try {
+          const mod = dispatchError.asModule;
+          const error = api.registry.findMetaError(
+            new Uint8Array([mod.index.toNumber(), mod.error.toNumber()])
+          );
 
-					message = `${error.section}.${error.name}` as any;
-				} catch (error: any) {
-					message = error?.toString() || "unknown error";
-				}
-			}
+          message = `${error.section}.${error.name}` as any;
+        } catch (error: any) {
+          message = error?.toString() || "unknown error";
+        }
+      }
 
-			return { errorMessage: message, isDone: true };
-		}
-	}
+      return { errorMessage: message, isDone: true };
+    }
+  }
 
-	return { isDone: false };
+  return { isDone: false };
 };
 
 const filterPendingCall = (data: SubmitData) =>
-	data.status === SendSatuts.pending;
+  data.status === SendSatuts.pending;
 
 const filterFinalizeCall = (data: SubmitData) =>
-	data.status === SendSatuts.failed || data.status === SendSatuts.success;
+  data.status === SendSatuts.failed || data.status === SendSatuts.success;
 
 const tracker = [];
 
 const handleResult = (result: ISubmittableResult, api: ApiRx) => {
-	if (result.status.isInBlock || result.status.isFinalized) {
-		const { errorMessage, isDone } = extractEvents(result, api);
+  if (result.status.isInBlock || result.status.isFinalized) {
+    const { errorMessage, isDone } = extractEvents(result, api);
 
-		// handle extrinsic error
-		if (isDone && errorMessage) {
-			throw new Error(errorMessage);
-		}
+    // handle extrinsic error
+    if (isDone && errorMessage) {
+      throw new Error(errorMessage);
+    }
 
-		return isDone;
-	}
-	if (
-		result.status.isUsurped ||
+    return isDone;
+  }
+  if (
+    result.status.isUsurped ||
 		result.status.isDropped ||
 		result.status.isFinalityTimeout
-	) {
-		throw new Error(result.status.toString());
-	}
+  ) {
+    throw new Error(result.status.toString());
+  }
 
-	return false;
+  return false;
 };
 
 const sendCall = (
-	api: ApiRx,
-	data: SubmitData,
-	signedAccount: string,
-	updater: (data: Partial<SubmitData>) => void,
+  api: ApiRx,
+  data: SubmitData,
+  signedAccount: string,
+  updater: (data: Partial<SubmitData>) => void,
 ) => {
-	// check the track list
-	if (has(tracker, data.trackId)) return;
+  // check the track list
+  if (has(tracker, data.trackId)) return;
 
-	// lock current call
-	tracker.push(data.trackId);
+  // lock current call
+  tracker.push(data.trackId);
 
-	const { call } = data;
+  const { call } = data;
 
-	const subscriber = call
-		.signAsync(signedAccount, { nonce: -1 })
-		.pipe(
-			tap((signedTx: SubmittableExtrinsic<"rxjs">) => {
-				const hash = signedTx.hash.toString();
-				// update
-				updater({ trackId: data.trackId, status: SendSatuts.sending, hash });
+  const subscriber = call
+    .signAsync(signedAccount, { nonce: -1 })
+    .pipe(
+      tap((signedTx: SubmittableExtrinsic<"rxjs">) => {
+        const hash = signedTx.hash.toString();
+        // update
+        updater({ trackId: data.trackId, status: SendSatuts.sending, hash });
 
-				return signedTx;
-			}),
-			switchMap((signedTx) => signedTx.send()),
-			map((result) => handleResult(result, api)),
-			finalize(() => {
-				// unlock current call
-				remove(tracker, data.trackId);
-			})
-		)
-		.subscribe({
-			error: (error: Error) => {
-				if (error.name === "TimeoutError") {
-					updater({
-						trackId: data.trackId,
-						status: SendSatuts.failed,
-						message: "Extrinsic timed out, Please check manually",
-					});
-				} else {
-					updater({
-						trackId: data.trackId,
-						status: SendSatuts.failed,
-						message: error && error.message ? error.message : "Error Occurred!",
-					});
+        return signedTx;
+      }),
+      switchMap((signedTx) => signedTx.send()),
+      map((result) => handleResult(result, api)),
+      finalize(() => {
+        // unlock current call
+        remove(tracker, data.trackId);
+      })
+    )
+    .subscribe({
+      error: (error: Error) => {
+        if (error.name === "TimeoutError") {
+          updater({
+            trackId: data.trackId,
+            status: SendSatuts.failed,
+            message: "Extrinsic timed out, Please check manually",
+          });
+        } else {
+          updater({
+            trackId: data.trackId,
+            status: SendSatuts.failed,
+            message: error && error.message ? error.message : "Error Occurred!",
+          });
 
-					data.onFailed && data.onFailed();
-					subscriber.unsubscribe();
-				}
-			},
-			next: () => {
-				updater({
-					trackId: data.trackId,
-					status: SendSatuts.success,
-					message: "Submit Transaction Success",
-				});
+          data.onFailed && data.onFailed();
+          subscriber.unsubscribe();
+        }
+      },
+      next: () => {
+        updater({
+          trackId: data.trackId,
+          status: SendSatuts.success,
+          message: "Submit Transaction Success",
+        });
 
-				data.onSuccess && data.onSuccess();
-				subscriber.unsubscribe();
-			},
-		});
+        data.onSuccess && data.onSuccess();
+        subscriber.unsubscribe();
+      },
+    });
 };
 
 export const SubmitHandler = () => {
-	const active = useActiveAccount();
-	const connector = useContext(ConnectorContext);
-	const { callQueue, apis, updateTx, removeTx } = connector;
+  const active = useActiveAccount();
+  const connector = useContext(ConnectorContext);
+  const { callQueue, apis, updateTx, removeTx } = connector;
 
-	useEffect(() => {
-		if (!active) return;
+  useEffect(() => {
+    if (!active) return;
 
-		// send all pending tx
-		callQueue.filter(filterPendingCall).forEach((data) => {
-			const api = apis[data.network];
+    // send all pending tx
+    callQueue.filter(filterPendingCall).forEach((data) => {
+      const api = apis[data.network];
 
-			if (api.api) sendCall(api.api, data, active.address, updateTx);
-		});
+			console.log(data);
+      if (api?.api) sendCall(api.api, data, active.address, updateTx);
+    });
 		
-		// remove failed or success tx
-		callQueue.filter(filterFinalizeCall).forEach((data) => removeTx(data.trackId));
-	}, [callQueue, apis, updateTx, removeTx, active]);
+    // remove failed or success tx
+    callQueue.filter(filterFinalizeCall).forEach((data) => removeTx(data.trackId));
+  }, [callQueue, apis, updateTx, removeTx, active]);
 
-	return null;
+  return null;
 };

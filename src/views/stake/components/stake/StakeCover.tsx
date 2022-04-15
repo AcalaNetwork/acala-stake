@@ -4,9 +4,7 @@ import clsx from "clsx";
 import { Card, Button, Spacing, BaseComponentProps, FormatBalance } from "@components";
 import { useActiveAccount } from "@connector";
 import { useHomaConts } from "@sdk/hooks/homa";
-import { getNetworkName } from "@utils/network";
 import { getTokenName } from '@utils/token';
-import { useNetworkInfos } from "@sdk/hooks/wallet/useNetworkInfo";
 import { StakeSteps, useStakeContext } from "./StakeProvider";
 import { useCrossChain } from "@sdk/hooks/crosschain/useCrossChian";
 import { ConnectedNetworks } from "config";
@@ -24,8 +22,6 @@ interface StakingTokenBalanceProps extends BaseComponentProps {
 const StakingTokenBalance = memo<StakingTokenBalanceProps>(({ available, className, network, token }) => {
   const tokenName = getTokenName(token);
   const balance = useCrossChainBalance(network, token.symbol);
-
-  console.log(network, available);
 
   return (
     <div className={clsx("flex flex-between text-16 leading-20 text-grey-2", {

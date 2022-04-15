@@ -3,10 +3,9 @@ import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { useRouter } from "next/router";
 import { memo } from "react";
-import { Menu as UIMenu, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { useBoolean } from "@hooks";
-import { useCallback } from "react";
 
 type MenuItem = PropsWithChildren<{
   link:
@@ -15,12 +14,11 @@ type MenuItem = PropsWithChildren<{
         path: string;
         label: string;
       }[];
-  activeParams?: string[];
 }>;
 
-const MenuItem: FC<MenuItem> = memo(({ children, link, activeParams }) => {
+const MenuItem: FC<MenuItem> = memo(({ children, link }) => {
   const { asPath } = useRouter();
-  const isActive = activeParams?.includes(asPath) || asPath === link;
+  const isActive = typeof link === 'string' ? asPath === link : link.map(i => i.path).includes(asPath);
   const { value: openStatus, setTrue: open, setFalse: close }  = useBoolean(false, 200);
 
   return (
@@ -76,13 +74,7 @@ export const Menu = memo(() => {
       <MenuItem link="/">
         Home
       </MenuItem>
-      {/* <MenuItem
-        activeParams={["/stake/what-is-staking"]}
-        link="/stake/what-is-staking"
-      >
-        What is Staking
-      </MenuItem> */}
-      <MenuItem activeParams={["/stake/acala", "/stake/karura"]}
+      <MenuItem
         link={[
           { path: "/stake/acala", label: "Stake DOT" },
           { path: "/stake/karura", label: "Stake KSM" },
@@ -90,14 +82,14 @@ export const Menu = memo(() => {
       >
         Stake
       </MenuItem>
-      <MenuItem activeParams={["/stake/bridge"]}
-        link="/stake/bridge">
+      <MenuItem
+        link={[
+          { path: "/bridge/acala", label: "Brideg DOT" },
+          { path: "/bridge/karura", label: "Bridge KSM" },
+        ]}
+      >
         Bridge
       </MenuItem>
-      {/* <MenuItem activeParams={["/stake/community"]}
-        link="/stake/community">
-        Community
-      </MenuItem> */}
     </ul>
   );
 });
