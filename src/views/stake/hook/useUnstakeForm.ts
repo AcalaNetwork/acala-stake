@@ -1,10 +1,10 @@
-import { FixedPointNumber  } from "@acala-network/sdk-core";
-import { useCallback, useMemo } from "react";
-import { useActiveAccount } from "@connector";
-import { useBalance } from "@sdk";
-import { useHomaConts, useHomaEnv, useHomaRedeemRequesting } from "@sdk/hooks/homa";
-import { SDKNetwork } from "@sdk/types";
-import { useBoolean, useInput } from "@hooks";
+import { FixedPointNumber } from '@acala-network/sdk-core';
+import { useCallback, useMemo } from 'react';
+import { useActiveAccount } from '@connector';
+import { useBalance } from '@sdk';
+import { useHomaConts, useHomaEnv, useHomaRedeemRequesting } from '@sdk/hooks/homa';
+import { SDKNetwork } from '@sdk/types';
+import { useBoolean, useInput } from '@hooks';
 
 export const useUnstakeForm = (network: SDKNetwork) => {
   const homaConts = useHomaConts(network);
@@ -28,24 +28,27 @@ export const useUnstakeForm = (network: SDKNetwork) => {
     return env.redeemThreshold;
   }, [env]);
 
-  const validator = useCallback(async (amount) => {
-    if (!amount) throw new Error('Amount Is required');
+  const validator = useCallback(
+    async (amount) => {
+      if (!amount) throw new Error('Amount Is required');
 
-    const fixedAmount = new FixedPointNumber(amount, liquidToken.decimals);
+      const fixedAmount = new FixedPointNumber(amount, liquidToken.decimals);
 
-    if (fixedAmount.lt(minAmount)) {
-      throw new Error(`minimum is ${minAmount.toString()}`);
-    }
+      if (fixedAmount.lt(minAmount)) {
+        throw new Error(`minimum is ${minAmount.toString()}`);
+      }
 
-    if (fixedAmount.gt(maxAmount)) {
-      throw new Error(`maximum is ${maxAmount.toString()}`);
-    }
+      if (fixedAmount.gt(maxAmount)) {
+        throw new Error(`maximum is ${maxAmount.toString()}`);
+      }
 
-    return true;
-  }, [liquidToken.decimals, maxAmount, minAmount]);
+      return true;
+    },
+    [liquidToken.decimals, maxAmount, minAmount]
+  );
 
   const [amount, { error: amountError, onChange: onAmountChange }] = useInput<string>({
-    validator
+    validator,
   });
 
   const onMaxAmount = useCallback(() => {
@@ -60,6 +63,6 @@ export const useUnstakeForm = (network: SDKNetwork) => {
     maxAmount,
     minAmount,
     isFastRedeem,
-    setIsFastRedeem
+    setIsFastRedeem,
   };
 };

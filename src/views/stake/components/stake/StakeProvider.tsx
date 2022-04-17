@@ -1,18 +1,11 @@
-import React, {
-  useState,
-  createContext,
-  useMemo,
-  memo,
-  PropsWithChildren,
-  useContext
-} from "react";
-import { SDKNetwork } from "@sdk/types";
+import React, { useState, createContext, useMemo, memo, PropsWithChildren, useContext } from 'react';
+import { SDKNetwork } from '@sdk/types';
 
 export enum StakeSteps {
   'INIT',
   'BRIDGE',
   'STAKE',
-  'COMPLATED'
+  'COMPLATED',
 }
 
 interface StakeContextProps {
@@ -20,7 +13,7 @@ interface StakeContextProps {
   step: StakeSteps;
   hooks: {
     useSetStep: () => (value: StakeSteps) => void;
-  }
+  };
 }
 
 export const StakeContext = createContext<StakeContextProps>({} as StakeContextProps);
@@ -28,16 +21,19 @@ export const StakeContext = createContext<StakeContextProps>({} as StakeContextP
 export const StakeProvider = memo<PropsWithChildren<{ network: SDKNetwork }>>(({ network, children }) => {
   const [step, setStep] = useState<StakeSteps>(StakeSteps.INIT);
 
-  const hooks = useMemo(() => ({
-    useSetStep: () => setStep
-  }), [setStep]);
+  const hooks = useMemo(
+    () => ({
+      useSetStep: () => setStep,
+    }),
+    [setStep]
+  );
 
   return (
     <StakeContext.Provider
       value={{
         network,
         step,
-        hooks
+        hooks,
       }}
     >
       {children}

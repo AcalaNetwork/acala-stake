@@ -1,28 +1,17 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  ConnectStatus,
-  ExtensionConnectorData,
-  SubstrateConnectorData,
-} from "../types";
-import {
-  InjectedExtension,
-  InjectedAccount,
-  Unsubcall,
-} from "@polkadot/extension-inject/types";
-import { useMemo } from "react";
-import { NoExtensions } from "../errors";
-import { useApi } from ".";
+import { useEffect, useRef, useState } from 'react';
+import { ConnectStatus, ExtensionConnectorData, SubstrateConnectorData } from '../types';
+import { InjectedExtension, InjectedAccount, Unsubcall } from '@polkadot/extension-inject/types';
+import { useMemo } from 'react';
+import { NoExtensions } from '../errors';
+import { useApi } from '.';
 
-export async function getExtensions(
-  api: SubstrateConnectorData,
-  appName: string
-): Promise<InjectedExtension> {
+export async function getExtensions(api: SubstrateConnectorData, appName: string): Promise<InjectedExtension> {
   // wait api connected;
   await api.isConnected;
 
   const extensions = await // @polkadot/extension-dapp doesn't support SSR
   (
-    await import("@polkadot/extension-dapp").then((data) => data.web3Enable)
+    await import('@polkadot/extension-dapp').then((data) => data.web3Enable)
   )(appName);
 
   if (extensions.length === 0) throw new NoExtensions();
@@ -34,9 +23,9 @@ export async function getExtensions(
 }
 
 interface UseExtensionConnectorConfigs {
-	appName: string;
-	defaultAddress?: string;
-	onActiveSelected?: (value: InjectedAccount) => void;
+  appName: string;
+  defaultAddress?: string;
+  onActiveSelected?: (value: InjectedAccount) => void;
 }
 
 export const useExtensionConnector = ({
@@ -46,12 +35,8 @@ export const useExtensionConnector = ({
 }: UseExtensionConnectorConfigs): ExtensionConnectorData => {
   const api = useApi('polkadot');
   const [extension, setExtension] = useState<InjectedExtension | undefined>();
-  const [status, setStatus] = useState<ExtensionConnectorData["status"]>(
-    ConnectStatus.disconnected
-  );
-  const [injectedAccounts, setInjectedAccounts] = useState<InjectedAccount[]>(
-    []
-  );
+  const [status, setStatus] = useState<ExtensionConnectorData['status']>(ConnectStatus.disconnected);
+  const [injectedAccounts, setInjectedAccounts] = useState<InjectedAccount[]>([]);
   const [active, setActiveData] = useState<InjectedAccount>();
   const subscriber = useRef<Unsubcall>();
 
@@ -70,8 +55,7 @@ export const useExtensionConnector = ({
           setExtension(extension);
           setStatus(ConnectStatus.connected);
 
-          subscriber.current =
-						extension.accounts.subscribe(setInjectedAccounts);
+          subscriber.current = extension.accounts.subscribe(setInjectedAccounts);
         } catch (e) {
           setStatus(ConnectStatus.failed);
           throw e;
@@ -104,9 +88,7 @@ export const useExtensionConnector = ({
     // do nothing if injected accounts is not ready
     if (!injectedAccounts.length) return;
 
-    const account = injectedAccounts.find(
-      (item) => item.address === defaultAddress
-    );
+    const account = injectedAccounts.find((item) => item.address === defaultAddress);
 
     if (!account) return;
 

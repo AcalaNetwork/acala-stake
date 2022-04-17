@@ -4,7 +4,8 @@
     "dev": "TAILWIND_MODE=watch next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "yarn prettier --write src/."
   },
   "resolutions": {
     "@polkadot/api": "^7.15.2-14",
@@ -45,6 +46,7 @@
     "@polkadot/util": "^8.1.2",
     "@reduxjs/toolkit": "^1.6.2",
     "@types/react-table": "^7.7.9",
+    "@types/yup": "^0.29.13",
     "clsx": "^1.1.1",
     "d3": "^7.2.0",
     "lodash": "^4.17.21",
@@ -56,7 +58,8 @@
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-filter": "^0.0.20",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.1.1",
@@ -70,6 +73,8 @@
     "eslint-config-next": "^12.1.4",
     "eslint-plugin-react": "^7.29.4",
     "postcss": "^8.4.4",
+    "prettier": "2.6.2",
+    "tailwind-styled-components": "^2.1.7",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.6.3"
   }

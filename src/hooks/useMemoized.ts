@@ -1,6 +1,6 @@
-import {useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-export const useMemoized = <T extends unknown>(value: T): T => {
+export const useMemoized = <T>(value: T): T => {
   const [data, setData] = useState<T>(value);
   const ref = useRef<T>(value);
 

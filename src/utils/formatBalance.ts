@@ -1,7 +1,7 @@
-import { FixedPointNumber } from "@acala-network/sdk-core";
+import { FixedPointNumber } from '@acala-network/sdk-core';
 import { Codec } from '@polkadot/types/types';
 
-export const formatBalance = (balance: FixedPointNumber |  Codec | number | string | undefined): number => {
+export const formatBalance = (balance: FixedPointNumber | Codec | number | string | undefined): number => {
   if (typeof balance === 'number') return balance;
 
   if (typeof balance === 'string') return Number(balance);

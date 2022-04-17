@@ -1,7 +1,7 @@
-import { useActiveAccount } from "@connector";
-import { useHomaRedeemRequesting } from "@sdk/hooks/homa";
-import { SDKNetwork } from "@sdk/types";
-import { useBalanceOverview } from "./useBalanceOverview";
+import { useActiveAccount } from '@connector';
+import { useHomaRedeemRequesting } from '@sdk/hooks/homa';
+import { SDKNetwork } from '@sdk/types';
+import { useBalanceOverview } from './useBalanceOverview';
 
 export const useUnstakeOverview = (network: SDKNetwork) => {
   const active = useActiveAccount();
@@ -10,6 +10,6 @@ export const useUnstakeOverview = (network: SDKNetwork) => {
 
   return {
     transferable: liquidBalance,
-    requesting
+    requesting,
   };
 };

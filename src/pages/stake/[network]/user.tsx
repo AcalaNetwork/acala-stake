@@ -1,3 +1,3 @@
-import { MyStake } from "@views/stake/MyStake";
+import { MyStake } from '@views/stake/MyStake';
 
 export default MyStake;

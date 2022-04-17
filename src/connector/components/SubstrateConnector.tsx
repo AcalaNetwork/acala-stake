@@ -1,4 +1,4 @@
-import { isFunction, merge, uniqueId } from "lodash";
+import { isFunction, merge, uniqueId } from 'lodash';
 import React, {
   createContext,
   FC,
@@ -8,43 +8,43 @@ import React, {
   useEffect,
   useMemo,
   useReducer,
-} from "react";
-import { InjectedAccount } from "@polkadot/extension-inject/types";
-import { useApiConnector } from "../hooks/useApiConnector";
+} from 'react';
+import { InjectedAccount } from '@polkadot/extension-inject/types';
+import { useApiConnector } from '../hooks/useApiConnector';
 import {
   ConnectStatus,
   SubstrateConnectorData,
   SubstrateConnectorConfig,
   ExtensionConnectorData,
   SubmitData,
-} from "../types";
-import config, { CONNECTED_NETWORK } from "../../config";
-import { useExtensionConnector } from "../hooks/useExtensionConnector";
-import { SubmitHandler } from "./SubmitHandler";
+} from '../types';
+import config, { ConnectedNetworks } from '../../config';
+import { useExtensionConnector } from '../hooks/useExtensionConnector';
+import { SubmitHandler } from './SubmitHandler';
 
 type ConnectContextData = {
-	apis: Record<CONNECTED_NETWORK, SubstrateConnectorData>;
-	extension: ExtensionConnectorData;
-	callQueue: SubmitData[];
-	sendTx?: (data: Omit<SubmitData, "trackId">) => string; // send tx
-	updateTx?: (data: Partial<SubmitData>) => void; // update tx status
-	removeTx?: (data: string) => void; // remove tx
+  apis: Record<ConnectedNetworks, SubstrateConnectorData>;
+  extension: ExtensionConnectorData;
+  callQueue: SubmitData[];
+  sendTx?: (data: Omit<SubmitData, 'trackId'>) => string; // send tx
+  updateTx?: (data: Partial<SubmitData>) => void; // update tx status
+  removeTx?: (data: string) => void; // remove tx
 };
 
 type ConnectorConfigs = SubstrateConnectorConfig[];
 
 type SubstrateConnectorProps = PropsWithChildren<{
-	appName: string;
-	configs: ConnectorConfigs;
-	children: ReactNode | ((data: ConnectContextData) => ReactNode);
-	defaultAddress: string; // default address
-	onActiveSelected: (value: InjectedAccount) => void; // callback if selected active account
+  appName: string;
+  configs: ConnectorConfigs;
+  children: ReactNode | ((data: ConnectContextData) => ReactNode);
+  defaultAddress: string; // default address
+  onActiveSelected: (value: InjectedAccount) => void; // callback if selected active account
 }>;
 
 // create the init pre data from config
 const INIT_APIS_DATA = {
   apis: Object.fromEntries(
-    Object.entries(config.apis).map(([key, data]) => {
+    Object.entries(config.apis).map(([key]) => {
       return [
         key,
         {
@@ -63,12 +63,11 @@ const INIT_APIS_DATA = {
   callQueue: [],
 } as ConnectContextData;
 
-export const ConnectorContext =
-	createContext<ConnectContextData>(INIT_APIS_DATA);
+export const ConnectorContext = createContext<ConnectContextData>(INIT_APIS_DATA);
 
 interface SubConnectorProps {
-	config: SubstrateConnectorConfig;
-	onChange: (data: SubstrateConnectorData) => void;
+  config: SubstrateConnectorConfig;
+  onChange: (data: SubstrateConnectorData) => void;
 }
 
 const SubConnector: FC<SubConnectorProps> = ({ config, onChange }) => {
@@ -84,18 +83,15 @@ const SubConnector: FC<SubConnectorProps> = ({ config, onChange }) => {
 };
 
 type Actions =
-	| { key: "update-connector-data"; data: SubstrateConnectorData }
-	| { key: "update-extension-data"; data: ExtensionConnectorData }
-	| { key: "insert-tx-queue"; data: SubmitData }
-	| { key: "update-tx-queue"; data: Partial<SubmitData> }
-	| { key: "remove-tx-queue"; data: string };
+  | { key: 'update-connector-data'; data: SubstrateConnectorData }
+  | { key: 'update-extension-data'; data: ExtensionConnectorData }
+  | { key: 'insert-tx-queue'; data: SubmitData }
+  | { key: 'update-tx-queue'; data: Partial<SubmitData> }
+  | { key: 'remove-tx-queue'; data: string };
 
-const reducer = (
-  state: ConnectContextData,
-  action: Actions
-): ConnectContextData => {
+const reducer = (state: ConnectContextData, action: Actions): ConnectContextData => {
   switch (action.key) {
-  case "update-connector-data": {
+  case 'update-connector-data': {
     return {
       ...state,
       apis: {
@@ -104,22 +100,20 @@ const reducer = (
       },
     };
   }
-  case "update-extension-data": {
+  case 'update-extension-data': {
     return {
       ...state,
       extension: action.data,
     };
   }
-  case "insert-tx-queue": {
+  case 'insert-tx-queue': {
     const queue = state.callQueue;
 
     return { ...state, callQueue: [...queue, action.data] };
   }
-  case "update-tx-queue": {
+  case 'update-tx-queue': {
     const queue = state.callQueue;
-    const maybeData = state.callQueue.find(
-      (item) => item.trackId === action.data.trackId
-    );
+    const maybeData = state.callQueue.find((item) => item.trackId === action.data.trackId);
 
     if (maybeData) {
       // handle tx update
@@ -131,7 +125,7 @@ const reducer = (
     // do nothing if doesn't exists
     return state;
   }
-  case "remove-tx-queue": {
+  case 'remove-tx-queue': {
     const queue = state.callQueue;
 
     const index = queue.findIndex((i) => i.trackId === action.data);
@@ -150,8 +144,6 @@ const reducer = (
   }
   }
 };
-
-const count = 0;
 
 /**
  *
@@ -182,16 +174,16 @@ const SubstrateConnector: FC<SubstrateConnectorProps> = ({
 
   const onChange = useCallback(
     (data: SubstrateConnectorData) => {
-      dispatch({ key: "update-connector-data", data });
+      dispatch({ key: 'update-connector-data', data });
     },
     [dispatch]
   );
 
   const sendTx = useCallback(
-    (data: Omit<SubmitData, "trackId">) => {
-      const trackId = uniqueId("tx-queue-");
+    (data: Omit<SubmitData, 'trackId'>) => {
+      const trackId = uniqueId('tx-queue-');
 
-      dispatch({ key: "insert-tx-queue", data: { ...data, trackId } });
+      dispatch({ key: 'insert-tx-queue', data: { ...data, trackId } });
 
       return trackId;
     },
@@ -200,23 +192,20 @@ const SubstrateConnector: FC<SubstrateConnectorProps> = ({
 
   const updateTx = useCallback(
     (data: Partial<SubmitData>) => {
-      dispatch({ key: "update-tx-queue", data });
+      dispatch({ key: 'update-tx-queue', data });
     },
     [dispatch]
   );
 
   const removeTx = useCallback(
     (id: string) => {
-      dispatch({ key: "remove-tx-queue", data: id });
+      dispatch({ key: 'remove-tx-queue', data: id });
     },
     [dispatch]
   );
 
   // update extension data
-  useEffect(
-    () => dispatch({ key: "update-extension-data", data: extensionConnector }),
-    [dispatch, extensionConnector]
-  );
+  useEffect(() => dispatch({ key: 'update-extension-data', data: extensionConnector }), [dispatch, extensionConnector]);
 
   // auto set api signer
   const autoSetSigner = useMemo(
@@ -227,21 +216,15 @@ const SubstrateConnector: FC<SubstrateConnectorProps> = ({
       if (!active?.address) return;
 
       // do nothing if not connect to extension
-      if (
-        [
-          ConnectStatus.disconnected,
-          ConnectStatus.failed,
-          ConnectStatus.connecting,
-        ].find((i) => i === status)
-      )
+      if ([ConnectStatus.disconnected, ConnectStatus.failed, ConnectStatus.connecting].find((i) => i === status))
         return;
-			
+
       // do nothing if apis aren't connected
       if (Object.values(state.apis).filter((item) => item.status !== ConnectStatus.connected).length > 0) return;
 
-      const [web3FromAddress, web3Enable] = await import(
-        "@polkadot/extension-dapp"
-      ).then((data) => [data.web3FromAddress, data.web3Enable] as const);
+      const [web3FromAddress, web3Enable] = await import('@polkadot/extension-dapp').then(
+        (data) => [data.web3FromAddress, data.web3Enable] as const
+      );
 
       for (const api of Object.values(state.apis)) {
         if (!api.api) continue;
@@ -273,13 +256,8 @@ const SubstrateConnector: FC<SubstrateConnectorProps> = ({
   return (
     <ConnectorContext.Provider value={data}>
       {configs &&
-				configs.map((subConfig) => (
-				  <SubConnector
-				    config={subConfig}
-				    key={subConfig.network}
-				    onChange={onChange}
-				  />
-				))}
+        configs.map((subConfig) => <SubConnector config={subConfig} key={subConfig.network}
+          onChange={onChange} />)}
       <SubmitHandler />
       {isFunc ? children(state) : children}
     </ConnectorContext.Provider>

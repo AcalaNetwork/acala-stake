@@ -1,4 +1,4 @@
-import { FixedPointNumber } from "@acala-network/sdk-core";
+import { FixedPointNumber } from '@acala-network/sdk-core';
 
 export interface FormatNumberConfig {
   decimalLength: number;
@@ -13,14 +13,20 @@ export const thousand = (num: string | string): string => {
   return _num.replace(reg, ',');
 };
 
-
-export const formatNumber = (num: string | number | FixedPointNumber | undefined, config: FormatNumberConfig = { decimalLength: 6, removeEmptyDecimalParts: true, removeTailZero: true }): string => {
+export const formatNumber = (
+  num: string | number | FixedPointNumber | undefined,
+  config: FormatNumberConfig = {
+    decimalLength: 6,
+    removeEmptyDecimalParts: true,
+    removeTailZero: true,
+  }
+): string => {
   let _num = '0';
 
   if (num instanceof FixedPointNumber) {
     _num = num.toString(18, 2);
   } else {
-    _num = (new FixedPointNumber(num || 0)).toString(18, 2);
+    _num = new FixedPointNumber(num || 0).toString(18, 2);
   }
 
   // eslint-disable-next-line prefer-const

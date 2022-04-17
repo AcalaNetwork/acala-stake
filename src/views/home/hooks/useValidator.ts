@@ -1,7 +1,7 @@
-import { useApi } from "../../../connector";
-import { useSubscription } from "../../../hooks/useSubscription";
+import { useApi } from '../../../connector';
+import { useSubscription } from '../../../hooks/useSubscription';
 import { ValidatorId } from '@acala-network/types/interfaces';
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useValidator = () => {
   const { api } = useApi('kusama');

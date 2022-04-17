@@ -1,43 +1,31 @@
-import {
-  ChevronUpIcon,
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/outline";
-import React from "react";
-import { usePagination, useSortBy, useTable } from "react-table";
-import { Loading } from "./Loading";
+import { ChevronUpIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import React from 'react';
+import { usePagination, useSortBy, useTable } from 'react-table';
+import { Loading } from './Loading';
 
-type TABLE_SIZE = "default" | "lg";
+type TABLE_SIZE = 'default' | 'lg';
 
 const PADDING_CONFIGS: Record<TABLE_SIZE, string> = {
-  default: "px-52",
-  lg: "px-88",
+  default: 'px-52',
+  lg: 'px-88',
 };
 
 export interface TableProps {
-	columns: any[];
-	data?: any[];
-	size?: TABLE_SIZE;
-	loading?: boolean;
-	pagination?: {
-		defaultSize?: number;
-		defaultIndex?: number;
-	};
-	defaultSortBy?: {
-		columnId: string;
-		desc: boolean;
-	};
+  columns: any[];
+  data?: any[];
+  size?: TABLE_SIZE;
+  loading?: boolean;
+  pagination?: {
+    defaultSize?: number;
+    defaultIndex?: number;
+  };
+  defaultSortBy?: {
+    columnId: string;
+    desc: boolean;
+  };
 }
 
-export const Table = ({
-  columns,
-  data,
-  size = "default",
-  pagination = {},
-  defaultSortBy,
-  loading,
-}: TableProps) => {
+export const Table = ({ columns, data, size = 'default', pagination = {}, defaultSortBy, loading }: TableProps) => {
   const {
     canNextPage,
     canPreviousPage,
@@ -59,11 +47,11 @@ export const Table = ({
         pageIndex: pagination?.defaultIndex || 0,
         sortBy: defaultSortBy
           ? [
-            {
-              id: defaultSortBy.columnId,
-              desc: defaultSortBy.desc,
-            },
-					  ]
+              {
+                id: defaultSortBy.columnId,
+                desc: defaultSortBy.desc,
+              },
+            ]
           : [],
       },
     },
@@ -73,35 +61,28 @@ export const Table = ({
 
   const tableProps = getTableProps();
   const rootClassName = `select-none ${PADDING_CONFIGS[size]}`;
-  const headerClassName = "text-12 leading-15 text-grey-3 font-semibold";
-  const headerItemClassName = "px-16 border-b border-eae9f0 pb-16 first:pl-0 last:pr-0";
-  const itemClassName = "p-16 border-b border-eae9fo first:pl-0 last:pr-0";
+  const headerClassName = 'text-12 leading-15 text-grey-3 font-semibold';
+  const headerItemClassName = 'px-16 border-b border-eae9f0 pb-16 first:pl-0 last:pr-0';
+  const itemClassName = 'p-16 border-b border-eae9fo first:pl-0 last:pr-0';
 
   return (
     <div className={rootClassName}>
-      <table {...tableProps}
-        className={`${tableProps.className} w-full`}>
+      <table {...tableProps} className={`${tableProps.className} w-full`}>
         <thead>
           {headerGroups.map((headerGroup, i) => (
-            <tr
-              {...headerGroup.getHeaderGroupProps()}
-              className={headerClassName}
-            >
+            <tr {...headerGroup.getHeaderGroupProps()} className={headerClassName}>
               {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  className={headerItemClassName}
-                >
-                  <div className="flex items-center">
-                    {column.render("Header")}
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className={headerItemClassName}>
+                  <div className='flex items-center'>
+                    {column.render('Header')}
                     {column.isSorted ? (
                       column.isSortedDesc ? (
-                        <ChevronDownIcon className="my-0 mx-4 w-12 h-12" />
+                        <ChevronDownIcon className='my-0 mx-4 w-12 h-12' />
                       ) : (
-                        <ChevronUpIcon className="my-0 mx-4 w-12 h-12" />
+                        <ChevronUpIcon className='my-0 mx-4 w-12 h-12' />
                       )
                     ) : (
-                      <div className="mx-4 w-12 h-12"></div>
+                      <div className='mx-4 w-12 h-12'></div>
                     )}
                   </div>
                 </th>
@@ -120,10 +101,8 @@ export const Table = ({
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <td {...cell.getCellProps()}
-                        className={itemClassName}
-                        style={{ border: noBorder ? 'none' : '' }}>
-                        {cell.render("Cell")}
+                      <td {...cell.getCellProps()} className={itemClassName} style={{ border: noBorder ? 'none' : '' }}>
+                        {cell.render('Cell')}
                       </td>
                     );
                   })}
@@ -134,10 +113,10 @@ export const Table = ({
         ) : null}
       </table>
       {data && data.length && data.length > pageSize ? (
-        <div className="flex flex-center m-16 gap-10">
+        <div className='flex flex-center m-16 gap-10'>
           <ChevronLeftIcon
-            className="w-14 h-14"
-            color={canPreviousPage ? "#828282" : "#f2f2f2"}
+            className='w-14 h-14'
+            color={canPreviousPage ? '#828282' : '#f2f2f2'}
             cursor={canPreviousPage ? 'normal' : 'pointer'}
             onClick={previousPage}
           />
@@ -145,8 +124,8 @@ export const Table = ({
             {pageIndex + 1} / {Math.ceil(data.length / pageSize)}
           </p>
           <ChevronRightIcon
-            className="w-14 h-14"
-            color={canNextPage ? "#828282" : "#f2f2f2"}
+            className='w-14 h-14'
+            color={canNextPage ? '#828282' : '#f2f2f2'}
             cursor={canPreviousPage ? 'normal' : 'pointer'}
             onClick={nextPage}
           />
@@ -159,7 +138,7 @@ export const Table = ({
 
 const TableLoading = React.memo(() => {
   return (
-    <div className="flex items-center justify-center min-h-[360px]">
+    <div className='flex items-center justify-center min-h-[360px]'>
       <Loading />
     </div>
   );

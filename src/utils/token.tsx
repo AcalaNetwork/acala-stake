@@ -1,15 +1,9 @@
-import {
-  forceToCurrencyName,
-  unzipDexShareName,
-  isDexShareName,
-  MaybeCurrency,
-  Token,
-} from "@acala-network/sdk-core";
-import { SDKNetwork } from "@sdk/types";
-import Image from "next/image";
-import React from "react";
+import { forceToCurrencyName, unzipDexShareName, isDexShareName, MaybeCurrency, Token } from '@acala-network/sdk-core';
+import { SDKNetwork } from '@sdk/types';
+import Image from 'next/image';
+import React from 'react';
 
-import { ACALA_TOKEN_LISTS, KARURA_TOKEN_LISTS } from "../sdk";
+import { ACALA_TOKEN_LISTS, KARURA_TOKEN_LISTS } from '../sdk';
 
 export function getSavedToken(network: SDKNetwork, token: MaybeCurrency): Token {
   const name = forceToCurrencyName(token);
@@ -18,7 +12,7 @@ export function getSavedToken(network: SDKNetwork, token: MaybeCurrency): Token 
 }
 
 export function getTokenName(token?: Token): string {
-  if (!token) return "";
+  if (!token) return '';
 
   // handle single token
   let name = forceToCurrencyName(token);
@@ -39,11 +33,11 @@ export function getTokenName(token?: Token): string {
 }
 
 export function getTokenImage(
-  token: Token,
+  token: Token | string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   props?: React.PropsWithChildren<any>
 ): JSX.Element {
-  let symbol = token.symbol;
+  let symbol = token instanceof Token ?  token.symbol : token;
 
   if (symbol == 'lc://13') {
     symbol = 'LCDOT';
@@ -51,13 +45,7 @@ export function getTokenImage(
 
   const resource = `https://resources.acala.network/tokens/${symbol}.png`;
 
-  return (
-    <Image
-      alt="symbol"
-      height={'100%'}
-      src={resource}
-      width={'100%'}
-      {...props}
-    />
-  );
+  return <Image alt='symbol' height={'100%'}
+    src={resource} width={'100%'}
+    {...props} />;
 }

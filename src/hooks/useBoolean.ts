@@ -5,9 +5,12 @@ export const useBoolean = (init = false, setFalseDelay = 0) => {
   const [value, setValue] = useState<boolean>(init);
   const timeoutRef = useRef<Node.timeout>();
 
-  const update = useCallback((value: boolean) => {
-    setValue(value);
-  }, [setValue]);
+  const update = useCallback(
+    (value: boolean) => {
+      setValue(value);
+    },
+    [setValue]
+  );
 
   const setTrue = useCallback(() => {
     setValue(true);

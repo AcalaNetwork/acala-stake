@@ -1,8 +1,8 @@
-import { useBalance } from "../../../sdk";
-import { useHomaAPY, useHomaConts } from "../../../sdk/hooks/homa";
-import { useActiveAccount } from "../../../connector";
-import { FixedPointNumber, Token } from "@acala-network/sdk-core";
-import { SDKNetwork } from "@sdk/types";
+import { useBalance } from '../../../sdk';
+import { useHomaAPY, useHomaConts } from '../../../sdk/hooks/homa';
+import { useActiveAccount } from '../../../connector';
+import { FixedPointNumber, Token } from '@acala-network/sdk-core';
+import { SDKNetwork } from '@sdk/types';
 
 interface BalanceOverview {
   stakingBalance: FixedPointNumber;
@@ -25,6 +25,6 @@ export const useBalanceOverview = (network: SDKNetwork): BalanceOverview => {
     liquidBalance,
     apy,
     liquidToken,
-    stakingToken
+    stakingToken,
   };
 };

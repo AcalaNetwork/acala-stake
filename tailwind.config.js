@@ -78,7 +78,9 @@ module.exports = {
           2: '#494853',
           3: '#7b7986',
           4: '#ABAAB9',
+          5: '#D6D3DE',
           66: '#EAE9F0',
+          666: '#F1F0F2',
           200: '#eae9f0'
         },
         "acala-blue": {

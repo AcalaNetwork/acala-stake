@@ -13,5 +13,5 @@ export type SDKNetwork = 'karura' | 'acala';
 export type SDKStore = {
   [k in SDKNetwork]: SDK;
 } & {
-  crossChain: CrossChain
-}
+  crossChain: CrossChain;
+};

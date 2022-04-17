@@ -1,7 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
-import { CrossChain, AcalaAdaptor, KaruraAdaptor, KusamaAdapter, PolkadotAdapter } from "@acala-network/sdk/cross-chain";
-import { AnyApi } from "@acala-network/sdk-core";
-import { Wallet } from "@acala-network/sdk";
+import { useCallback, useEffect, useState } from 'react';
+import {
+  CrossChain,
+  AcalaAdaptor,
+  KaruraAdaptor,
+  KusamaAdapter,
+  PolkadotAdapter,
+} from '@acala-network/sdk/cross-chain';
+import { AnyApi } from '@acala-network/sdk-core';
+import { Wallet } from '@acala-network/sdk';
 
 export interface UseCrossChainSDKConnectorConfigs {
   acalaApi: AnyApi;
@@ -18,7 +24,7 @@ export const useCrossChainSDKConnector = (configs: UseCrossChainSDKConnectorConf
   const [crossChain, setCrossChain] = useState<CrossChain>();
 
   const connector = useCallback(async () => {
-    if (!acalaApi || !polkadotApi || !karuraApi || !kusamaApi) return;
+    if (!(acalaApi && polkadotApi && karuraApi && kusamaApi)) return;
 
     const sdk = new CrossChain({
       adapters: [
@@ -26,7 +32,7 @@ export const useCrossChainSDKConnector = (configs: UseCrossChainSDKConnectorConf
         new KaruraAdaptor({ wallet: karuraWallet, api: karuraApi }),
         new PolkadotAdapter({ api: polkadotApi }),
         new KusamaAdapter({ api: kusamaApi }),
-      ]
+      ],
     });
 
     setCrossChain(sdk);

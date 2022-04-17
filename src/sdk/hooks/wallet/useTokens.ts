@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useWallet } from ".";
-import { Token, TokenType } from "@acala-network/sdk-core";
+import { useEffect, useState } from 'react';
+import { useWallet } from '.';
+import { Token, TokenType } from '@acala-network/sdk-core';
 
 export const useTokens = (type?: TokenType) => {
   const [data, setData] = useState<Token[]>();
@@ -10,8 +10,7 @@ export const useTokens = (type?: TokenType) => {
   useEffect(() => {
     if (!wallet) return;
 
-    const sub = wallet.subscribeTokens(type)
-      .subscribe({ next: (data) => setData(Object.values(data)) });
+    const sub = wallet.subscribeTokens(type).subscribe({ next: (data) => setData(Object.values(data)) });
 
     return () => sub.unsubscribe();
   }, [wallet, setData, type]);

@@ -1,5 +1,5 @@
-import { Token } from "@acala-network/sdk-core";
-import { ReactNode } from "react";
+import { Token } from '@acala-network/sdk-core';
+import { ReactNode } from 'react';
 
 export interface CurrencyItem {
   token: Token;

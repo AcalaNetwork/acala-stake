@@ -1,11 +1,11 @@
-import { useHomaEnv } from "../../../sdk/hooks/homa";
-import { useState } from "react";
-import { FixedPointNumber } from "@acala-network/sdk-core";
-import { SDKNetwork } from "@sdk/types";
-import { useBalanceOverview } from "./useBalanceOverview";
-import { useEffect } from "react";
-import { TokenAmount } from "@connector/types";
-import { usePrice } from "@sdk";
+import { useHomaEnv } from '../../../sdk/hooks/homa';
+import { useState } from 'react';
+import { FixedPointNumber } from '@acala-network/sdk-core';
+import { SDKNetwork } from '@sdk/types';
+import { useBalanceOverview } from './useBalanceOverview';
+import { useEffect } from 'react';
+import { TokenAmount } from '@connector/types';
+import { usePrice } from '@sdk';
 
 export interface StakingOverview {
   staked: TokenAmount;
@@ -33,19 +33,19 @@ export const useStakingOverview = (network: SDKNetwork) => {
     setResult({
       staked: {
         token: stakingToken,
-        amount: stakedBalance
+        amount: stakedBalance,
       },
       stakedValue,
       apy: env.apy,
       estEarning: {
         token: stakingToken,
-        amount: estEarning
+        amount: estEarning,
       },
       estEarningValue,
       airdrop: {
         token: stakingToken,
-        amount: estEarning
-      }
+        amount: estEarning,
+      },
     });
   }, [env, liquidBalance, price, stakingToken]);
 

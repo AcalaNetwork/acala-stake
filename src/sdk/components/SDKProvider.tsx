@@ -24,7 +24,7 @@ export const SDKProvider: FC = React.memo(({ children }) => {
     kusamaApi: kusamaApi.api,
     polkadotApi: polkadotApi.api,
     acalaWallet: acalaSDK.wallet,
-    karuraWallet: karuraSDK.wallet
+    karuraWallet: karuraSDK.wallet,
   });
 
   const { wallet: acalaWallet } = acalaSDK;
@@ -35,7 +35,7 @@ export const SDKProvider: FC = React.memo(({ children }) => {
 
     // export token list form wallet sdk
     return acalaWallet.subscribeTokens().subscribe({
-      next: value => ACALA_TOKEN_LISTS = value
+      next: (value) => (ACALA_TOKEN_LISTS = value),
     });
   }, [acalaWallet]);
 
@@ -44,7 +44,7 @@ export const SDKProvider: FC = React.memo(({ children }) => {
 
     // export token list form wallet sdk
     return karuraWallet.subscribeTokens().subscribe({
-      next: value => KARURA_TOKEN_LISTS = value
+      next: (value) => (KARURA_TOKEN_LISTS = value),
     });
   }, [karuraWallet]);
 
@@ -52,11 +52,7 @@ export const SDKProvider: FC = React.memo(({ children }) => {
     return { acala: acalaSDK, karura: karuraSDK, crossChain: crossChainSDK };
   }, [acalaSDK, karuraSDK, crossChainSDK]);
 
-  return (
-    <SDKContext.Provider value={value}>
-      {children}
-    </SDKContext.Provider>
-  );
+  return <SDKContext.Provider value={value}>{children}</SDKContext.Provider>;
 });
 
 export const SDKConsumer = SDKContext.Consumer;

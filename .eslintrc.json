@@ -1,9 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
@@ -12,14 +10,17 @@
   ],
   "rules": {
     "react/display-name": 0,
-    "indent"           : [1, 2],
-    "no-else-return"   : 1,
-    "semi"             : [1, "always"],
-    "space-unary-ops"  : 2,
+    "indent": [1, 2],
+    "no-else-return": 1,
+    "semi": [1, "always"],
+    "space-unary-ops": 2,
     "react/react-in-jsx-scope": 0,
     "react/jsx-sort-props": 2,
     "react/jsx-key": 2,
-    "react/jsx-max-props-per-line": [1, { "maximum": { "single": 2, "multi": 2 } }],
+    "react/jsx-max-props-per-line": [
+      1,
+      { "maximum": { "single": 2, "multi": 2 } }
+    ],
     "react/prop-types": 0
   }
 }

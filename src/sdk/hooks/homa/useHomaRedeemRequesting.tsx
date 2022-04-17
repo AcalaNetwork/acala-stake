@@ -1,8 +1,8 @@
-import { RedeemRequest } from "@acala-network/sdk/homa/types";
-import { useState } from "react";
-import { useHoma } from ".";
-import { useSubscription } from "../../../hooks/useSubscription";
-import { SDKNetwork } from "../../types";
+import { RedeemRequest } from '@acala-network/sdk/homa/types';
+import { useState } from 'react';
+import { useHoma } from '.';
+import { useSubscription } from '../../../hooks/useSubscription';
+import { SDKNetwork } from '../../types';
 
 export const useHomaRedeemRequesting = (network: SDKNetwork, address: string) => {
   const homa = useHoma(network);
@@ -11,7 +11,7 @@ export const useHomaRedeemRequesting = (network: SDKNetwork, address: string) =>
   useSubscription(() => {
     if (!homa) return;
 
-    return homa.subscribeUserRedeemRequest(address).subscribe({ next: setData })
+    return homa.subscribeUserRedeemRequest(address).subscribe({ next: setData });
   }, [homa]);
 
   return data;

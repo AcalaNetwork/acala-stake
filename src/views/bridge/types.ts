@@ -1,9 +1,9 @@
-import { ConnectedNetworks } from "config";
+import { ConnectedNetworks } from 'config';
 
 export enum BridgeSteps {
-  'INPUT',
+  'FORM',
   'CONFIRM',
-  'COMPLATED'
+  'COMPLATED',
 }
 
 export interface BridgeContextData {
@@ -13,9 +13,9 @@ export interface BridgeContextData {
   form: {
     amount: number;
     token: string;
-  }
+  };
 
   hooks: {
     useSetStep: () => (step: BridgeSteps) => void;
-  }
+  };
 }
