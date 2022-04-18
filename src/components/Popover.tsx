@@ -14,7 +14,8 @@ export const Popover = memo<PopoverProps>(({ children, content, className, locat
   const { value, setTrue, setFalse } = useBoolean(false, 200);
 
   return (
-    <CPopover className={`relative flex ${className}`} onMouseEnter={setTrue} onMouseLeave={setFalse}>
+    <CPopover className={`relative flex ${className}`} onMouseEnter={setTrue}
+      onMouseLeave={setFalse}>
       <Transition
         className='absolute mt-1 w-full outline-none z-10 focus:outline-none'
         enter='transition-opacity duration-200'

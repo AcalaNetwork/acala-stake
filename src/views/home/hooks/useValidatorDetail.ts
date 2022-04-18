@@ -8,7 +8,7 @@ import { useSubscription } from '../../../hooks/useSubscription';
 
 export const useValidatorDetail = (accountId: ValidatorId) => {
   const [data, setData] = useState<Option<Registration>>();
-  const { api } = useApi();
+  const { api } = useApi('kusama');
 
   useSubscription(() => {
     if (!api || !api.query || !api.query.identity) return;

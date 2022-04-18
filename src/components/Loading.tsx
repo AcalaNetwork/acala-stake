@@ -62,7 +62,8 @@ const LoadingRoot = styled.div<{ width: number; size?: string }>`
 
 export const Loading: FC<LoadingProps> = memo(({ className, size, width }) => {
   return (
-    <LoadingRoot className={className} size={size} width={width ?? 4}>
+    <LoadingRoot className={className} size={size}
+      width={width ?? 4}>
       <div />
       <div />
       <div />

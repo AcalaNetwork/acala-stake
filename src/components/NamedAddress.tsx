@@ -19,6 +19,7 @@ export const NamedAddress: FC<AddressProps> = ({
 }) => (
   <div className={`${className} text-base`}>
     <p className='font-medium w-[240px] overflow-ellipsis	overflow-hidden'>{name}</p>
-    <Address address={address} mini={mini} ss58={ss58} />
+    <Address address={address} mini={mini}
+      ss58={ss58} />
   </div>
 );

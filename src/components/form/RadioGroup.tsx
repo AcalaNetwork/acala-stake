@@ -16,7 +16,8 @@ interface RadioGroupProps {
 
 export const RadioGroup: FC<RadioGroupProps> = ({ options, value, onChange, className }) => {
   return (
-    <Radio className={className} onChange={onChange} value={value}>
+    <Radio className={className} onChange={onChange}
+      value={value}>
       {options.map((option, index) => (
         <Radio.Option key={index} value={option.value}>
           {({ checked }) => (

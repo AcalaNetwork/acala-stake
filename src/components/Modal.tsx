@@ -13,8 +13,10 @@ export const Modal: FC<ModalProps> = ({ children, visible, header, onClose, cont
   const mergedContentClassName = `inline-block w-full max-w-[560px] pb-32 text-left align-middle transition-all transform bg-fff shadow rounded-xl ${contentClassName}`;
 
   return (
-    <Transition appear as={Fragment} show={visible}>
-      <Dialog as='div' className='fixed inset-0 z-10 overflow-y-auto' onClose={onClose}>
+    <Transition appear as={Fragment}
+      show={visible}>
+      <Dialog as='div' className='fixed inset-0 z-10 overflow-y-auto'
+        onClose={onClose}>
         <div className='min-h-screen px-4 text-center'>
           <Transition.Child
             as={Fragment}

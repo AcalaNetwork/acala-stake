@@ -62,13 +62,13 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
         filter
           ? (item) => filter(item, inputRef.current.value)
           : (item) => {
-              const inputRefValueLowerCase = inputRef.current.value.toLowerCase();
+            const inputRefValueLowerCase = inputRef.current.value.toLowerCase();
 
-              const itemValue = item.value.toLowerCase();
+            const itemValue = item.value.toLowerCase();
 
-              if (itemValue.startsWith(inputRefValueLowerCase)) return true;
-              return false;
-            }
+            if (itemValue.startsWith(inputRefValueLowerCase)) return true;
+            return false;
+          }
       )
     );
   };

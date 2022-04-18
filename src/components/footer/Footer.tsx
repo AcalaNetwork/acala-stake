@@ -28,10 +28,12 @@ export const Footer = () => {
           <div className='pl-16'>
             <Link href='/terms'>Terms of Use</Link>
           </div>
-          <a className='ml-[52px] mr-[32px]' href='https://discord.gg/6QHVY4X' rel='noreferrer' target='_blank'>
+          <a className='ml-[52px] mr-[32px]' href='https://discord.gg/6QHVY4X'
+            rel='noreferrer' target='_blank'>
             <DiscordIcon className='w-[36px]' />
           </a>
-          <a href='https://linktr.ee/acalanetwork' rel='noreferrer' target='_blank'>
+          <a href='https://linktr.ee/acalanetwork' rel='noreferrer'
+            target='_blank'>
             <BookIcon />
           </a>
         </div>

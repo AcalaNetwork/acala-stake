@@ -9,5 +9,6 @@ const formatValueConfig: FormatNumberProps['formatNumberConfig'] = {
 };
 
 export const FormatValue: FC<FormatNumberProps> = memo((props) => {
-  return <FormatNumber formatNumberConfig={formatValueConfig} prefix={'$ '} {...props} />;
+  return <FormatNumber formatNumberConfig={formatValueConfig} prefix={'$ '}
+    {...props} />;
 });

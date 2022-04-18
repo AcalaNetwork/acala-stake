@@ -16,10 +16,12 @@ export const StakeFooter = () => {
         <div>
           <AcaIcon className='w-[120px] h-[40px]' />
           <div className='flex items-center gap-32 mt-24'>
-            <a href='https://discord.gg/6QHVY4X' rel='noreferrer' target='_blank'>
+            <a href='https://discord.gg/6QHVY4X' rel='noreferrer'
+              target='_blank'>
               <DiscordIcon className='w-[36px]' />
             </a>
-            <a href='https://linktr.ee/acalanetwork' rel='noreferrer' target='_blank'>
+            <a href='https://linktr.ee/acalanetwork' rel='noreferrer'
+              target='_blank'>
               <BookIcon />
             </a>
             <div className='flex items-center text-16 text-primary font-medium gap-12'>

@@ -1,4 +1,5 @@
 import { StakeLayout } from '@components/layout';
+import { SDKNetwork } from '@sdk/types';
 import { useRouter } from 'next/router';
 import { memo } from 'react';
 import { EnsureSDKReady } from '../../sdk/components/EnsureSDKReady';

@@ -35,5 +35,6 @@ export const FormatRatio: FC<FormatRatioProps> = ({ data, formatNumberConfig, ..
     };
   }, [formatNumberConfig]);
 
-  return <FormatNumber data={_data} formatNumberConfig={_formatRatioConfig} suffix='%' {...props} />;
+  return <FormatNumber data={_data} formatNumberConfig={_formatRatioConfig}
+    suffix='%' {...props} />;
 };
