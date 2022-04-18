@@ -40,7 +40,6 @@ export interface SubstrateConnectorData {
 }
 
 export interface SubstrateConnectorConfig {
-  isPrimary: boolean;
   network: ConnectedNetworks;
   endpoints: Record<string, string>;
   first?: string; // set the top priority endpoint

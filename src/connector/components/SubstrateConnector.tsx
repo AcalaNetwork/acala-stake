@@ -1,9 +1,8 @@
-import { isFunction, merge, uniqueId } from 'lodash';
+import { merge, uniqueId } from 'lodash';
 import React, {
   createContext,
   FC,
   PropsWithChildren,
-  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -36,7 +35,6 @@ type ConnectorConfigs = SubstrateConnectorConfig[];
 type SubstrateConnectorProps = PropsWithChildren<{
   appName: string;
   configs: ConnectorConfigs;
-  children: ReactNode | ((data: ConnectContextData) => ReactNode);
   defaultAddress: string; // default address
   onActiveSelected: (value: InjectedAccount) => void; // callback if selected active account
 }>;
@@ -170,8 +168,6 @@ const SubstrateConnector: FC<SubstrateConnectorProps> = ({
     onActiveSelected,
   });
 
-  const isFunc = isFunction(children);
-
   const onChange = useCallback(
     (data: SubstrateConnectorData) => {
       dispatch({ key: 'update-connector-data', data });
@@ -259,7 +255,7 @@ const SubstrateConnector: FC<SubstrateConnectorProps> = ({
         configs.map((subConfig) => <SubConnector config={subConfig} key={subConfig.network}
           onChange={onChange} />)}
       <SubmitHandler />
-      {isFunc ? children(state) : children}
+      {children}
     </ConnectorContext.Provider>
   );
 };

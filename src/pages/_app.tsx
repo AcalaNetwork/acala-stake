@@ -13,7 +13,7 @@ import { TxNotifications } from '../components/TxNotifications';
 import { useCallback } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 
-const SubstrateConnector = dynamic(() => import('../connector/components/SubstrateConnector'), { ssr: false });
+const SubstrateConnector = dynamic(() => import('../connector/components/SubstrateConnector').then((i) => i.default), { ssr: false });
 
 const connectorConfigs = Object.values(configs.apis);
 

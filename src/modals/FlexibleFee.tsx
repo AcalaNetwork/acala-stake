@@ -32,7 +32,8 @@ export const FlexibleFeeModal = () => {
   }, [payToken]);
 
   return (
-    <Modal header={<ModalHeader onClose={closeModal}>Flexible Fee</ModalHeader>} onClose={() => {}} visible={visible}>
+    <Modal header={<ModalHeader onClose={closeModal}>Flexible Fee</ModalHeader>} onClose={() => {}}
+      visible={visible}>
       <div className='px-40 py-24'>
         <div className='flex items-center gap-20 mb-20 text-333 font-medium'>
           <div
@@ -69,7 +70,8 @@ export const FlexibleFeeModal = () => {
           </div>
         </div>
         <div className='flex flex-center'>
-          <TxButton call={call} className='mt-24 w-100'>
+          <TxButton call={call} className='mt-24 w-100'
+            network={'acala'}>
             Save
           </TxButton>
         </div>

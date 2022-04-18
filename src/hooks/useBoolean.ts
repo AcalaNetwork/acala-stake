@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 
 export const useBoolean = (init = false, setFalseDelay = 0) => {
   const [value, setValue] = useState<boolean>(init);
-  const timeoutRef = useRef<Node.timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout>();
 
   const update = useCallback(
     (value: boolean) => {

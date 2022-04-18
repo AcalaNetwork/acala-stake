@@ -63,7 +63,7 @@ export const CurrencySelector: FC<CurrencySelectorProps> = ({
   rootClassName,
 }) => {
   const memCurrencies = useMemoized(currencies);
-  const [focuse, , onFocuse, onBlur] = useBoolean();
+  const { value: focuse, setTrue: onFocuse, setFalse: onBlur } = useBoolean();
 
   const items = useMemo(() => {
     return memCurrencies.map((item) => {
@@ -76,9 +76,10 @@ export const CurrencySelector: FC<CurrencySelectorProps> = ({
 
   const render = useCallback(
     (value: Token) => {
-      return <CurrencyInput className={className} focuse={focuse} onFocuse={onFocuse} value={value} />;
+      return <CurrencyInput className={className} focuse={focuse}
+        onFocuse={onFocuse} value={value} />;
     },
-    [focuse, value, onFocuse]
+    [className, focuse, onFocuse]
   );
 
   return (

@@ -1,9 +1,9 @@
+import { ConnectedNetworks } from 'config';
 import { useState } from 'react';
 import { useApi } from '.';
-import { CONNECTED_NETWORK } from '../../config';
 import { useSubscription } from '../../hooks/useSubscription';
 
-export function useBlockNumebr(network?: CONNECTED_NETWORK) {
+export function useBlockNumebr(network?: ConnectedNetworks) {
   const api = useApi(network);
   const [blockNumber, setBlockNumber] = useState<number>();
 
