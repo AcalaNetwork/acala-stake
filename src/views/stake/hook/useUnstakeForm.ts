@@ -28,27 +28,16 @@ export const useUnstakeForm = (network: SDKNetwork) => {
     return env.redeemThreshold;
   }, [env]);
 
-  const validator = useCallback(
-    async (amount) => {
-      if (!amount) throw new Error('Amount Is required');
-
-      const fixedAmount = new FixedPointNumber(amount, liquidToken.decimals);
-
-      if (fixedAmount.lt(minAmount)) {
-        throw new Error(`minimum is ${minAmount.toString()}`);
+  const { value: amount, error: amountError, onChange: onAmountChange } = useInput({
+    type: 'number',
+    rules: [
+      {
+        type: 'number',
+        min: minAmount.toNumber(),
+        max: maxAmount.toNumber(),
+        required: true
       }
-
-      if (fixedAmount.gt(maxAmount)) {
-        throw new Error(`maximum is ${maxAmount.toString()}`);
-      }
-
-      return true;
-    },
-    [liquidToken.decimals, maxAmount, minAmount]
-  );
-
-  const [amount, { error: amountError, onChange: onAmountChange }] = useInput<string>({
-    validator,
+    ]
   });
 
   const onMaxAmount = useCallback(() => {

@@ -18,7 +18,8 @@ export const UserGuide = memo<BaseComponentProps>(({ className }) => {
         <Button className='h-[45px] w-[150px]' size='sm'>
           Watch Video
         </Button>
-        <Button className='h-[45px] w-[150px]' size='sm' variant='outline'>
+        <Button className='h-[45px] w-[150px]' size='sm'
+          variant='outline'>
           User Guide
         </Button>
       </div>

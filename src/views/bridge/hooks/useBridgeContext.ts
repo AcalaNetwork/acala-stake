@@ -2,7 +2,7 @@ import { Token } from '@acala-network/sdk-core';
 import { useActiveAccount } from '@connector';
 import { useHomaConts } from '@sdk/hooks/homa';
 import { SDKNetwork } from '@sdk/types';
-import { useState, createContext, useMemo } from 'react';
+import { useState, createContext, useMemo, useEffect } from 'react';
 import { BridgeAmountInputConfigs, useBridgeAmountInput } from './useBridgeAmountInput';
 import { BridgeDestAddress, useBridgeDestAddress } from './useBridgeDestAddress';
 import { BridgeRouter, useBridgeRouter } from './useBridgeRouterSelector';
@@ -15,11 +15,19 @@ export interface BridgeContextData {
   bridgeRouter: BridgeRouter;
   bridgeAmountInput: BridgeAmountInputConfigs; 
   bridgeDestAddress: BridgeDestAddress;
+  onBackInForm?: () => void;
+  onComplated?: () => void;
 }
 
 export const BridgeProviderContext = createContext<BridgeContextData>({} as BridgeContextData);
 
-export const useBridgeContext = (network: SDKNetwork) => {
+export interface UseBridgeContextConfigs {
+  network: SDKNetwork;
+  onBackInForm?: () => void;
+  onComplated?: () => void;
+}
+
+export const useBridgeContext = ({ network, onBackInForm, onComplated }: UseBridgeContextConfigs) => {
   const [step, setStep] = useState<BridgeSteps>(BridgeSteps.FORM);
   const conts = useHomaConts(network);
   const { stakingToken } = conts;
@@ -35,6 +43,13 @@ export const useBridgeContext = (network: SDKNetwork) => {
     toChain: bridgeRouter.toChain
   });
 
+  useEffect(() => {
+    // reset all data when network changed
+    setStep(BridgeSteps.FORM);
+    bridgeAmountInput[0].onReset();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [network]);
+
   return useMemo(
     () => ({
       step,
@@ -42,8 +57,10 @@ export const useBridgeContext = (network: SDKNetwork) => {
       token: stakingToken,
       bridgeRouter,
       bridgeAmountInput,
-      bridgeDestAddress
+      bridgeDestAddress,
+      onBackInForm,
+      onComplated
     }),
-    [step, stakingToken, bridgeRouter, bridgeAmountInput, bridgeDestAddress]
+    [step, stakingToken, bridgeRouter, bridgeAmountInput, bridgeDestAddress, onBackInForm, onComplated]
   );
-}
+};

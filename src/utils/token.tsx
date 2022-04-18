@@ -49,3 +49,9 @@ export function getTokenImage(
     src={resource} width={'100%'}
     {...props} />;
 }
+
+export function getTokenFullName(token: Token | string) {
+  if (typeof token === 'string') return token;
+
+  return token.fullname;
+}

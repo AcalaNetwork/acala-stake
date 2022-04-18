@@ -16,7 +16,8 @@ export const BridgeForm = memo(() => {
     bridgeRouter,
     bridgeAmountInput,
     bridgeDestAddress,
-    setStep
+    setStep,
+    onBackInForm
   } = useBridge();
   const [amountInputData, amountInputConfigs] = bridgeAmountInput;
 
@@ -89,11 +90,16 @@ export const BridgeForm = memo(() => {
         </InfoItem>
       </div>
       <div className='flex gap-22 mt-38'>
-        <Button className='flex-1' color='primary'
-          variant='outline'
-        >
-          Back
-        </Button>
+        {
+          onBackInForm && (
+            <Button className='flex-1' color='primary'
+              onClick={onBackInForm}
+              variant='outline'
+            >
+              Back
+            </Button>
+          )
+        }
         <Button className='flex-1' color='primary'
           onClick={handleNext}
           variant='filled'

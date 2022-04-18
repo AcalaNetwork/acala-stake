@@ -1,12 +1,13 @@
 import { Step } from '@components';
 import { useHomaConts } from '@sdk/hooks/homa';
 import { getTokenName } from '@utils/token';
+import { StakeSteps } from '../../types';
 import { useMemo } from 'react';
 import { memo } from 'react';
-import { useStakeContext, StakeSteps } from './StakeProvider';
+import { useStake } from './StakeProvider';
 
 export const StakeStep = memo(() => {
-  const { step, network } = useStakeContext();
+  const { step, network } = useStake();
   const consts = useHomaConts(network);
   const stakingToken = consts.stakingToken;
 
@@ -17,18 +18,27 @@ export const StakeStep = memo(() => {
         label: `${getTokenName(stakingToken)} Balance`,
       },
       {
-        value: StakeSteps.STAKE,
+        value: StakeSteps.FORM,
         label: 'Stake',
       },
       {
-        value: StakeSteps.COMPLATED,
+        value: StakeSteps.CONFIRM,
         label: 'Confirmation',
       },
     ],
     [stakingToken]
   );
 
+  const currentStep = useMemo(() => {
+    if (step === StakeSteps.COVER) return StakeSteps.BRIDGE;
+
+    if (step === StakeSteps.COMPLATED) return StakeSteps.CONFIRM;
+
+    return step;
+  }, [step]);
+
   return (
-    <Step active={step === StakeSteps.INIT ? StakeSteps.BRIDGE : step} className='w-[514px] m-auto' items={items} />
+    <Step active={currentStep} className='w-[514px] m-auto'
+      items={items} />
   );
 });

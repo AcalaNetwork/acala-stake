@@ -24,8 +24,6 @@ export const Asset: FC<{ data: Itotal }> = ({ data }) => {
 
   if (!active) return null;
 
-  console.log(active);
-
   return (
     <div className='flex gap-29 h-[157px]'>
       <Card

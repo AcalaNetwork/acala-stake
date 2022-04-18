@@ -84,9 +84,10 @@ const createNumberSchema = (configs: NumberRuleConfigs) => {
 export const useInput = (originConfigs: UseInputConfigs) => {
   const changed = useRef<boolean>(false);
   const configs = useMemoized(originConfigs);
-  const [value, setValue] = useState<string | number>(configs?.init);
+  const init = configs.init;
+  const [value, setValue] = useState<string | number>(init);
   const [error, setError] = useState<string>();
-  const valueRef = useRef<string | number>(configs.init);
+  const valueRef = useRef<string | number>(init);
 
   const validate = useCallback(async (value: string): Promise<boolean> => {
     try {
@@ -149,8 +150,8 @@ export const useInput = (originConfigs: UseInputConfigs) => {
   }, [setError, setValue, configs]);
 
   const onValidate = useCallback(() => {
-    return validate(valueRef.current.toString());
-  }, [validate]);
+    return validate(valueRef.current?.toString() || (configs.type === 'number' ? '0' : ''));
+  }, [configs.type, validate]);
 
   useEffect(() => {
     changed.current && onValidate();

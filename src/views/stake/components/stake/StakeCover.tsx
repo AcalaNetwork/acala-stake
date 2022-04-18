@@ -5,13 +5,14 @@ import { Card, Button, Spacing, BaseComponentProps, FormatBalance } from '@compo
 import { useActiveAccount } from '@connector';
 import { useHomaConts } from '@sdk/hooks/homa';
 import { getTokenName } from '@utils/token';
-import { StakeSteps, useStakeContext } from './StakeProvider';
+import { useStake } from './StakeProvider';
 import { useCrossChain } from '@sdk/hooks/crosschain/useCrossChain';
 import { ConnectedNetworks } from 'config';
 import { CrossChainRouter } from '@acala-network/sdk/cross-chain/types';
 import { useMemo } from 'react';
 import { Token } from '@acala-network/sdk-core';
 import { useCrossChainBalance } from '@sdk/hooks/crosschain/useCrossChainBalance';
+import { StakeSteps } from '@views/stake/types';
 
 interface StakingTokenBalanceProps extends BaseComponentProps {
   available: boolean;
@@ -55,23 +56,20 @@ function getAllAvailableNetworks(routers: CrossChainRouter[]): ConnectedNetworks
 }
 
 export const StakeCover = memo<BaseComponentProps>(({ className }) => {
-  const { network, hooks } = useStakeContext();
-  const conts = useHomaConts(network);
+  const { setStep, stakingToken } = useStake();
   const active = useActiveAccount();
-  const setStep = hooks.useSetStep();
   const crossChain = useCrossChain();
-  const stakingToken = conts.stakingToken;
   const stakingTokenName = getTokenName(stakingToken);
-  const toStake = useCallback(() => setStep(StakeSteps.STAKE), [setStep]);
+  const toStake = useCallback(() => setStep(StakeSteps.FORM), [setStep]);
   const toBridge = useCallback(() => setStep(StakeSteps.BRIDGE), [setStep]);
 
   const availableNetworks = useMemo(() => {
     const routers = crossChain.router.getRouters({
-      token: conts.stakingToken.symbol,
+      token: stakingToken.symbol,
     });
 
     return getAllAvailableNetworks(routers);
-  }, [conts.stakingToken.symbol, crossChain.router]);
+  }, [crossChain.router, stakingToken.symbol]);
 
   return (
     <Card className={clsx('py-40 px-56', className)} variant='border'>
@@ -86,10 +84,12 @@ export const StakeCover = memo<BaseComponentProps>(({ className }) => {
       ))}
       {active ? (
         <div className='flex gap-30 text-16 mt-57'>
-          <Button className='flex-1 h-48' onClick={toBridge} size='sm'>
+          <Button className='flex-1 h-48' onClick={toBridge}
+            size='sm'>
             Bring {stakingTokenName} to Acala
           </Button>
-          <Button className='flex-1 h-48' onClick={toStake} size='sm' variant='outline'>
+          <Button className='flex-1 h-48' onClick={toStake}
+            size='sm' variant='outline'>
             Stake
           </Button>
         </div>
@@ -101,7 +101,7 @@ export const StakeCover = memo<BaseComponentProps>(({ className }) => {
           <Spacing h={16} />
           <div className='text-14 leading-17 font-medium text-grey-3'>
             Remo more on wallet guide{' '}
-            <Link href='http://www.google.com'>
+            <Link href='http://www.google.com' passHref>
               <span className='text-primary border-b border-primary cursor-pointer'>Here</span>
             </Link>
             .

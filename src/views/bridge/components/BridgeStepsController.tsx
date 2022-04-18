@@ -15,7 +15,7 @@ export const BridgeStepsController = memo(() => {
         <BridgeForm />
       </Transition>
       <Transition
-        enter="transition-opacity transition-300"
+        enter="transition-opacity transition-300 transition-delay-10"
         enterFrom='opacity-0'
         enterTo='opacity-100'
         show={step === BridgeSteps.CONFIRM}
@@ -23,7 +23,7 @@ export const BridgeStepsController = memo(() => {
         <BridgeConfirm />
       </Transition>
       <Transition
-        enter="transition-opacity transition-300"
+        enter="transition-opacity transition-300 transition-delay-10"
         enterFrom='opacity-0'
         enterTo='opacity-100'
         show={step === BridgeSteps.COMPLATED}

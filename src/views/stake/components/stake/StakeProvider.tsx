@@ -1,40 +1,54 @@
-import React, { useState, createContext, useMemo, memo, PropsWithChildren, useContext } from 'react';
+import React, { useState, createContext, memo, PropsWithChildren, useContext, useMemo } from 'react';
 import { SDKNetwork } from '@sdk/types';
+import { StakeSteps } from '@views/stake/types';
+import { useHomaConts, useHomaEnv } from '@sdk/hooks/homa';
+import { Token } from '@acala-network/sdk-core';
+import { StakingInputData, useStakeInput } from '@views/stake/hook/useStakeInput';
+import { useBoolean } from '@hooks';
+import { StakeCallData, useStakeCall } from '@views/stake/hook/useStakeCall';
 
-export enum StakeSteps {
-  'INIT',
-  'BRIDGE',
-  'STAKE',
-  'COMPLATED',
-}
 
-interface StakeContextProps {
+interface StakeContextData {
   network: SDKNetwork;
   step: StakeSteps;
-  hooks: {
-    useSetStep: () => (value: StakeSteps) => void;
-  };
+  setStep: (value: StakeSteps) => void;
+  stakingToken: Token;
+  liquidToken: Token;
+  stakingInput: StakingInputData;
+  stakeImmediately: ReturnType<typeof useBoolean>;
+  callData: StakeCallData;
 }
 
-export const StakeContext = createContext<StakeContextProps>({} as StakeContextProps);
+export const StakeContext = createContext<StakeContextData>({} as StakeContextData);
 
 export const StakeProvider = memo<PropsWithChildren<{ network: SDKNetwork }>>(({ network, children }) => {
-  const [step, setStep] = useState<StakeSteps>(StakeSteps.INIT);
+  const [step, setStep] = useState<StakeSteps>(StakeSteps.COVER);
+  const conts = useHomaConts(network);
+  const { stakingToken, liquidToken } = conts;
+  const stakingInput = useStakeInput({ network, stakingToken });
+  const stakeImmediately = useBoolean(false);
+  const callData = useStakeCall({
+    network,
+    amount: stakingInput?.inputProps?.value?.toString(),
+    stakeImmediately: stakeImmediately.value,
+    stakingToken,
+    liquidToken
+  });
 
-  const hooks = useMemo(
-    () => ({
-      useSetStep: () => setStep,
-    }),
-    [setStep]
-  );
+  const data = useMemo(() =>({
+    stakingToken,
+    liquidToken,
+    network,
+    step,
+    setStep,
+    stakingInput,
+    stakeImmediately,
+    callData
+  }), [stakingToken, liquidToken, network, step, stakingInput, stakeImmediately, callData]);
 
   return (
     <StakeContext.Provider
-      value={{
-        network,
-        step,
-        hooks,
-      }}
+      value={data}
     >
       {children}
     </StakeContext.Provider>
@@ -43,6 +57,6 @@ export const StakeProvider = memo<PropsWithChildren<{ network: SDKNetwork }>>(({
 
 export const StakeConsumer = StakeContext.Consumer;
 
-export const useStakeContext = () => {
+export const useStake = () => {
   return useContext(StakeContext);
 };

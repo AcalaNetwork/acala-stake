@@ -14,6 +14,7 @@ export const useBridgeAmountInput = (network: RegisteredChain, params: Omit<Cros
     rules: [
       {
         type: 'number',
+        required: true,
         min: inputConfigs?.minInput.toNumber(),
         max: inputConfigs?.maxInput.toNumber()
       }

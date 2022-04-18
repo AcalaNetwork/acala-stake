@@ -17,6 +17,7 @@ export const useCrossChainInputConfigs = (network: RegisteredChain, params: Omit
 
     if (!adapter || !active.address || !params.to) return;
 
+    setBalance(undefined);
     return adapter.subscribeInputConfigs(params).subscribe({ next: setBalance });
   }, [network]);
 

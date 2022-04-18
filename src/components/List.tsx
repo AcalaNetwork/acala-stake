@@ -17,9 +17,9 @@ export const ListItem = React.memo<BaseComponentProps>(({ className, children })
 });
 
 export const ListLabel = React.memo<BaseComponentProps>(({ className, children }) => {
-  return <div className={clsx('text-14 leading-17 text-494853', className)}>{children}</div>;
+  return <div className={clsx('text-14 leading-17 text-grey-3', className)}>{children}</div>;
 });
 
 export const ListValue = React.memo<BaseComponentProps>(({ className, children }) => {
-  return <div className={clsx('text-14 leading-17 text-2e2d33 font-medium', className)}>{children}</div>;
+  return <div className={clsx('text-14 leading-17 text-grey-2 font-medium', className)}>{children}</div>;
 });

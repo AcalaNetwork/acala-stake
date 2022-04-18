@@ -3,7 +3,7 @@ import { Button, Card, FormatBalance, List, ListItem, ListLabel, ListValue, Toke
 import { FormatAddress } from "@components/FormatAddress";
 import { TokenName } from "@components/TokenName";
 import { useCreateCrossChainTx } from "@sdk/hooks/crosschain/useCreateCrossChainTx";
-import { formatBalance, getNetworkName } from "@utils";
+import { formatBalance, getNetworkName, getTokenName } from "@utils";
 import { ConnectedNetworks } from "config";
 import { useMemo } from "react";
 import { useCallback } from "react";
@@ -35,7 +35,7 @@ export const BridgeConfirm = memo(() => {
   const params = useMemo(() => {
     return {
       network: bridgeRouter.fromChain as ConnectedNetworks,
-      message: `Transfer ${formatBalance(amountInputData.value)} from ${getNetworkName(bridgeRouter.fromChain)} to ${getNetworkName(bridgeRouter.toChain)}`,
+      message: `Transfer ${formatBalance(amountInputData.value)} ${getTokenName(token)} from ${getNetworkName(bridgeRouter.fromChain)} to ${getNetworkName(bridgeRouter.toChain)}`,
       call: createTx({
         token: token.symbol,
         to: bridgeRouter.toChain,
@@ -43,7 +43,7 @@ export const BridgeConfirm = memo(() => {
         address: bridgeDestAddress.value
       })
     };
-  }, [amountInputConfigs?.decimals, amountInputData?.value, bridgeDestAddress?.value, bridgeRouter?.fromChain, bridgeRouter?.toChain, createTx, token.symbol]);
+  }, [amountInputConfigs.decimals, amountInputData.value, bridgeDestAddress.value, bridgeRouter.fromChain, bridgeRouter.toChain, createTx, token]);
 
 
   return (

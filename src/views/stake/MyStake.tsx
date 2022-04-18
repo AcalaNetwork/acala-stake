@@ -1,5 +1,4 @@
 import { StakeLayout } from '@components/layout';
-import { Spacing } from '@components/Spacing';
 import { useRouter } from 'next/router';
 import { memo } from 'react';
 import { EnsureSDKReady } from '../../sdk/components/EnsureSDKReady';
@@ -16,8 +15,7 @@ export const MyStake = memo(() => {
       <EnsureSDKReady requires={['acala-homa', 'karura-homa', 'acala-wallet', 'karura-wallet']}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={2} network={network} />
-        <div className='container'>
-          <Spacing h={40} />
+        <div className='container pt-40'>
           <StakingOverview network={network} />
         </div>
       </EnsureSDKReady>

@@ -49,9 +49,9 @@ const MenuItem: FC<MenuItem> = memo(({ children, link }) => {
           >
             <div className='absolute top-48 left-0 bg-white rounded-8 shadow-2 overflow-hidden'>
               {link.map((item) => (
-                <div className={`w-[128px] text-center px-16 py-12 hover:bg-gray-200`} key={item.path}>
+                <div className={`w-[128px] text-cente hover:bg-gray-200`} key={item.path}>
                   <Link href={item.path}>
-                    <a className={clsx({ 'text-grey-2': asPath === item.path })}>{item.label}</a>
+                    <a className={clsx('block px-16 py-12', { 'text-grey-2': asPath === item.path })}>{item.label}</a>
                   </Link>
                 </div>
               ))}

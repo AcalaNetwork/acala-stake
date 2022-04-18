@@ -5,10 +5,16 @@ import { BridgeProviderContext, useBridgeContext } from '../hooks/useBridgeConte
 
 export interface BridgeProviderProps extends BaseComponentProps {
   network: SDKNetwork;
+  onBackInForm?: () => void;
+  onComplated?: () => void;
 }
 
-export const BridgeProvider = memo<BridgeProviderProps>(({ network, children }) => {
-  const data = useBridgeContext(network);
+export const BridgeProvider = memo<BridgeProviderProps>(({ onComplated, onBackInForm, network, children }) => {
+  const data = useBridgeContext({
+    network,
+    onBackInForm,
+    onComplated
+  });
 
   return <BridgeProviderContext.Provider value={data}>{children}</BridgeProviderContext.Provider>;
 });

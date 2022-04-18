@@ -1,4 +1,4 @@
-import { BaseComponentProps, FormErrorMessage, InfoBox } from '@components';
+import { BaseComponentProps, InfoBox } from '@components';
 import { InformationCircleIcon } from '@heroicons/react/outline';
 import { memo } from 'react';
 import { Card } from '@components/Card';
@@ -35,7 +35,7 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
   const { requesting, transferable } = useUnstakeOverview(network);
   const { receive, fee, unstakeFee, call } = useUnstakeCall({
     network,
-    amount,
+    amount: amount?.toString(),
     isFastRedeem,
   });
 
@@ -55,6 +55,7 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
           </InfoBox>
         )}
         <FormPanel
+          error={amountError}
           label={
             <div className='text-14 font-medium'>
               <div className='flex flex-between'>
@@ -70,8 +71,8 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
             </div>
           }
         >
-          <BalanceInput currency={liquidToken} onChange={onAmountChange} onMax={onMaxAmount} value={amount} />
-          <FormErrorMessage message={amountError} />
+          <BalanceInput currency={liquidToken} onChange={onAmountChange}
+            onMax={onMaxAmount} value={amount} />
         </FormPanel>
         <FormPanel>
           <div className='mt-8 text-14 font-medium text-grey-3'>
@@ -135,7 +136,8 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
           }
         >
           <div>
-            <TxButton call={call} className='h-48 w-full font-medium' network={network}>
+            <TxButton call={call} className='h-48 w-full font-medium'
+              network={network}>
               Unstake
             </TxButton>
           </div>

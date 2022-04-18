@@ -6,11 +6,15 @@ import { BridgeSteps } from "../types";
 import SuccessIcon from '/public/images/result-success.svg';
 
 export const BridgeSuccess = memo(() => {
-  const { setStep } = useBridge();
+  const { setStep, onComplated } = useBridge();
 
   const handleClick = useCallback(() => {
-    setStep(BridgeSteps.FORM);
-  }, [setStep]);
+    if (onComplated) {
+      onComplated();
+    } else {
+      setStep(BridgeSteps.FORM);
+    }
+  }, [onComplated, setStep]);
 
   return (
     <div className="flex flex-col items-center">

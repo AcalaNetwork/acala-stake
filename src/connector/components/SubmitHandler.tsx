@@ -145,7 +145,6 @@ export const SubmitHandler = () => {
     callQueue.filter(filterPendingCall).forEach((data) => {
       const api = apis[data.network];
 
-      console.log(data);
       if (api?.api) sendCall(api.api, data, active.address, updateTx);
     });
 
