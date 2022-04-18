@@ -1537,7 +1537,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.16.5, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.17.9, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.16.5, @babel/runtime@npm:^7.17.8, @babel/runtime@npm:^7.17.9, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
   version: 7.17.9
   resolution: "@babel/runtime@npm:7.17.9"
   dependencies:
@@ -3467,7 +3467,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hoist-non-react-statics@npm:^3.3.0":
+"@types/hoist-non-react-statics@npm:^3.3.1":
   version: 3.3.1
   resolution: "@types/hoist-non-react-statics@npm:3.3.1"
   dependencies:
@@ -3529,27 +3529,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-redux@npm:^7.1.20":
-  version: 7.1.24
-  resolution: "@types/react-redux@npm:7.1.24"
-  dependencies:
-    "@types/hoist-non-react-statics": ^3.3.0
-    "@types/react": "*"
-    hoist-non-react-statics: ^3.3.0
-    redux: ^4.0.0
-  checksum: 6582246581331ac7fbbd44aa1f1c136c8a9c8febbcf462432ac81302263308c21e1a2e7868beb7f73bbcb52a8e67935d133cb37f5bdcb6564eaff3a811805101
-  languageName: node
-  linkType: hard
-
-"@types/react-table@npm:^7.7.9":
-  version: 7.7.10
-  resolution: "@types/react-table@npm:7.7.10"
-  dependencies:
-    "@types/react": "*"
-  checksum: 840f845c226c37c3f13f023974c37b4e941b7588c42dc5fcd5165463fd25005a9504a2c0d48df3325c0a63c2dc99c60fe1dfee4654b501b781ec2df3a4abfa64
-  languageName: node
-  linkType: hard
-
 "@types/react@npm:*":
   version: 18.0.5
   resolution: "@types/react@npm:18.0.5"
@@ -3583,6 +3562,13 @@ __metadata:
   version: 3.0.10
   resolution: "@types/tailwindcss@npm:3.0.10"
   checksum: 4394244b71e1ce64f5e0cc2c5f91c34bea07a77441886cb6f6ea70a91756cf05a0a908241c1d0b377a44ecc52f83364a6253179f9e4b955015047e26a650479c
+  languageName: node
+  linkType: hard
+
+"@types/use-sync-external-store@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@types/use-sync-external-store@npm:0.0.3"
+  checksum: 161ddb8eec5dbe7279ac971531217e9af6b99f7783213566d2b502e2e2378ea19cf5e5ea4595039d730aa79d3d35c6567d48599f69773a02ffcff1776ec2a44e
   languageName: node
   linkType: hard
 
@@ -7344,7 +7330,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"next@npm:^12.0.5":
+"next@npm:^12.1.0":
   version: 12.1.5
   resolution: "next@npm:12.1.5"
   dependencies:
@@ -7924,7 +7910,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -8015,31 +8001,39 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"react-is@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react-is@npm:17.0.2"
-  checksum: 9d6d111d8990dc98bc5402c1266a808b0459b5d54830bbea24c12d908b536df7883f268a7868cfaedde3dd9d4e0d574db456f84d2e6df9c4526f99bb4b5344d8
+"react-is@npm:^18.0.0":
+  version: 18.0.0
+  resolution: "react-is@npm:18.0.0"
+  checksum: d38f6afee4d8d791cdd69c715841c01a503c9b06da6158e0893447cea6ba50cd262dca9bde84127720cf44fd05c58185eafc32accace4bb2deb03b3cdbeb6b6b
   languageName: node
   linkType: hard
 
-"react-redux@npm:^7.2.6":
-  version: 7.2.8
-  resolution: "react-redux@npm:7.2.8"
+"react-redux@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "react-redux@npm:8.0.0"
   dependencies:
-    "@babel/runtime": ^7.15.4
-    "@types/react-redux": ^7.1.20
+    "@babel/runtime": ^7.12.1
+    "@types/hoist-non-react-statics": ^3.3.1
+    "@types/use-sync-external-store": ^0.0.3
     hoist-non-react-statics: ^3.3.2
-    loose-envify: ^1.4.0
-    prop-types: ^15.7.2
-    react-is: ^17.0.2
+    react-is: ^18.0.0
+    use-sync-external-store: ^1.0.0
   peerDependencies:
-    react: ^16.8.3 || ^17 || ^18
+    "@types/react": ^16.8 || ^17.0 || ^18.0
+    react: ^16.8 || ^17.0 || ^18.0
+    react-dom: ^16.8 || ^17.0 || ^18.0
+    react-native: ">=0.59"
+    redux: ^4
   peerDependenciesMeta:
+    "@types/react":
+      optional: true
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: ecf1933e91013f2d41bfc781515b536bf81eb1f70ff228607841094c8330fe77d522372b359687e51c0b52b9888dba73db9ac0486aace1896ab9eb9daec102d5
+    redux:
+      optional: true
+  checksum: 466c36e49062fb71b7ea747d6a9d7e0f30ce3d2b657e04958fc35c3d66e5f7f277e3588b095cbb663b807f1ff6d826c3dc771586460610c8f916112d56b46281
   languageName: node
   linkType: hard
 
@@ -8127,7 +8121,7 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
-"redux@npm:^4.0.0, redux@npm:^4.1.2":
+"redux@npm:^4.1.2":
   version: 4.1.2
   resolution: "redux@npm:4.1.2"
   dependencies:
@@ -8350,7 +8344,6 @@ resolve@^2.0.0-next.3:
     "@svgr/webpack": ^6.1.1
     "@types/lodash": ^4.14.177
     "@types/react": ^17.0.37
-    "@types/react-table": ^7.7.9
     "@types/tailwindcss": ^3.0.10
     "@types/yup": ^0.29.13
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -8362,12 +8355,12 @@ resolve@^2.0.0-next.3:
     eslint-config-next: ^12.1.4
     eslint-plugin-react: ^7.29.4
     lodash: ^4.17.21
-    next: ^12.0.5
+    next: ^12.1.0
     postcss: ^8.4.4
     prettier: 2.6.2
-    react: latest
-    react-dom: latest
-    react-redux: ^7.2.6
+    react: ^17.0.1
+    react-dom: ^17.0.1
+    react-redux: ^8.0.0
     react-table: ^7.7.0
     redux: ^4.1.2
     redux-persist: ^6.0.0
@@ -9129,6 +9122,15 @@ resolve@^2.0.0-next.3:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
+  languageName: node
+  linkType: hard
+
+"use-sync-external-store@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "use-sync-external-store@npm:1.0.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0-rc
+  checksum: f3df10af62625169d6a8cd8d4f38942dc6817aa27398fa7f474421fd574b0c4c83679b9d15f983f482c396ee1183416eb146814c81f44241e1480acd701ef018
   languageName: node
   linkType: hard
 

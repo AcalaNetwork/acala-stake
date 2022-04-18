@@ -47,11 +47,11 @@ export const Table = ({ columns, data, size = 'default', pagination = {}, defaul
         pageIndex: pagination?.defaultIndex || 0,
         sortBy: defaultSortBy
           ? [
-              {
-                id: defaultSortBy.columnId,
-                desc: defaultSortBy.desc,
-              },
-            ]
+            {
+              id: defaultSortBy.columnId,
+              desc: defaultSortBy.desc,
+            },
+          ]
           : [],
       },
     },
@@ -70,9 +70,11 @@ export const Table = ({ columns, data, size = 'default', pagination = {}, defaul
       <table {...tableProps} className={`${tableProps.className} w-full`}>
         <thead>
           {headerGroups.map((headerGroup, i) => (
-            <tr {...headerGroup.getHeaderGroupProps()} className={headerClassName}>
+            <tr {...headerGroup.getHeaderGroupProps()} className={headerClassName}
+              key={i}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())} className={headerItemClassName}>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className={headerItemClassName}
+                  key={column.id}>
                   <div className='flex items-center'>
                     {column.render('Header')}
                     {column.isSorted ? (
@@ -98,10 +100,12 @@ export const Table = ({ columns, data, size = 'default', pagination = {}, defaul
               prepareRow(row);
 
               return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
+                <tr {...row.getRowProps()} key={rowIndex}>
+                  {row.cells.map((cell, cellIndex) => {
                     return (
-                      <td {...cell.getCellProps()} className={itemClassName} style={{ border: noBorder ? 'none' : '' }}>
+                      <td {...cell.getCellProps()} className={itemClassName}
+                        key={`${rowIndex}-${cellIndex}`}
+                        style={{ border: noBorder ? 'none' : '' }}>
                         {cell.render('Cell')}
                       </td>
                     );
