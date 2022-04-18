@@ -1,13 +1,13 @@
-import { UserLiquidity } from "@acala-network/sdk/liquidity/types";
-import { useState } from "react";
-import { useLiquidity } from ".";
-import { useActiveAccount } from "../../../connector"
-import { useSubscription } from "../../../hooks/useSubscription";
-import { switchMap, map } from 'rxjs/operators'
-import { combineLatest } from 'rxjs'
-import { useWallet } from "..";
-import next from "next";
-import { FixedPointNumber } from "@acala-network/sdk-core";
+import { UserLiquidity } from '@acala-network/sdk/liquidity/types';
+import { useState } from 'react';
+import { useLiquidity } from '.';
+import { useActiveAccount } from '../../../connector';
+import { useSubscription } from '../../../hooks/useSubscription';
+import { switchMap, map } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
+import { useWallet } from '..';
+import next from 'next';
+import { FixedPointNumber } from '@acala-network/sdk-core';
 
 export const useLiquidityOverviewOfUser = () => {
   const active = useActiveAccount();
@@ -19,12 +19,12 @@ export const useLiquidityOverviewOfUser = () => {
 
     if (!active) return;
     return liquidity.subscribeAllUserLiquidityDetails(active.address).subscribe({
-      next: setData
-    })
+      next: setData,
+    });
   }, [active, liquidity]);
 
   return data;
-}
+};
 
 // liquidity.subscribeAllUserPools(active.address).pipe(
 //   switchMap((data) => {
@@ -48,27 +48,32 @@ export const useLiquidityValue = () => {
   useSubscription(() => {
     if (!liquidity || !active || !wallet) return;
 
-    return liquidity.subscribeAllUserLiquidityDetails(active.address).pipe(
-      switchMap((data) => {
-        const _tokens = [];
-        Object.keys(data).forEach(key => tokens.push(key));
-        setTokens(_tokens)
-        return combineLatest(Object.entries(data).map(([key, item]) => {
-          return wallet.subscribePrice(key);
-        })).pipe(
-          map(data => {
-            const prices: Record<string, FixedPointNumber> = {};
-            data.forEach((price, index) => {
-              prices[tokens[index]] = price ?? FixedPointNumber.ZERO;
+    return liquidity
+      .subscribeAllUserLiquidityDetails(active.address)
+      .pipe(
+        switchMap((data) => {
+          const _tokens = [];
+          Object.keys(data).forEach((key) => tokens.push(key));
+          setTokens(_tokens);
+          return combineLatest(
+            Object.entries(data).map(([key, item]) => {
+              return wallet.subscribePrice(key);
             })
-            return prices;
-          })
-        )
-      })
-    ).subscribe({
-      next: setData
-    })
+          ).pipe(
+            map((data) => {
+              const prices: Record<string, FixedPointNumber> = {};
+              data.forEach((price, index) => {
+                prices[tokens[index]] = price ?? FixedPointNumber.ZERO;
+              });
+              return prices;
+            })
+          );
+        })
+      )
+      .subscribe({
+        next: setData,
+      });
   }, [active, liquidity, wallet]);
 
   return data;
-}
+};

@@ -1,5 +1,5 @@
-import { useMemoized } from "../../hooks";
-import { useCallQueue } from "./useCallQueue";
+import { useMemoized } from '../../hooks';
+import { useCallQueue } from './useCallQueue';
 
 export const useTxTracker = (id: string) => {
   const queue = useCallQueue();

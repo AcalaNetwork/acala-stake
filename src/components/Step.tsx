@@ -1,102 +1,79 @@
-import { FC, useMemo } from "react";
-import { CheckIcon } from "@heroicons/react/solid";
+import { FC, useMemo } from 'react';
+import { CheckIcon } from '@heroicons/react/solid';
+import { memo } from 'react';
+import { BaseComponentProps } from './types';
+import clsx from 'clsx';
+import { uniqueId } from 'lodash';
 
-interface StepDataProps {
-  id: number;
-  desc?: string;
+interface StepItem {
+  value: number;
+  label: string;
 }
 
-interface StepProps {
+interface StepProps extends BaseComponentProps {
   active: number;
-  data: StepDataProps[];
+  items: StepItem[];
 }
 
-interface StepItemProps extends StepDataProps {
-  active: number;
+interface StepItemProps extends StepItem {
+  index: number;
+  isActive: boolean;
+  isComplated: boolean;
 }
 
-interface ItemProps {
-  desc?: string;
-  id: number;
-}
-
-const CompletedItem: FC<ItemProps> = ({ desc }) => {
+const StepItem: FC<StepItemProps> = ({ index, isComplated, isActive, label }) => {
   return (
-    <div className="flex flex-col items-center justify-start h-full">
-      <div className="w-32 h-32 rounded-circle flex flex-center bg-primary ">
-        <CheckIcon className="text-white w-24 h-24" />
-      </div>
-      <div className="absolute mt-8 text-14 leading-17 text-primary text-center font-medium transform translate-y-32">
-        {desc}
-      </div>
-    </div>
-  );
-};
-const ActiveItem: FC<ItemProps> = ({ id, desc }) => {
-  return (
-    <div className="flex flex-col items-center justify-start h-full">
-      <div className="w-32 h-32 rounded-circle flex flex-center text-primary border border-primary text-16 font-semibold bg-white">
-        {id}
-      </div>
-      <div className="absolute mt-8 text-14 leading-17 text-primary text-center font-medium transform translate-y-32">
-        {desc}
-      </div>
-    </div>
-  );
-};
-const NextItem: FC<ItemProps> = ({ id, desc }) => {
-  return (
-    <div className="flex flex-col items-center justify-start h-full">
-      <div className="w-32 h-32 rounded-circle flex flex-center border border-abaab9 text-16 text-abaab9 font-semibold bg-white">
-        {id}
-      </div>
-      <div className="absolute mt-8 text-14 leading-17 text-abaab9 text-center font-medium transform translate-y-32">
-        {desc}
+    <div className='flex flex-col'>
+      <div className='flex flex-col items-center justify-start h-full'>
+        <div
+          className={clsx('w-32 h-32 rounded-full flex flex-center border text-16 font-semibold ', {
+            'border-primary text-primary': isActive,
+            'border-primary bg-primary': isComplated,
+            'border-gray-4 text-grey-4': !(isActive || isComplated),
+          })}
+        >
+          {isComplated ? <CheckIcon className='text-white w-24 h-24' /> : index + 1}
+        </div>
+        <div
+          className={clsx('absolute mt-8 text-14 leading-17 text-center font-medium transform translate-y-32', {
+            'text-primary': isActive || isComplated,
+            'text-grey-4': !(isActive || isComplated),
+          })}
+        >
+          {label}
+        </div>
       </div>
     </div>
   );
 };
 
-const StepItem: FC<StepItemProps> = ({ active, id, desc }) => {
-  const isActive = useMemo(() => active === id, [active, id]);
-  const isCompleted = useMemo(() => active > id, [active, id]);
+export const Step = memo<StepProps>(({ className, active, items }) => {
+  const idPrefix = useMemo(() => uniqueId('step-'), []);
 
   return (
-    <div className="flex flex-col">
-      {isCompleted ? (
-        <CompletedItem desc={desc}
-          id={id} />
-      ) : isActive ? (
-        <ActiveItem desc={desc}
-          id={id} />
-      ) : (
-        <NextItem desc={desc}
-          id={id} />
-      )}
-    </div>
-  );
-};
+    <div className={clsx('flex flex-between flex-row w-full pb-25 px-32', className)}>
+      {items.map((item, i) => {
+        const components = [
+          <StepItem
+            key={`${idPrefix}-${item.value}`}
+            {...item}
+            index={i}
+            isActive={active === item.value}
+            isComplated={active > item.value}
+          />,
+        ];
 
-export const Step: FC<StepProps> = ({ active, data }) => {
-  return (
-    <div className="flex flex-between flex-row w-full mt-12 mb-24 px-32">
-      {data.flatMap((item, i) => {
-        const stepItem = <StepItem key={item.id}
-          {...item}
-          active={active} />;
-
-        if (i !== data.length - 1) {
-          return [
-            stepItem,
+        if (i !== items.length - 1) {
+          components.push(
             <div
-              className={`h-1 w-full ${i < active - 1 ? "bg-primary" : "bg-abaab9"}`}
-              key={`spacer-${item.id}`}
-            ></div>,
-          ];
+              className={clsx('h-[1px] w-full', item.value < active ? 'bg-primary' : 'bg-grey-66')}
+              key={`${idPrefix}-line-${i}`}
+            />
+          );
         }
 
-        return [stepItem];
+        return components;
       })}
     </div>
   );
-};
+});

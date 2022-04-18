@@ -1,9 +1,9 @@
-import { useWallet } from ".."
-import { useSubscription } from "../../../hooks/useSubscription";
-import { useHoma } from "./useHoma";
+import { useWallet } from '..';
+import { useSubscription } from '../../../hooks/useSubscription';
+import { useHoma } from './useHoma';
 import { combineLatest } from 'rxjs';
-import { useState } from "react";
-import { FixedPointNumber } from "@acala-network/sdk-core";
+import { useState } from 'react';
+import { FixedPointNumber } from '@acala-network/sdk-core';
 
 export const useTotalStakingTVL = () => {
   const karuraWallet = useWallet('karura');
@@ -22,19 +22,18 @@ export const useTotalStakingTVL = () => {
       acalaHomaEnv: acalaHoma.subscribeEnv(),
       karuraHomaEnv: karuraHoma.subscribeEnv(),
       acalaStakingPrice: acalaWallet.subscribePrice(acalaStakingToken),
-      karuraStakingPrice: karuraWallet.subscribePrice(karuraStakingToken)
+      karuraStakingPrice: karuraWallet.subscribePrice(karuraStakingToken),
     }).subscribe({
       next: ({ acalaHomaEnv, karuraHomaEnv, acalaStakingPrice, karuraStakingPrice }) => {
-        if (!acalaHomaEnv.totalStaking || !karuraHomaEnv.totalStaking || !acalaStakingPrice || !karuraStakingPrice) return;
+        if (!acalaHomaEnv.totalStaking || !karuraHomaEnv.totalStaking || !acalaStakingPrice || !karuraStakingPrice)
+          return;
 
         setResult(
-          acalaHomaEnv.totalStaking
-            .mul(acalaStakingPrice)
-            .add(karuraHomaEnv.totalStaking.mul(karuraStakingPrice))
-        )
-      }
-    })
+          acalaHomaEnv.totalStaking.mul(acalaStakingPrice).add(karuraHomaEnv.totalStaking.mul(karuraStakingPrice))
+        );
+      },
+    });
   }, [karuraHoma, acalaHoma, karuraWallet, acalaWallet]);
 
   return result;
-}
+};

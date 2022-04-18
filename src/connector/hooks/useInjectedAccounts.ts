@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { ConnectorContext } from "..";
+import { useContext } from 'react';
+import { ConnectorContext } from '..';
 
 export const useInjectedAccounts = () => {
-	const data = useContext(ConnectorContext);
+  const data = useContext(ConnectorContext);
 
-	return data.extension.injectedAccounts;
+  return data.extension.injectedAccounts;
 };
