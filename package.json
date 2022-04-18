@@ -4,7 +4,8 @@
     "dev": "TAILWIND_MODE=watch next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "yarn prettier --write src/."
   },
   "resolutions": {
     "@polkadot/api": "^7.15.2-14",
@@ -29,13 +30,15 @@
     "@polkadot/util-crypto": "^9.0.1",
     "@polkadot/wasm-crypto": "^6.0.1",
     "typescript": "^4.6.3",
-    "rxjs": "^7.5.5"
+    "rxjs": "^7.5.5",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "dependencies": {
-    "@acala-network/api": "^4.0.4-6",
-    "@acala-network/sdk": "^4.0.4-6",
-    "@acala-network/sdk-core": "^4.0.4-6",
-    "@acala-network/sdk-swap": "^4.0.4-6",
+    "@acala-network/api": "^4.1.2-0",
+    "@acala-network/sdk": "^4.1.2-0",
+    "@acala-network/sdk-core": "^4.1.2-0",
+    "@acala-network/sdk-swap": "^4.1.2-0",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@polkadot/api": "^7.1.1",
@@ -44,24 +47,26 @@
     "@polkadot/react-identicon": "^0.87.5",
     "@polkadot/util": "^8.1.2",
     "@reduxjs/toolkit": "^1.6.2",
-    "@types/react-table": "^7.7.9",
+    "@types/yup": "^0.29.13",
     "clsx": "^1.1.1",
     "d3": "^7.2.0",
     "lodash": "^4.17.21",
     "next": "^12.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-redux": "^7.2.6",
+    "react-redux": "^8.0.0",
     "react-table": "^7.7.0",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-persist-transform-filter": "^0.0.20",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.1.1",
     "@types/lodash": "^4.14.177",
     "@types/react": "^17.0.37",
+    "@types/tailwindcss": "^3.0.10",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "autoprefixer": "^10.4.0",
@@ -69,6 +74,8 @@
     "eslint-config-next": "^12.1.4",
     "eslint-plugin-react": "^7.29.4",
     "postcss": "^8.4.4",
+    "prettier": "2.6.2",
+    "tailwind-styled-components": "^2.1.7",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.6.3"
   }

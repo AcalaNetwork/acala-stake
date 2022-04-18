@@ -1,45 +1,43 @@
-import { FixedPointNumber } from "@acala-network/sdk-core";
-import { AccountId } from "@acala-network/types/interfaces";
-import { useEffect, useMemo, useState } from "react";
+import { FixedPointNumber } from '@acala-network/sdk-core';
+import { AccountId } from '@acala-network/types/interfaces';
+import { useEffect, useMemo, useState } from 'react';
 
-import { SubmittableExtrinsic } from "@polkadot/api/types";
-import { assert } from "@polkadot/util";
-import { CONNECTED_NETWORK } from "../../config";
-import { useApi } from ".";
-import { useSubscription } from "../../hooks/useSubscription";
-import { useMemoized } from "../../hooks";
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { assert } from '@polkadot/util';
+import { useApi } from '.';
+import { useSubscription } from '../../hooks/useSubscription';
+import { usePresetTokens } from './usePresetTokens';
+import { SDKNetwork } from '@sdk/types';
+import { TokenAmount } from '@connector/types';
+import { useMemoized } from '@hooks';
+import { useActiveAccount } from './useActiveAccount';
 
-
-interface ExtrinsicData {
-	account?: string | AccountId;
-	section: string;
-	method: string;
-	params: any[] | null | undefined;
-	network?: CONNECTED_NETWORK;
+export interface ExtrinsicConfigs {
+  section: string;
+  method: string;
+  params: any[] | null | undefined;
+  network: SDKNetwork;
 }
 
-interface CallInfo {
-	isLoadingFee: boolean;
-	fee: FixedPointNumber;
-	call: SubmittableExtrinsic<"rxjs"> | undefined;
+export interface CallInfo {
+  isLoadingFee: boolean;
+  fee: TokenAmount;
+  call: SubmittableExtrinsic<'rxjs'> | undefined;
 }
 
-export const useExtrinsic = (_data?: ExtrinsicData) => {
+export const useExtrinsic = (_data?: ExtrinsicConfigs): CallInfo => {
   const data = useMemoized(_data);
-  const api = useApi(data?.network);
+  const api = useApi(data.network);
   const [isLoadingFee, setIsLoadingFee] = useState<boolean>(false);
   const [fee, setFee] = useState<FixedPointNumber>(FixedPointNumber.ZERO);
-  const [call, setCall] = useState<CallInfo["call"]>();
-
-  const feeDecimal = Number(api?.api?.registry?.chainDecimals?.[0].toString() || "12");
+  const [call, setCall] = useState<CallInfo['call']>();
+  const nativeToken = usePresetTokens(data.network)?.nativeToken;
+  const feeDecimal = nativeToken?.decimals;
+	const active = useActiveAccount();
 
   const buildCall = useMemo(() => {
-    return (
-      section: string,
-      method: string,
-      params: ExtrinsicData["params"]
-    ): CallInfo["call"] => {
-      if (!api.api) return;
+    return (section: string, method: string, params: ExtrinsicConfigs['params']): CallInfo['call'] => {
+      if (!api.api || !data) return;
 
       const fn = api.api.tx[section][method];
 
@@ -49,11 +47,11 @@ export const useExtrinsic = (_data?: ExtrinsicData) => {
 
       return call;
     };
-  }, [api]);
+  }, [api, data]);
 
   const getFee = useMemo(() => {
-    return (call: CallInfo["call"], data: ExtrinsicData) => {
-      if (!call || !call.paymentInfo || !data.account) {
+    return (call: CallInfo['call']) => {
+      if (!call || !call.paymentInfo || !active.address) {
         setIsLoadingFee(false);
 
         return;
@@ -61,21 +59,17 @@ export const useExtrinsic = (_data?: ExtrinsicData) => {
 
       setIsLoadingFee(true);
 
-      const account = data.account.toString();
+      const account = active.address.toString();
 
-      return call.paymentInfo(account as any).subscribe({
-        error: () => {
-          setIsLoadingFee(false);
-        },
+      return call.paymentInfo(account).subscribe({
+        error: () => setIsLoadingFee(false),
         next: (data) => {
           setIsLoadingFee(false);
-          setFee(
-            FixedPointNumber.fromInner(data.partialFee.toString(), feeDecimal)
-          );
+          setFee(FixedPointNumber.fromInner(data.partialFee.toString(), feeDecimal));
         },
       });
     };
-  }, [setIsLoadingFee, setFee]);
+  }, [active.address, feeDecimal]);
 
   // try to build call, set call to null if build failed
   useEffect(() => {
@@ -92,10 +86,20 @@ export const useExtrinsic = (_data?: ExtrinsicData) => {
 
   // try to get fee data
   useSubscription(() => {
-    if (!data || !call) return;
+    if (!call) return;
 
-    return getFee(call, data);
-  }, [call, data]);
+    return getFee(call);
+  }, [call]);
 
-  return useMemo(() => [call, fee, isLoadingFee] as const, [call, fee, isLoadingFee]);
+  return useMemo(
+    () => ({
+      call,
+      fee: {
+        amount: fee,
+        token: nativeToken,
+      },
+      isLoadingFee,
+    }),
+    [call, fee, isLoadingFee, nativeToken]
+  );
 };

@@ -1,6 +1,6 @@
-import { useContext } from "react"
-import { SDKContext } from "../..";
-import { SDKNetwork } from "../../types";
+import { useContext } from 'react';
+import { SDKContext } from '../..';
+import { SDKNetwork } from '../../types';
 
 export const useSwap = (type?: SDKNetwork) => {
   const sdk = useContext(SDKContext);
@@ -10,4 +10,4 @@ export const useSwap = (type?: SDKNetwork) => {
   }
 
   return sdk.acala.swap;
-}
+};

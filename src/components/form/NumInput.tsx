@@ -3,36 +3,38 @@ import styled from 'styled-components';
 
 export interface NumInputProps extends Omit<React.HTMLProps<HTMLInputElement>, 'onChange'> {
   value?: string | number;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | number) => void;
   className?: string;
 }
 
 const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`);
 
 export const NumInput: FC<NumInputProps> = memo(({ value, onChange, className, placeholder, ...rest }) => {
-  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value.trim();
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value.trim();
 
-    // update user input if the value is validated or empty
-    if (onChange && (value === '' || inputRegex.test(value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))) {
-      onChange(value);
-    }
-
-  }, [onChange]);
+      // update user input if the value is validated or empty
+      if (onChange && (value === '' || inputRegex.test(value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))) {
+        onChange(value);
+      }
+    },
+    [onChange]
+  );
 
   return (
     <StyledInput
       {...rest}
-      autoComplete="off"
-      autoCorrect="off"
+      autoComplete='off'
+      autoCorrect='off'
       className={className}
-      inputMode="decimal"
+      inputMode='decimal'
       minLength={1}
       onChange={handleChange}
-      pattern="^[0-9]*[.]?[0-9]*$"
+      pattern='^[0-9]*[.]?[0-9]*$'
       placeholder={placeholder || '0.0'}
-      spellCheck="false"
-      type="text"
+      spellCheck='false'
+      type='text'
       value={(value === 'NaN' ? '' : value) || ''}
     />
   );
@@ -59,7 +61,7 @@ const StyledInput = styled.input`
     font-size: 20px;
     font-weight: 500;
     line-height: 24px;
-    color: #7B7986;
+    color: #7b7986;
   }
 
   // clear [type=search] style

@@ -1,24 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
-import { Layout } from '../components/layout';
+import { StakeLayout } from '../components/layout';
 
 const Terms = styled((props) => {
   return (
     <article className={props.className}>
-      <div
-        className='markdown-body container-fluid comment-enabled'
-        data-hard-breaks='true'
-      >
-        <h1
-          data-id='Karura-Terms-of-Use'
-          id='Karura-Terms-of-Use'
-        >
-          <a
-            className='anchor hidden-xs'
-            href='#Karura-Terms-of-Use'
-            title='Karura-Terms-of-Use'
-          >
+      <div className='markdown-body container-fluid comment-enabled' data-hard-breaks='true'>
+        <h1 data-id='Karura-Terms-of-Use' id='Karura-Terms-of-Use'>
+          <a className='anchor hidden-xs' href='#Karura-Terms-of-Use'
+            title='Karura-Terms-of-Use'>
             <span className='octicon octicon-link'></span>
           </a>
           <span>Karura Terms of Use</span>
@@ -36,15 +27,9 @@ const Terms = styled((props) => {
             </span>
           </strong>
         </p>
-        <h2
-          data-id='General'
-          id='General'
-        >
-          <a
-            className='anchor hidden-xs'
-            href='#General'
-            title='General'
-          >
+        <h2 data-id='General' id='General'>
+          <a className='anchor hidden-xs' href='#General'
+            title='General'>
             <span className='octicon octicon-link'></span>
           </a>
           <span>General</span>
@@ -102,11 +87,8 @@ const Terms = styled((props) => {
                 and/or use of Interface and/or Protocol (as defined below), such submission will be governed by the
                 privacy policy of Interface Host and Developer, as updated from time to time, and available{' '}
               </span>
-              <a
-                href='https://acala.network/privacy'
-                rel='noopener noreferrer'
-                target='_blank'
-              >
+              <a href='https://acala.network/privacy' rel='noopener noreferrer'
+                target='_blank'>
                 <span>https://acala.network/privacy</span>
               </a>
               <span> (the " </span>
@@ -275,11 +257,8 @@ const Terms = styled((props) => {
                 ") and is not subject to the Interface Licence. For more information regarding the Protocol License
                 applicable to your access and/or use of Protocol, please refer to Protocol documentation published at{' '}
               </span>
-              <a
-                href='https://github.com/AcalaNetwork/Acala'
-                rel='noopener noreferrer'
-                target='_blank'
-              >
+              <a href='https://github.com/AcalaNetwork/Acala' rel='noopener noreferrer'
+                target='_blank'>
                 <span>https://github.com/AcalaNetwork/Acala</span>
               </a>
               <span>.</span>
@@ -515,9 +494,9 @@ const Terms = styled((props) => {
             <p>
               <span>
                 (b) You as a Protocol User will be entitled to receive Usage Rewards in the form of KAR if they hold
-                Liquidity Tokens or LKSM – which represent your support of Protocol's Swap and Liquid Staking
-                features – with distribution of Usage Rewards being based on the amount of Liquidity Tokens or Liquid
-                KSM that you deposit and hold at a smart contract address associated with Protocol.
+                Liquidity Tokens or LKSM – which represent your support of Protocol's Swap and Liquid Staking features –
+                with distribution of Usage Rewards being based on the amount of Liquidity Tokens or Liquid KSM that you
+                deposit and hold at a smart contract address associated with Protocol.
               </span>
             </p>
             <p>
@@ -1854,8 +1833,10 @@ const Terms = styled((props) => {
   }
 `;
 
-export default () => {
-  return <Layout>
-    <Terms />
-  </Layout>;
-};
+export default memo(() => {
+  return (
+    <StakeLayout>
+      <Terms />
+    </StakeLayout>
+  );
+});

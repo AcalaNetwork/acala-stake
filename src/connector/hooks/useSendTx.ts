@@ -1,16 +1,16 @@
-import { useContext, useCallback } from "react";
-import { ConnectorContext } from "..";
-import { SubmitData } from "../types";
+import { useContext, useCallback } from 'react';
+import { ConnectorContext } from '..';
+import { SubmitData } from '../types';
 
 export const useSendTx = () => {
-	const { sendTx } = useContext(ConnectorContext);
+  const { sendTx } = useContext(ConnectorContext);
 
-	return useCallback(
-		(data?: Omit<SubmitData, 'trackId'>) => {
-			if (!sendTx || !data) return;
+  return useCallback(
+    (data?: Omit<SubmitData, 'trackId'>) => {
+      if (!sendTx || !data) return;
 
-			return sendTx(data);
-		},
-		[sendTx]
-	);
+      return sendTx(data);
+    },
+    [sendTx]
+  );
 };

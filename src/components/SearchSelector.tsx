@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import { SelectorItem } from "./form/Selector";
+import React, { useEffect, useRef, useState } from 'react';
+import { SelectorItem } from './form/Selector';
 
-import LockIcon from "/public/icons/lock.svg";
-import UnlockIcon from "/public/icons/unlock.svg";
-import { CheckIcon } from "@heroicons/react/solid";
+import LockIcon from '/public/icons/lock.svg';
+import UnlockIcon from '/public/icons/unlock.svg';
+import { CheckIcon } from '@heroicons/react/solid';
 
 interface SearchSelectorProps<T> {
   /** The placeholder value of the input. */
@@ -41,8 +41,8 @@ interface SearchSelectorProps<T> {
  * to unlock the component before changing the input.
  */
 export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
-  placeholder = "",
-  className = "",
+  placeholder = '',
+  className = '',
   lockable,
   filter,
   initial,
@@ -62,8 +62,7 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
         filter
           ? (item) => filter(item, inputRef.current.value)
           : (item) => {
-            const inputRefValueLowerCase =
-                inputRef.current.value.toLowerCase();
+            const inputRefValueLowerCase = inputRef.current.value.toLowerCase();
 
             const itemValue = item.value.toLowerCase();
 
@@ -79,7 +78,7 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
   }, [isLocked]);
 
   useEffect(() => {
-    inputRef.current!.value = initial ?? "";
+    inputRef.current!.value = initial ?? '';
 
     const onClickOut = (event: Event) => {
       if (lockRef.current) return;
@@ -92,10 +91,10 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
       }
     };
 
-    document.addEventListener("mousedown", onClickOut);
+    document.addEventListener('mousedown', onClickOut);
 
     return () => {
-      document.removeEventListener("mousedown", onClickOut);
+      document.removeEventListener('mousedown', onClickOut);
     };
   }, []);
 
@@ -103,13 +102,11 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
     <div className={`relative flex flex-col gap-8 z-20 ${className}`}>
       <div
         className={`group flex flex-row items-center w-full h-58 bg-white rounded-8 border ${
-          showDropDown ? "border-primary focus:border" : ""
-        } ${isLocked ? "cursor-not-allowed" : ""}`}
+          showDropDown ? 'border-primary focus:border' : ''
+        } ${isLocked ? 'cursor-not-allowed' : ''}`}
       >
         <input
-          className={`w-full h-58 text-20 pl-22 bg-transparent ${
-            isLocked ? "cursor-not-allowed" : ""
-          }`}
+          className={`w-full h-58 text-20 pl-22 bg-transparent ${isLocked ? 'cursor-not-allowed' : ''}`}
           disabled={isLocked}
           onChange={() => {
             onChange(inputRef.current.value);
@@ -120,7 +117,7 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
           }}
           placeholder={placeholder}
           ref={inputRef}
-          type="text"
+          type='text'
         />
         <div
           onClick={() => {
@@ -130,9 +127,9 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
         >
           {lockable ? (
             isLocked ? (
-              <LockIcon className="w-24 h-24 mx-24 cursor-pointer" />
+              <LockIcon className='w-24 h-24 mx-24 cursor-pointer' />
             ) : (
-              <UnlockIcon className="w-24 h-24 mx-24 cursor-pointer" />
+              <UnlockIcon className='w-24 h-24 mx-24 cursor-pointer' />
             )
           ) : (
             <div></div>
@@ -141,35 +138,33 @@ export const SearchSelector: React.FC<SearchSelectorProps<any>> = ({
       </div>
       {showDropDown ? (
         <div
-          className="absolute flex-center flex-col w-full bg-white rounded-8 transform translate-y-[64px] z-10 border p-20 shadow-md"
+          className='absolute flex-center flex-col w-full bg-white rounded-8 transform translate-y-[64px] z-10 border p-20 shadow-md'
           ref={dropDownRef}
         >
           {searchReults.length > 0 ? (
             searchReults.map((item, i) => (
               <div
-                className="flex flex-row justify-start items-center gap-16 w-full p-8 text-20 hover:bg-gray-100 rounded-8 cursor-pointer self-start"
+                className='flex flex-row justify-start items-center gap-16 w-full p-8 text-20 hover:bg-gray-100 rounded-8 cursor-pointer self-start'
                 key={`search-${i}`}
                 onClick={() => {
                   inputRef.current.value = item.value;
                   setShowDropdown(false);
                 }}
               >
-                {item.value === inputRef.current.value
-                  ? item.render(item.value, true)
-                  : item.render(item.value, false)}
+                {item.value === inputRef.current.value ? item.render(item.value, true) : item.render(item.value, false)}
                 {item.value === inputRef.current.value ? (
-                  <CheckIcon className="h-[24px] w-[24px] text-primary"/>
+                  <CheckIcon className='h-[24px] w-[24px] text-primary' />
                 ) : (
                   <div />
                 )}
               </div>
             ))
           ) : (
-            <div className="text-20 m-16">No Items Found</div>
+            <div className='text-20 m-16'>No Items Found</div>
           )}
         </div>
       ) : (
-        <div className="hidden"></div>
+        <div className='hidden'></div>
       )}
     </div>
   );

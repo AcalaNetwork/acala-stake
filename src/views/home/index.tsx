@@ -1,22 +1,22 @@
-import React from "react";
-import { Spacing, StakeLayout } from "@components";
-import { EnsureSDKReady } from "@sdk/components/EnsureSDKReady";
-import { Ecosystem } from "./components/Ecosystem";
-import { StakeCard } from "./components/StakeCard";
-import { TotalStake } from "./components/TotalStake";
-import { Trusted } from "./components/Trusted";
-import { Validators } from "./components/Validators";
-import { Information } from "./components/Information";
-import StakeBg from "/public/images/stake-bg.svg";
-import { RewardsCalculator } from "./components/RewardsCalculator";
+import React from 'react';
+import { Spacing, StakeLayout } from '@components';
+import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
+import { Ecosystem } from './components/Ecosystem';
+import { StakeCard } from './components/StakeCard';
+import { TotalStake } from './components/TotalStake';
+import { Trusted } from './components/Trusted';
+import { Validators } from './components/Validators';
+import { Information } from './components/Information';
+import StakeBg from '/public/images/stake-bg.svg';
+import { RewardsCalculator } from './components/RewardsCalculator';
 
 const Bg = () => {
   return (
     <div
-      className="w-full h-full"
+      className='w-full h-full'
       style={{
         background:
-					"linear-gradient(102.39deg, rgba(255, 255, 255, 0.2) 36.43%, rgba(255, 255, 255, 0) 146.59%), linear-gradient(320.77deg, #645AFF -40.33%, #E40C5B 41.3%, #FF4C3B 114.21%)",
+          'linear-gradient(102.39deg, rgba(255, 255, 255, 0.2) 36.43%, rgba(255, 255, 255, 0) 146.59%), linear-gradient(320.77deg, #645AFF -40.33%, #E40C5B 41.3%, #FF4C3B 114.21%)',
       }}
     >
       <StakeBg className='w-full' />
@@ -26,11 +26,11 @@ const Bg = () => {
 
 const Top = () => {
   return (
-    <div className="w-screen relative">
-      <div className="z-0 absolute left-0 right-0 top-0 h-[656px]">
+    <div className='w-screen relative'>
+      <div className='z-0 absolute left-0 right-0 top-0 h-[656px]'>
         <Bg />
       </div>
-      <div className="container">
+      <div className='container'>
         <TotalStake />
         <Spacing h={99} />
         <StakeCard />
@@ -42,14 +42,7 @@ const Top = () => {
 export const Home = () => {
   return (
     <StakeLayout>
-      <EnsureSDKReady
-        requires={[
-          "acala-wallet",
-          "karura-wallet",
-          "acala-homa",
-          "karura-homa",
-        ]}
-      >
+      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
         <Top />
         <Spacing h={162} />
         <Information />

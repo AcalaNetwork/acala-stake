@@ -1,22 +1,23 @@
-import { ApiRx } from "@polkadot/api";
-import { SubmittableExtrinsic } from "@polkadot/api/types";
-import { InjectedExtension, InjectedAccount } from "@polkadot/extension-inject/types";
-import { ReactNode } from "react";
-import { CONNECTED_NETWORK } from "../config";
+import { FixedPointNumber, Token } from '@acala-network/sdk-core';
+import { ApiRx } from '@polkadot/api';
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { InjectedExtension, InjectedAccount } from '@polkadot/extension-inject/types';
+import { ConnectedNetworks } from 'config';
+import { ReactNode } from 'react';
 
 export enum ConnectStatus {
   'disconnected',
   'connecting',
   'connected',
   'ready',
-  'failed'
+  'failed',
 }
 
 export enum SendSatuts {
   'pending',
   'sending',
   'success',
-  'failed'
+  'failed',
 }
 
 export interface SubmitData {
@@ -25,23 +26,21 @@ export interface SubmitData {
   message: ReactNode;
   status: SendSatuts;
   hash?: string;
-  network: CONNECTED_NETWORK;
+  network: ConnectedNetworks;
   onSuccess?: () => void;
   onFailed?: () => void;
   onInBlock?: () => void;
 }
 
 export interface SubstrateConnectorData {
-	api: ApiRx | null; // use `null` as default
-  network: CONNECTED_NETWORK; // the target network of the connection
-	status: ConnectStatus; // the api connect status
-  isPrimary: boolean; // mark the network is primary
+  api: ApiRx | null; // use `null` as default
+  network: ConnectedNetworks; // the target network of the connection
+  status: ConnectStatus; // the api connect status
   isConnected: () => Promise<boolean>; // wait app connect
 }
 
 export interface SubstrateConnectorConfig {
-  isPrimary: boolean;
-  network: CONNECTED_NETWORK;
+  network: ConnectedNetworks;
   endpoints: Record<string, string>;
   first?: string; // set the top priority endpoint
 }
@@ -49,8 +48,13 @@ export interface SubstrateConnectorConfig {
 export interface ExtensionConnectorData {
   extension: InjectedExtension | null;
   status: ConnectStatus;
-  connect?: () => Promise<void> 
+  connect?: () => Promise<void>;
   injectedAccounts: InjectedAccount[];
   active?: InjectedAccount;
-  setActive: (account: InjectedAccount) => Promise<void>
+  setActive: (account: InjectedAccount) => Promise<void>;
+}
+
+export interface TokenAmount {
+  amount: FixedPointNumber;
+  token: Token;
 }

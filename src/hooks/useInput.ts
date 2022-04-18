@@ -1,55 +1,169 @@
-import { useCallback, useEffect, useRef, useState } from "react"
-import { useMemoized } from ".";
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import * as yup from 'yup';
+import { AnyObject } from 'yup/lib/types';
+import { useMemoized } from './useMemoized';
 
-interface UseInputConfigs<T extends unknown> {
-  init?: T;
-  validator?: (value: T) => Promise<boolean>;
-  rules?: {
-    type: 'number' | 'string',
-    min: number;
-    max: number;
+type StringRuleConfigs = {
+  type: 'string',
+  required?: boolean;
+  maxLength?: number,
+  minLength?: number,
+  test?: yup.TestConfig<string, AnyObject>;
+  errors?: {
+    maxLength?: string;
+    minLength?: string;
+    required?: string;
+  },
+}
+
+type NumberRuleConfigs = {
+  type: 'number',
+  required?: boolean;
+  max?: number,
+  min?: number,
+  test?: yup.TestConfig<number, AnyObject>;
+  errors?: {
+    required?: string;
+    max?: string
+    min?: string
+  },
+}
+
+type RuleConfigs = StringRuleConfigs | NumberRuleConfigs;
+
+interface UseInputConfigs {
+  type: 'string' | 'number';
+  init?: string | number;
+  rules?: RuleConfigs[];
+}
+
+const createStringSchema = (configs: StringRuleConfigs) => {
+  let schema = yup.string();
+
+  if (configs.required) {
+    schema = schema.required(configs?.errors?.required);
   }
+
+  if (configs?.minLength !== undefined) {
+    schema = schema.min(configs.minLength, configs?.errors?.minLength);
+  }
+
+  if (configs?.maxLength !== undefined) {
+    schema = schema.max(configs.maxLength, configs?.errors?.maxLength);
+  }
+
+  if (configs?.test !== undefined) {
+    schema = schema.test(configs.test);
+  }
+
+  return schema;
 };
 
-export const useInput = <T extends unknown>(configs: UseInputConfigs<T>) => {
-  const memConfigs = useMemoized(configs);
-  const [value, setValue] = useState<T>(configs?.init);
-  const [error, setError] = useState<Error>();
-  const valueRef = useRef<T>(memConfigs.init);
+const createNumberSchema = (configs: NumberRuleConfigs) => {
+  let schema = yup.number();
 
-  const onChange = useCallback((value: T) => {
-    const { rules } = memConfigs;
+  if (configs.required) {
+    schema = schema.required(configs?.errors?.required);
+  }
 
-    if (rules.type === 'number' && Reflect.has(rules, 'max')) {
-      if (Number(value) >= memConfigs.rules.max) {
-        value = memConfigs.rules.max as T;
+  if (configs?.min !== undefined) {
+    schema = schema.min(configs.min, configs?.errors?.min);
+  }
+
+  if (configs?.max !== undefined) {
+    schema = schema.max(configs.max, configs?.errors?.max);
+  }
+
+  if (configs?.test !== undefined) {
+    schema = schema.test(configs.test);
+  }
+
+  return schema;
+};
+
+export const useInput = (originConfigs: UseInputConfigs) => {
+  const changed = useRef<boolean>(false);
+  const configs = useMemoized(originConfigs);
+  const init = configs.init;
+  const [value, setValue] = useState<string | number>(init);
+  const [error, setError] = useState<string>();
+  const valueRef = useRef<string | number>(init);
+
+  const validate = useCallback(async (value: string): Promise<boolean> => {
+    try {
+      const rules = configs.rules;
+
+      if (!rules || rules.length === 0) return Promise.resolve(true);
+
+      for (const item of rules) {
+        const { type  } = item;
+
+        if (type === 'number') {
+          await createNumberSchema(item).validate(Number(value));
+        }
+
+        if (type === 'string') {
+          await createStringSchema(item).validate(value);
+        }
       }
+
+      // clear error messages when no error occured.
+      setError('');
+
+      return Promise.resolve(true);
+    } catch (e) {
+      setError(e.message || e);
+
+      return Promise.reject(e.message || e);
     }
 
-    if (rules.type === 'number' && Reflect.has(rules, 'min')) {
-      if (Number(value) <= memConfigs.rules.min) {
-        value = memConfigs.rules.min as T;
+  }, [configs]);
+
+  const onChange = useCallback(
+    (value: string) => {
+      valueRef.current = value;
+      changed.current = true;
+
+      setValue(value);
+      validate(value);
+    },
+    [validate]
+  );
+
+  const onMax = useCallback(
+    () => {
+      const { rules } = configs;
+
+      // find number configs
+      const numConfigs = rules.find(i => i.type === 'number');
+
+      if (numConfigs && numConfigs['max']) {
+        onChange(numConfigs['max']);
       }
-    }
+    },
+    [configs, onChange]
+  );
 
-    valueRef.current = value;
-    setValue(value);
-  }, [setValue]);
+  const onReset = useCallback(() => {
+    setError('');
+    setValue(configs.init ?? undefined);
+  }, [setError, setValue, configs]);
 
-  const onMax = useCallback((value: T) => {
-    onChange(value)
-  }, [setValue]);
+  const onValidate = useCallback(() => {
+    return validate(valueRef.current?.toString() || (configs.type === 'number' ? '0' : ''));
+  }, [configs.type, validate]);
 
   useEffect(() => {
-    if (memConfigs?.validator) {
-      memConfigs.validator(value).then((result: boolean) => {
-        result && setError(undefined);
-      }).catch((e) => {
-        setError(e);
-      })
-    }
-  }, [value, memConfigs?.validator]);
+    changed.current && onValidate();
+  }, [configs, onValidate]);
 
-
-  return [value, { onChange, onMax, error, ref: valueRef }] as const;
-}
+  return useMemo(() => ({
+    value,
+    error,
+    ref: valueRef,
+    onChange,
+    onMax,
+    onReset,
+    onValidate
+  }), [error, onChange, onMax, onReset, onValidate, value]);
+};

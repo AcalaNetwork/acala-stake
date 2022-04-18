@@ -1,77 +1,95 @@
-import { FC, useContext } from "react";
+import { memo, useCallback } from "react";
 import { Card } from "@components/Card";
 import { FormPanel } from "@components/form";
-import { StakeProviderContext } from "./StakeContext";
 import { Button } from "@components/Button";
 import { FormatBalance } from "@components/FormatBalance";
 import { ListItem, ListLabel, ListValue } from "@components/List";
-import { Spacing } from "@components/Spacing";
-import { useStakeCall } from "../../../../sdk/hooks/stake/useStakeCall";
 import { TxButton } from "@components/TxButton";
+import { useStake } from "./StakeProvider";
+import { TokenName } from "@components/TokenName";
+import { StakeSteps } from "@views/stake/types";
+import { useMemo } from "react";
+import { formatBalance, getTokenName } from "@utils";
 
-export const StakeConfirm: FC = () => {
-  const { setStep, mintAmount, stakingToken, liquidToken, params, available } =
-    useContext(StakeProviderContext);
-  const [call, fee] = useStakeCall(params);
+export const StakeConfirm = memo(() => {
+  const {
+    network,
+    stakingToken,
+    liquidToken,
+    stakingInput,
+    callData,
+    setStep,
+    stakeImmediately,
+  } = useStake();
+  const { inputProps, configs: inputConfigs } = stakingInput;
+
+  const toForm = useCallback(() => {
+    setStep(StakeSteps.FORM);
+  }, [setStep]);
+
+  const toComplated = useCallback(() => {
+    setStep(StakeSteps.COMPLATED);
+  }, [setStep]);
+
+  const txMessage = useMemo(() => {
+    return `Stake ${formatBalance(inputProps.value)} ${getTokenName(stakingToken)} to Homa`;
+  }, [inputProps?.value, stakingToken]);
 
   return (
-    <Card variant="border" className="w-[630px] px-[48px] pt-36 pb-38 mx-auto">
-      <div className="w-full mb-[38px] text-494853">
-        <p className="text-center my-10 font-medium text-28 leading-[27px]">
-          Confirm Transaction
-        </p>
-      </div>
+    <Card className="w-[630px] px-48 pt-36 pb-38 mx-auto" variant="border">
+      <p className="w-full text-grey-1 text-center font-medium text-28 leading-27 mb-35">
+        Confirm Transaction
+      </p>
       <FormPanel>
         <ListItem>
-          <ListLabel>Bridge Amount Amount</ListLabel>
-          <ListValue>*** DOT</ListValue>
-        </ListItem>
-        <ListItem>
           <ListLabel>Available Amount</ListLabel>
-          <ListValue>
-            <FormatBalance token={liquidToken} balance={available} />
+          <ListValue className="flex items-center gap-4">
+            <FormatBalance balance={inputConfigs.max} />
+            <TokenName token={stakingToken} />
           </ListValue>
         </ListItem>
         <ListItem>
-          <ListLabel>Total Stake</ListLabel>
-          <ListValue>
-            <FormatBalance token={stakingToken} balance={mintAmount?.pay} />
+          <ListLabel className="text-grey-2">Total Stake</ListLabel>
+          <ListValue className="flex items-center gap-4 font-semibold">
+            <FormatBalance balance={inputProps?.value} />
+            <TokenName token={stakingToken} />
           </ListValue>
         </ListItem>
         <ListItem>
-          <ListLabel>You get </ListLabel>
-          <ListValue>
-            <FormatBalance token={liquidToken} balance={mintAmount?.receive} />
+          <ListLabel className="text-grey-2">You get </ListLabel>
+          <ListValue className="flex items-center gap-4 font-semibold">
+            <FormatBalance balance={callData?.estResult?.receive} />
+            <TokenName token={liquidToken} />
           </ListValue>
         </ListItem>
         <ListItem>
           <ListLabel>Transaction Fees</ListLabel>
-          <ListValue>
-            <FormatBalance balance={fee} token={"KAR"} />
+          <ListValue className="flex items-center gap-4">
+            <FormatBalance balance={callData?.callData?.fee?.amount}/>
+            <TokenName token={callData?.callData?.fee?.token}/>
           </ListValue>
         </ListItem>
       </FormPanel>
-      <Spacing h={40} />
-      <FormPanel>
-        <div className="flex gap-20">
-          <Button
-            size="sm"
-            className="flex-1 h-48 font-medium mt-1"
-            round="lg"
-            variant="outline"
-            onClick={() => setStep("stake-create")}
-          >
-            Back
-          </Button>
-          <TxButton
-            className="flex-1 h-48 text-14 font-normal mt-1"
-            onSuccess={() => setStep("stake-result")}
-            call={call}
-          >
+      <div className="flex gap-20 mt-40">
+        <Button
+          className="flex-1"
+          onClick={toForm}
+          round="lg"
+          size="sm"
+          variant="outline"
+        >
+          Back
+        </Button>
+        <TxButton
+          call={callData?.callData?.call}
+          className="flex-1"
+          message={txMessage}
+          network={network}
+          onSuccess={toComplated}
+        >
             Confirm
-          </TxButton>
-        </div>
-      </FormPanel>
+        </TxButton>
+      </div>
     </Card>
   );
-};
+});

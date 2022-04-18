@@ -1,31 +1,33 @@
-import { useSubscription } from "../../../hooks/useSubscription";
-import { useWallet } from "../../../sdk";
-import { useHomaTotalStaking } from "../../../sdk/hooks/homa/useHomaTotalStaking";
-import { useMemo, useState } from "react";
-import { FixedPointNumber } from "@acala-network/sdk-core";
+import { useState, useEffect } from 'react';
+import { FixedPointNumber, Token } from '@acala-network/sdk-core';
+import { SDKNetwork } from '@sdk/types';
+import { useHomaConts } from '@sdk/hooks/homa';
+import { usePrice } from '@sdk';
+import { useHomaTotalStaking } from '@sdk/hooks/homa/useHomaTotalStaking';
 
-export const useTotalStaking = (token: "DOT" | "KSM") => {
-  const network = useMemo(() => token === "KSM" ? "karura" : "acala", [token]);
-  const totalStaking = useHomaTotalStaking(network);
-  const wallet = useWallet(network);
+export const useTotalStaking = (network: SDKNetwork) => {
+  const total = useHomaTotalStaking(network);
+  const consts = useHomaConts(network);
+  const price = usePrice(network, consts.stakingToken);
 
-  const [result, setResult] = useState<{
-    amount?: FixedPointNumber;
-    value?: FixedPointNumber;
-  }>({});
+  const [result, setResult] = useState<
+    | {
+        token: Token;
+        amount: FixedPointNumber;
+        value: FixedPointNumber;
+      }
+    | undefined
+  >();
 
-  useSubscription(() => {
-    if (!totalStaking || !wallet || !wallet.isReady) return;
+  useEffect(() => {
+    if (!price || !total || !consts.stakingToken) return;
 
-    return wallet.subscribePrice(token).subscribe({
-      next: (price) => {
-        setResult({
-          amount: totalStaking,
-          value: totalStaking.mul(price ?? FixedPointNumber.ZERO),
-        });
-      },
+    setResult({
+      token: consts.stakingToken,
+      amount: total,
+      value: total.mul(price),
     });
-  }, [wallet, totalStaking, totalStaking, token]);
+  }, [consts.stakingToken, price, total]);
 
   return result;
 };

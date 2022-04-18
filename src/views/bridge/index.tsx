@@ -1,40 +1,23 @@
-import React, { FC, useContext } from "react";
-import { Card } from "../../components/Card";
-import { Layout } from "../../components/layout";
-import { BridgeConfirmModal } from "../../modals/BridgeConfirm";
-import { EnsureSDKReady } from "../../sdk/components/EnsureSDKReady";
-import { BridgeConsole } from "./BridgeConsole";
-import { BridgeProviderContext, BridgeProvider } from "./BridgeContext";
-import { ConfirmConsole } from "./ConfirmConsole";
-import { ResultConsile } from "./ResultConsile";
-import { TopNav } from "./TopNav";
-
-const Inner: FC = () => {
-  const { step } = useContext(BridgeProviderContext);
-
-  return (
-    <>
-      <TopNav />
-      <div className="container mt-[39px]">
-        <Card variant="gradient-border" className="py-32 flex flex-center">
-          {step == "create" && <BridgeConsole />}
-          {step == "confirm" && <ConfirmConsole />}
-          {step == "result" && <ResultConsile />}
-        </Card>
-      </div>
-      <BridgeConfirmModal />
-    </>
-  );
-};
+import React, { FC } from 'react';
+import { StakeLayout } from '@components';
+import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
+import { BridgeTopBoard } from './components/BridgeBoard';
+import { useRouter } from 'next/router';
+import { SDKNetwork } from '@sdk/types';
+import { BridgeConsole } from './components/BridgeConsole';
 
 export const Bridge: FC = () => {
+  const router = useRouter();
+  const network = router.query.network as SDKNetwork;
+
   return (
-    <Layout>
-      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
-        <BridgeProvider>
-          <Inner />
-        </BridgeProvider>
+    <StakeLayout>
+      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa', 'crosschain']}>
+        <BridgeTopBoard network={network} />
+        <div className='container mt-[39px]'>
+          <BridgeConsole network={network} />
+        </div>
       </EnsureSDKReady>
-    </Layout>
+    </StakeLayout>
   );
 };

@@ -1,4 +1,5 @@
 import { Token } from '@acala-network/sdk-core';
+import { useCrossChainSDKConnector } from '@sdk/hooks/crosschain/useCrossChainSDKConnector';
 import React, { FC, useMemo } from 'react';
 import { useApi } from '../../connector';
 import { useSubscription } from '../../hooks/useSubscription';
@@ -12,9 +13,19 @@ let KARURA_TOKEN_LISTS: Record<string, Token> = {};
 
 export const SDKProvider: FC = React.memo(({ children }) => {
   const acalaApi = useApi('acala');
+  const polkadotApi = useApi('polkadot');
   const karuraApi = useApi('karura');
+  const kusamaApi = useApi('kusama');
   const acalaSDK = useSDKConnector(acalaApi.api);
   const karuraSDK = useSDKConnector(karuraApi.api);
+  const crossChainSDK = useCrossChainSDKConnector({
+    acalaApi: acalaApi.api,
+    karuraApi: karuraApi.api,
+    kusamaApi: kusamaApi.api,
+    polkadotApi: polkadotApi.api,
+    acalaWallet: acalaSDK.wallet,
+    karuraWallet: karuraSDK.wallet,
+  });
 
   const { wallet: acalaWallet } = acalaSDK;
   const { wallet: karuraWallet } = karuraSDK;
@@ -24,7 +35,7 @@ export const SDKProvider: FC = React.memo(({ children }) => {
 
     // export token list form wallet sdk
     return acalaWallet.subscribeTokens().subscribe({
-      next: value => ACALA_TOKEN_LISTS = value
+      next: (value) => (ACALA_TOKEN_LISTS = value),
     });
   }, [acalaWallet]);
 
@@ -33,19 +44,15 @@ export const SDKProvider: FC = React.memo(({ children }) => {
 
     // export token list form wallet sdk
     return karuraWallet.subscribeTokens().subscribe({
-      next: value => KARURA_TOKEN_LISTS = value
+      next: (value) => (KARURA_TOKEN_LISTS = value),
     });
   }, [karuraWallet]);
 
   const value = useMemo(() => {
-    return { acala: acalaSDK, karura: karuraSDK };
-  }, [acalaSDK, karuraSDK]);
+    return { acala: acalaSDK, karura: karuraSDK, crossChain: crossChainSDK };
+  }, [acalaSDK, karuraSDK, crossChainSDK]);
 
-  return (
-    <SDKContext.Provider value={value}>
-      {children}
-    </SDKContext.Provider>
-  );
+  return <SDKContext.Provider value={value}>{children}</SDKContext.Provider>;
 });
 
 export const SDKConsumer = SDKContext.Consumer;

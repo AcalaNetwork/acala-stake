@@ -1,19 +1,19 @@
-import { useActiveAccount } from "@connector";
-import { useRouter } from "next/router";
-import React, { FC, useCallback } from "react";
-import { memo } from "react";
-import { useExtension } from "../../connector/hooks/useExtension";
-import { useSS58 } from "../../connector/hooks/useSS58";
-import { ConnectStatus } from "../../connector/types";
-import { useOpenModal } from "../../state";
-import { ModalType } from "../../state/application/types";
-import { Address } from "../Address";
-import { AddressAvatar } from "../AddressAvatar";
+import { useActiveAccount } from '@connector';
+import { useRouter } from 'next/router';
+import React, { FC, useCallback } from 'react';
+import { memo } from 'react';
+import { useExtension } from '../../connector/hooks/useExtension';
+import { useSS58 } from '../../connector/hooks/useSS58';
+import { ConnectStatus } from '../../connector/types';
+import { useOpenModal } from '../../state';
+import { ModalType } from '../../state/application/types';
+import { Address } from '../Address';
+import { AddressAvatar } from '../AddressAvatar';
 
 interface WalletProps {
-	className?: string;
-	isConnected?: boolean;
-	isStake?: boolean
+  className?: string;
+  isConnected?: boolean;
+  isStake?: boolean;
 }
 
 const ConnectBtn: FC<{ className: string }> = memo(({ className }) => {
@@ -24,38 +24,33 @@ const ConnectBtn: FC<{ className: string }> = memo(({ className }) => {
       className={`whitespace-nowrap font-medium text-base text-primary ${className} pt-8 pb-8 pl-16 pr-16 `}
       onClick={openModal}
     >
-			Connect to a wallet
+      Connect to a wallet
     </div>
   );
 });
 
-const Connected: FC<Omit<WalletProps, "isConnected">> = memo(({ className, isStake }) => {
+const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className, isStake }) => {
   const ss58 = useSS58();
   const active = useActiveAccount();
   const openSelectAccountModal = useOpenModal(ModalType.selectAccount);
   const router = useRouter();
 
-  const toWalletPage = useCallback(() => router.push(isStake ? "/stake/wallet" : "/wallet"), [isStake, router]);
+  const toWalletPage = useCallback(() => router.push(isStake ? '/stake/wallet' : '/wallet'), [isStake, router]);
 
   if (!active) return null;
-
-  console.log(active);
 
   return (
     <div className={`flex items-stretch font-medium ${className}`}>
       <div
-        className="flex-center text-16 leading-20 pl-16 pr-8 py-8 text-primary border-r-2 border-eae9f0 underline"
+        className='flex-center text-16 leading-20 pl-16 pr-8 py-8 text-primary border-r-2 border-eae9f0 underline'
         onClick={toWalletPage}
       >
-				Wallet
+        Wallet
       </div>
-      <div
-        className="flex-center text-16 text-494853 leading-17 pl-8 pr-16 py-8"
-        onClick={openSelectAccountModal}
-      >
+      <div className='flex-center text-16 text-494853 leading-17 pl-8 pr-16 py-8' onClick={openSelectAccountModal}>
         <Address
-          address={active.address} 
-          className="w-[100px] overflow-hidden overflow-ellipsis"
+          address={active.address}
+          className='w-[100px] overflow-hidden overflow-ellipsis'
           name={active.name}
           ss58={ss58}
         />

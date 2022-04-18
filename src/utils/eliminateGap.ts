@@ -1,6 +1,10 @@
-import { FixedPointNumber } from "@acala-network/sdk-core";
+import { FixedPointNumber } from '@acala-network/sdk-core';
 
-export const eliminateGap = (target: FixedPointNumber, max: FixedPointNumber, gap: FixedPointNumber = new FixedPointNumber('0.000001')): FixedPointNumber => {
+export const eliminateGap = (
+  target: FixedPointNumber,
+  max: FixedPointNumber,
+  gap: FixedPointNumber = new FixedPointNumber('0.000001')
+): FixedPointNumber => {
   const _gap = target.minus(max);
 
   // target is larger than max, but not large enough
