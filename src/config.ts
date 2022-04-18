@@ -18,11 +18,12 @@ const acalaEndpoints = isDevelopment
     "Mandala": "wss://acala-rpc-1.aca-api.network",
   }
   : {
-    "Host By Onfinality": "wss://karura.api.onfinality.io/public-ws",
-    "Host By Acala Foundation 0": "wss://karura-rpc-0.aca-api.network",
-    "Host by Acala Foundation 1": "wss://karura-rpc-1.aca-api.network",
-    "Host by Acala Foundation 2": "wss://karura-rpc-2.aca-api.network/ws",
-    "Host by Acala Foundation 3": "wss://karura-rpc-3.aca-api.network/ws",
+    'Host By Onfinality': 'wss://acala-polkadot.api.onfinality.io/public-ws',
+    'Host By Acala Foundation 0': 'wss://acala-rpc-0.aca-api.network',
+    'Host By Acala Foundation 1': 'wss://acala-rpc-1.aca-api.network',
+    'Host By Acala Foundation 2': 'wss://acala-rpc-2.aca-api.network/ws',
+    'Host By Acala Foundation 3': 'wss://acala-rpc-3.aca-api.network/ws',
+    'Host By Polkawallet': 'wss://acala.polkawallet.io'
   };
 
 const karuraEndpoints = isDevelopment
