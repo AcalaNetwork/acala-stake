@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { memo } from 'react';
 import { Spacing, StakeLayout } from '@components';
 import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { Ecosystem } from './components/Ecosystem';
@@ -39,7 +39,7 @@ const Top = memo(() => {
   );
 });
 
-export const Home: FC = memo(() => {
+export const Home = memo(() => {
   return (
     <StakeLayout>
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>

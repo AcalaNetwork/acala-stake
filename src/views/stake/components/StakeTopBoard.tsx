@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { memo } from 'react';
 import { FormatBalance } from '@components/FormatBalance';
 import { FormatValue } from '@components/FormatValue';
 import { TokenImage } from '@components/TokenImage';
@@ -6,7 +6,7 @@ import { TopBoard } from '@components/TopBoard';
 import { useTotalStaking } from '../hook/useTotalStaking';
 import { SDKNetwork } from '@sdk/types';
 
-export const StakeTopBoard: FC<{ network: SDKNetwork }> = ({ network }) => {
+export const StakeTopBoard = memo<{ network: SDKNetwork }>(({ network }) => {
   const data = useTotalStaking(network);
 
   if (!data) return null;
@@ -32,4 +32,4 @@ export const StakeTopBoard: FC<{ network: SDKNetwork }> = ({ network }) => {
       </div>
     </TopBoard>
   );
-};
+});

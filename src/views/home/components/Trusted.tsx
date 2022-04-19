@@ -1,4 +1,4 @@
-import { FC, memo, useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { Spacing } from '@components/Spacing';
 import Chainlink from '../assets/chainlink.svg';
 import Chainx from '../assets/chainx.svg';
@@ -77,7 +77,7 @@ const list = [
   { name: 'current', img: <Image alt={Ellipsis} src={Current} />, link: 'https://current.com/' },
 ];
 
-const List: FC<{ active: number; i: number }> = memo(({ active, i }) => {
+const List = memo<{ active: number; i: number }>(({ active, i }) => {
   const data = useMemo(() => list.slice(i * 8, i * 8 + 8), [i]);
   const show = useMemo(() => active === i, [active, i]);
 

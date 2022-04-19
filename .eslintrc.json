@@ -19,7 +19,7 @@
     "react/jsx-key": 2,
     "react/jsx-max-props-per-line": [
       1,
-      { "maximum": { "single": 3, "multi": 2 } }
+      { "maximum": { "single": 2, "multi": 2 } }
     ],
     "react/prop-types": 0
   }

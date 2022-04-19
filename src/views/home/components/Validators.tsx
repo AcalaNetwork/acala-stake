@@ -1,11 +1,11 @@
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import { Card } from '@components/Card';
 import { useValidators, Validator } from '../hooks/useValidator';
 import { AddressAvatar } from '@components/AddressAvatar';
 import { Address } from '@components/Address';
 import { FixedPointNumber } from '@acala-network/sdk-core';
 
-const ValidatorItem: FC<{ validator: Validator }> = ({ validator }) => {
+const ValidatorItem = memo<{ validator: Validator }>(({ validator }) => {
   return (
     <Card className='flex pt-38 pl-32 pb-32'>
       <div className='w-64 h-64 border-f1f0f2 rounded-circle'>
@@ -29,7 +29,7 @@ const ValidatorItem: FC<{ validator: Validator }> = ({ validator }) => {
       </div>
     </Card>
   );
-};
+});
 
 export const Validators = memo(() => {
   const validators = useValidators().slice(0, 4);

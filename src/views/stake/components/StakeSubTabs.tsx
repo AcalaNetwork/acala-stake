@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { SubPageTabs, SubPageTabsProps } from '@components/SubPageTabs';
 import { SDKNetwork } from '@sdk/types';
 
@@ -7,7 +7,7 @@ interface PageTabsProps {
   network: SDKNetwork;
 }
 
-export const StakeSubPageTabs: FC<PageTabsProps> = ({ active, network }) => {
+export const StakeSubPageTabs = memo<PageTabsProps>(({ active, network }) => {
   const STAKE_TABS_CONFIGS: SubPageTabsProps['configs'] = useMemo(
     () => [
       {
@@ -27,4 +27,4 @@ export const StakeSubPageTabs: FC<PageTabsProps> = ({ active, network }) => {
   );
 
   return <SubPageTabs active={active} className='mt-44' configs={STAKE_TABS_CONFIGS} />;
-};
+});

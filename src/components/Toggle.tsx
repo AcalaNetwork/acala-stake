@@ -16,7 +16,7 @@ export const Toggle: React.FC<ToggleProps> = ({ onActive, onInactive, initial = 
     } else {
       onInactive();
     }
-  }, [active]);
+  }, [active, onActive, onInactive]);
 
   return (
     <div
