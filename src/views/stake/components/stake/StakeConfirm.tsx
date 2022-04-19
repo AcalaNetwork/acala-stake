@@ -19,7 +19,6 @@ export const StakeConfirm = memo(() => {
     stakingInput,
     callData,
     setStep,
-    stakeImmediately,
   } = useStake();
   const { inputProps, configs: inputConfigs } = stakingInput;
 

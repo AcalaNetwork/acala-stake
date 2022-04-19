@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { Button } from '@components/Button';
 import { Card } from '@components/Card';
 import { Spacing } from '@components/Spacing';
@@ -24,7 +24,7 @@ const Item: FC<ItemProps> = ({ title, desc, icon }) => {
   );
 };
 
-export const Ecosystem = () => {
+export const Ecosystem = memo(() => {
   const [isAll, setIsAll] = useState<boolean>(false);
   const getAcalaToken = useGetToken('acala');
   const getKaruraToken = useGetToken('karura');
@@ -76,4 +76,4 @@ export const Ecosystem = () => {
       </Button>
     </div>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, memo, useMemo, useState } from 'react';
 import { Spacing } from '@components/Spacing';
 import Chainlink from '../assets/chainlink.svg';
 import Chainx from '../assets/chainx.svg';
@@ -77,7 +77,7 @@ const list = [
   { name: 'current', img: <Image alt={Ellipsis} src={Current} />, link: 'https://current.com/' },
 ];
 
-const List: FC<{ active: number; i: number }> = ({ active, i }) => {
+const List: FC<{ active: number; i: number }> = memo(({ active, i }) => {
   const data = useMemo(() => list.slice(i * 8, i * 8 + 8), [i]);
   const show = useMemo(() => active === i, [active, i]);
 
@@ -95,9 +95,9 @@ const List: FC<{ active: number; i: number }> = ({ active, i }) => {
       )}
     </div>
   );
-};
+});
 
-export const Trusted = () => {
+export const Trusted = memo(() => {
   const len = useMemo(() => Math.ceil(list.length / 8), []);
   const [active, setActive] = useState<number>(0);
   const dotArr = new Array(len).fill(false).map((_, i) => i === active);
@@ -124,4 +124,4 @@ export const Trusted = () => {
       </div>
     </div>
   );
-};
+});

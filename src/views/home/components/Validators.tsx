@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Card } from '@components/Card';
 import { useValidators, Validator } from '../hooks/useValidator';
 import { AddressAvatar } from '@components/AddressAvatar';
@@ -31,10 +31,8 @@ const ValidatorItem: FC<{ validator: Validator }> = ({ validator }) => {
   );
 };
 
-export const Validators = () => {
+export const Validators = memo(() => {
   const validators = useValidators().slice(0, 4);
-
-  console.log(validators);
   return (
     <div className='container'>
       <div className='text-[36px] leading-[44px] text-2e2d33 tracking-[0.04em] text-center font-bold'>
@@ -47,4 +45,4 @@ export const Validators = () => {
       </div>
     </div>
   );
-};
+});

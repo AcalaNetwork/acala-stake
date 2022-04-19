@@ -6,12 +6,6 @@ import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { BalanceInput, FormPanel } from "@components/form";
 import { FormatBalance } from "@components/FormatBalance";
-import {
-  List,
-  ListItem,
-  ListLabel,
-  ListValue,
-} from "@components/List";
 import { Popover, Switch } from "@components";
 import { useStake } from "./StakeProvider";
 import { TokenName } from "@components/TokenName";

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { Spacing } from '@components/Spacing';
 
 import Stake1 from '/public/pages/express/stake-1.svg';
@@ -22,7 +22,7 @@ const InfoItem: FC<InfoItemProps> = ({ title, desc, icon }) => {
   );
 };
 
-export const Information = () => {
+export const Information = memo(() => {
   return (
     <div className='container text-center'>
       <div className='text-[32px] leading-[39px] text-2e2d33 font-bold'>Why Liquid Staking with Acala?</div>
@@ -46,4 +46,4 @@ export const Information = () => {
       </div>
     </div>
   );
-};
+});

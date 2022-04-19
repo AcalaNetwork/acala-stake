@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, memo, useCallback } from 'react';
 import { Address } from '@components/Address';
 import { Card } from '@components/Card';
 import { Copy } from '@components/Copy';
@@ -14,7 +14,7 @@ import WalletIcon from '/public/icons/wallet.svg';
 import { AddressAvatar } from '@components/AddressAvatar';
 import { Itotal } from '../hook/useStakesCalculator';
 
-export const Asset: FC<{ data: Itotal }> = ({ data }) => {
+export const Asset: FC<{ data: Itotal }> = memo(({ data }) => {
   const active = useActiveAccount();
   const openModal = useOpenModal(ModalType.selectAccount);
   const balanceDisplayType = useBalanceDisplayType();
@@ -81,4 +81,4 @@ export const Asset: FC<{ data: Itotal }> = ({ data }) => {
       </Card>
     </div>
   );
-};
+});

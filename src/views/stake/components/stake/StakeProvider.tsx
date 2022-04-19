@@ -1,7 +1,7 @@
 import React, { useState, createContext, memo, PropsWithChildren, useContext, useMemo } from 'react';
 import { SDKNetwork } from '@sdk/types';
 import { StakeSteps } from '@views/stake/types';
-import { useHomaConts, useHomaEnv } from '@sdk/hooks/homa';
+import { useHomaConts } from '@sdk/hooks/homa';
 import { Token } from '@acala-network/sdk-core';
 import { StakingInputData, useStakeInput } from '@views/stake/hook/useStakeInput';
 import { useBoolean } from '@hooks';

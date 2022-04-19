@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { BalanceValue } from '@components/BalanceValue';
 import { LinkButton } from '@components/Button';
 import { BalanceInput } from '@components/form';
@@ -13,7 +13,7 @@ import { useRewardsCalculator } from '../hooks/useRewardsCalculator';
 
 type RewardType = 'acala' | 'karura';
 
-export const RewardsCalculator = () => {
+export const RewardsCalculator = memo(() => {
   const [type, setType] = useState<RewardType>('acala');
   const [apy, rewardsOneMonth, rewardsOneYear, value, onChange] = useRewardsCalculator(type as SDKNetwork);
   const acalaHomaConsts = useHomaConts('acala');
@@ -80,4 +80,4 @@ export const RewardsCalculator = () => {
       </TabsContext>
     </div>
   );
-};
+});
