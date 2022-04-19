@@ -6,7 +6,7 @@ import { TokenCard } from './TokenCard';
 import { StakeData } from '../hook/useStakesCalculator';
 import { useBalanceDisplayType, useSetBalanceDisplayType } from '@state';
 
-export const Detail: FC<{ data: StakeData[] }> = memo(({ data }) => {
+export const Detail = memo<{ data: StakeData[] }>(({ data }) => {
   const balanceDisplayType = useBalanceDisplayType();
   const setBalanceDisplayType = useSetBalanceDisplayType();
 

@@ -14,7 +14,7 @@ import WalletIcon from '/public/icons/wallet.svg';
 import { AddressAvatar } from '@components/AddressAvatar';
 import { Itotal } from '../hook/useStakesCalculator';
 
-export const Asset: FC<{ data: Itotal }> = memo(({ data }) => {
+export const Asset = memo<{ data: Itotal }>(({ data }) => {
   const active = useActiveAccount();
   const openModal = useOpenModal(ModalType.selectAccount);
   const balanceDisplayType = useBalanceDisplayType();
