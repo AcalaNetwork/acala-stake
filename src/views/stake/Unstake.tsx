@@ -1,5 +1,5 @@
 import { StakeLayout } from '@components/layout';
-import { EnsureSDKReady } from '../../sdk/components/EnsureSDKReady';
+import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { StakeTopBoard } from './components/StakeTopBoard';
 import { UnstakeConsole } from './components/unstake/UnstakeConsole';
 import { useRouter } from 'next/router';

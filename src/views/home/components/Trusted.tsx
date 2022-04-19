@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Button } from '../../../components/Button';
-import { Spacing } from '../../../components/Spacing';
+import { Button } from '@components/Button';
+import { Spacing } from '@components/Spacing';
 import Altonomy from '/public/trusted/altonomy.svg';
 import Bentons from '/public/trusted/bentons.svg';
 import CoinFund from '/public/trusted/CoinFund.svg';

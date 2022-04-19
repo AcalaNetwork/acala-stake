@@ -1,10 +1,10 @@
 import { FC, ReactNode } from 'react';
-import { Button } from '../../../components/Button';
-import { Card } from '../../../components/Card';
-import { Spacing } from '../../../components/Spacing';
+import { Button } from '@components/Button';
+import { Card } from '@components/Card';
+import { Spacing } from '@components/Spacing';
 import AcalaSwap from '/public/pages/express/acala-swap.svg';
 import KaruraSwap from '/public/pages/express/karura-swap.svg';
-import { TokenImage } from '../../../components/TokenImage';
+import { TokenImage } from '@components/TokenImage';
 import { useState } from 'react';
 import { useGetToken } from '@sdk';
 

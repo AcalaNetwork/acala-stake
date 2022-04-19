@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { BalanceValue } from '../../../components/BalanceValue';
-import { Button, LinkButton } from '../../../components/Button';
-import { BalanceInput } from '../../../components/form';
-import { FormatBalance } from '../../../components/FormatBalance';
-import { FormatRatio } from '../../../components/FormatRatio';
-import { Spacing } from '../../../components/Spacing';
-import { Tab, TabProps, Tabs, TabsContext } from '../../../components/Tabs';
-import { useHomaConts } from '../../../sdk/hooks/homa';
-import { SDKNetwork } from '../../../sdk/types';
-import { getTokenName } from '../../../utils/token';
+import { BalanceValue } from '@components/BalanceValue';
+import { LinkButton } from '@components/Button';
+import { BalanceInput } from '@components/form';
+import { FormatBalance } from '@components/FormatBalance';
+import { FormatRatio } from '@components/FormatRatio';
+import { Spacing } from '@components/Spacing';
+import { Tab, TabProps, Tabs, TabsContext } from '@components/Tabs';
+import { useHomaConts } from '@sdk/hooks/homa';
+import { SDKNetwork } from '@sdk/types';
+import { getTokenName } from '@utils/token';
 import { useRewardsCalculator } from '../hooks/useRewardsCalculator';
 
 type RewardType = 'acala' | 'karura';

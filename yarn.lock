@@ -8365,6 +8365,7 @@ resolve@^2.0.0-next.3:
     redux: ^4.1.2
     redux-persist: ^6.0.0
     redux-persist-transform-filter: ^0.0.20
+    rxjs: ^7.5.5
     styled-components: ^5.3.3
     tailwind-styled-components: ^2.1.7
     tailwindcss: ^2.2.19

@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { Spacing } from '../../../components/Spacing';
+import { Spacing } from '@components/Spacing';
 
 import Stake1 from '/public/pages/express/stake-1.svg';
 import Stake2 from '/public/pages/express/stake-2.svg';
