@@ -26,6 +26,8 @@ import Ampleforth from '../assets/ampleforth.png';
 import Compound from '../assets/compound.png';
 import Current from '../assets/current.png';
 import Ellipsis from '../assets/ellipsis.svg';
+import LeftIcon from '../assets/left-icon.svg';
+import RightIcon from '../assets/right-icon.svg';
 import React from 'react';
 import Image from 'next/image';
 
@@ -87,7 +89,11 @@ const List = memo<{ active: number; i: number }>(({ active, i }) => {
       {show && (
         <ul className='grid grid-cols-4 w-full h-[320px]'>
           {data.map((item) => (
-            <div className='flex flex-center h-[160px] cursor-pointer' key={item.link} onClick={() => onClick(item.link)}>
+            <div
+              className='flex flex-center h-[160px] cursor-pointer'
+              key={item.link}
+              onClick={() => onClick(item.link)}
+            >
               {item.img}
             </div>
           ))}
@@ -105,10 +111,14 @@ export const Trusted = memo(() => {
     <div className='bg-fff'>
       <div className='container pt-56'>
         <div className='text-[36px] leading-[44px] tracking-[0.04em] text-2e2d33 font-bold text-center'>Trusted By</div>
-        <div className='h-[320px]'>
-          {dotArr.map((_, i) => (
-            <List active={active} i={i} key={i} />
-          ))}
+        <div className='flex flex-between'>
+          <LeftIcon className='w-40 cursor-pointer' onClick={() => setActive(active === 0 ? len -1 : (active - 1) % len)} />
+          <div className='h-[320px] flex-1'>
+            {dotArr.map((_, i) => (
+              <List active={active} i={i} key={i} />
+            ))}
+          </div>
+          <RightIcon className='w-40 cursor-pointer' onClick={() => setActive((active + 1) % len)} />
         </div>
         <Spacing h={10} />
         <div className='flex mx-auto w-full justify-center'>
