@@ -1,10 +1,10 @@
-import { FC, ReactNode } from 'react';
-import { Button } from '../../../components/Button';
-import { Card } from '../../../components/Card';
-import { Spacing } from '../../../components/Spacing';
+import { memo, ReactNode } from 'react';
+import { Button } from '@components/Button';
+import { Card } from '@components/Card';
+import { Spacing } from '@components/Spacing';
 import AcalaSwap from '/public/pages/express/acala-swap.svg';
 import KaruraSwap from '/public/pages/express/karura-swap.svg';
-import { TokenImage } from '../../../components/TokenImage';
+import { TokenImage } from '@components/TokenImage';
 import { useState } from 'react';
 import { useGetToken } from '@sdk';
 
@@ -14,7 +14,7 @@ interface ItemProps {
   icon: ReactNode;
 }
 
-const Item: FC<ItemProps> = ({ title, desc, icon }) => {
+const Item = memo<ItemProps>(({ title, desc, icon }) => {
   return (
     <Card className='mb-20 py-28 px-34 text-left leading-[24px]'>
       <div className='w-64 h-64 flex flex-center'>{icon}</div>
@@ -22,9 +22,9 @@ const Item: FC<ItemProps> = ({ title, desc, icon }) => {
       <div className='mt-12 text-16 text-4f4f4f font-medium'>{desc}</div>
     </Card>
   );
-};
+});
 
-export const Ecosystem = () => {
+export const Ecosystem = memo(() => {
   const [isAll, setIsAll] = useState<boolean>(false);
   const getAcalaToken = useGetToken('acala');
   const getKaruraToken = useGetToken('karura');
@@ -76,4 +76,4 @@ export const Ecosystem = () => {
       </Button>
     </div>
   );
-};
+});

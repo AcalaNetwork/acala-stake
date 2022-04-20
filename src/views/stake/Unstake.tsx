@@ -1,13 +1,14 @@
 import { StakeLayout } from '@components/layout';
-import { EnsureSDKReady } from '../../sdk/components/EnsureSDKReady';
+import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { StakeTopBoard } from './components/StakeTopBoard';
 import { UnstakeConsole } from './components/unstake/UnstakeConsole';
 import { useRouter } from 'next/router';
 import { SDKNetwork } from '@sdk/types';
 import { Spacing } from '@components';
 import { StakeSubPageTabs } from './components/StakeSubTabs';
+import { memo } from 'react';
 
-export const UnStake = () => {
+export const UnStake = memo(() => {
   const router = useRouter();
   const network = router.query.network as SDKNetwork;
 
@@ -23,4 +24,4 @@ export const UnStake = () => {
       </EnsureSDKReady>
     </StakeLayout>
   );
-};
+});

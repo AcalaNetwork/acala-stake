@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FixedPointNumber, Token } from '@acala-network/sdk-core';
 import React, { FC, memo, useCallback, useMemo, useState } from 'react';
 import { FormatBalance } from './FormatBalance';

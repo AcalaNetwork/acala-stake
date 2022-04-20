@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { memo } from 'react';
 import { StakeLayout } from '@components';
 import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { BridgeTopBoard } from './components/BridgeBoard';
@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { SDKNetwork } from '@sdk/types';
 import { BridgeConsole } from './components/BridgeConsole';
 
-export const Bridge: FC = () => {
+export const Bridge = memo(() => {
   const router = useRouter();
   const network = router.query.network as SDKNetwork;
 
@@ -20,4 +20,4 @@ export const Bridge: FC = () => {
       </EnsureSDKReady>
     </StakeLayout>
   );
-};
+});

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { Loading } from '@components/Loading';
 import { Spacing } from '@components/Spacing';
 import { DisplaySelector } from './DisplaySelector';
@@ -6,7 +6,7 @@ import { TokenCard } from './TokenCard';
 import { StakeData } from '../hook/useStakesCalculator';
 import { useBalanceDisplayType, useSetBalanceDisplayType } from '@state';
 
-export const Detail: FC<{ data: StakeData[] }> = ({ data }) => {
+export const Detail = memo<{ data: StakeData[] }>(({ data }) => {
   const balanceDisplayType = useBalanceDisplayType();
   const setBalanceDisplayType = useSetBalanceDisplayType();
 
@@ -28,4 +28,4 @@ export const Detail: FC<{ data: StakeData[] }> = ({ data }) => {
       )}
     </>
   );
-};
+});

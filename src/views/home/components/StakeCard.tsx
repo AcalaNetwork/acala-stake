@@ -1,5 +1,5 @@
 import { FixedPointNumber, Token } from '@acala-network/sdk-core';
-import React, { FC } from 'react';
+import React, { memo } from 'react';
 import { Button, LinkButton } from '@components/Button';
 import { Card } from '@components/Card';
 import { FormatBalance } from '@components/FormatBalance';
@@ -13,7 +13,7 @@ import { getTokenName } from '@utils/token';
 
 type StakeCardType = 'acala' | 'karura';
 
-export const StakeCard = () => {
+export const StakeCard = memo(() => {
   const acalaHoma = useHoma('acala');
   const karuraHoma = useHoma('karura');
   const acalaHomaAPY = useHomaAPY('acala');
@@ -53,9 +53,9 @@ export const StakeCard = () => {
       </div>
     </div>
   );
-};
+});
 
-export const NumIcon: FC<{ cardNum: number }> = ({ cardNum }) => (
+export const NumIcon = memo<{ cardNum: number }>(({ cardNum }) => (
   <div className='flex-center w-48 h-48 rounded-full bg-gradient-primary-light'>
     <div className='flex-center bg-white h-44 w-44 rounded-full'>
       <div className='absolute flex-center w-38 h-38 bg-gradient-light rounded-full'></div>
@@ -64,7 +64,7 @@ export const NumIcon: FC<{ cardNum: number }> = ({ cardNum }) => (
       </div>
     </div>
   </div>
-);
+));
 
 interface StakeItemProps {
   type: StakeCardType;
@@ -75,7 +75,7 @@ interface StakeItemProps {
   apy: number;
 }
 
-const StakeItem: FC<StakeItemProps> = ({ className, type, token, desc, staked, apy }) => {
+const StakeItem = memo<StakeItemProps>(({ className, type, token, desc, staked, apy }) => {
   return (
     <Card
       className={`w-[566px] h-[454px] flex-1 flex-center flex-col pt-32 pb-30 px-40 bg-opacity-[0.8] shadow-[0px_1px_25px_rgba(100, 90, 255, 0.08)] backdrop-blur-[150px] ${className}`}
@@ -121,4 +121,4 @@ const StakeItem: FC<StakeItemProps> = ({ className, type, token, desc, staked, a
       </div>
     </Card>
   );
-};
+});

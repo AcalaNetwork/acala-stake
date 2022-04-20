@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import { Card } from '@components/Card';
 import { FormatBalance } from '@components/FormatBalance';
 import { FormatRatio } from '@components/FormatRatio';
@@ -7,7 +7,7 @@ import { useBalanceOverview } from '../hook/useBalanceOverview';
 import { SDKNetwork } from '@sdk/types';
 import clsx from 'clsx';
 
-export const BalanceOverview: FC<{ network: SDKNetwork; className?: string }> = memo(({ className, network }) => {
+export const BalanceOverview = memo<{ network: SDKNetwork; className?: string }>(({ className, network }) => {
   const { stakingBalance, liquidBalance, apy, liquidToken, stakingToken } = useBalanceOverview(network);
 
   return (

@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { useTotalStakingTVL } from '../../../sdk/hooks/homa';
 import { formatNumber } from '../../../utils/formatNumber';
 
-export const TotalStake = () => {
+export const TotalStake = memo(() => {
   const totalTVL = useTotalStakingTVL();
 
   return (
@@ -14,4 +15,4 @@ export const TotalStake = () => {
       </div>
     </div>
   );
-};
+});

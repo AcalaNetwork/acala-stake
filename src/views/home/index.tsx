@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Spacing, StakeLayout } from '@components';
 import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { Ecosystem } from './components/Ecosystem';
@@ -24,7 +24,7 @@ const Bg = () => {
   );
 };
 
-const Top = () => {
+const Top = memo(() => {
   return (
     <div className='w-screen relative'>
       <div className='z-0 absolute left-0 right-0 top-0 h-[656px]'>
@@ -37,9 +37,9 @@ const Top = () => {
       </div>
     </div>
   );
-};
+});
 
-export const Home = () => {
+export const Home = memo(() => {
   return (
     <StakeLayout>
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
@@ -57,4 +57,4 @@ export const Home = () => {
       </EnsureSDKReady>
     </StakeLayout>
   );
-};
+});

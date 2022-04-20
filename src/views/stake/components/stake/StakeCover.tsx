@@ -3,7 +3,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import { Card, Button, Spacing, BaseComponentProps, FormatBalance } from '@components';
 import { useActiveAccount } from '@connector';
-import { useHomaConts } from '@sdk/hooks/homa';
 import { getTokenName } from '@utils/token';
 import { useStake } from './StakeProvider';
 import { useCrossChain } from '@sdk/hooks/crosschain/useCrossChain';

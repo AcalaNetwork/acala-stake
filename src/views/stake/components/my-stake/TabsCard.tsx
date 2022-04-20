@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Card } from '@components/Card';
 import { Spacing } from '@components/Spacing';
 import { Table } from '@components/Table';
 
-export const TabsCard = () => {
+export const TabsCard = memo(() => {
   const [tab, setTab] = useState(0);
 
   const unstakeData = [
@@ -113,13 +113,13 @@ export const TabsCard = () => {
         </div>
       </div>
       <Spacing h={37} />
-      <Card variant='gradient-border' className='px-[55px] py-32'>
+      <Card className='px-[55px] py-32' variant='gradient-border'>
         {tab === 0 ? (
-          <Table data={unstakeData} columns={unstakeColumns} />
+          <Table columns={unstakeColumns} data={unstakeData} />
         ) : (
-          <Table data={rewardData} columns={rewardColumns} />
+          <Table columns={rewardColumns} data={rewardData} />
         )}
       </Card>
     </>
   );
-};
+});

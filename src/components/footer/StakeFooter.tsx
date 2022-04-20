@@ -3,13 +3,10 @@ import AcaIcon from '/public/images/acala-gray.svg';
 import DiscordIcon from '/public/socials/discord-pink.svg';
 import BookIcon from '/public/socials/book-pink.svg';
 import Link from 'next/link';
-import { useBlockNumebr } from '../../connector/hooks/useBlockNumber';
 import { Spacing } from '../Spacing';
 import { Button } from '../Button';
 
 export const StakeFooter = () => {
-  const currentHeight = useBlockNumebr();
-
   return (
     <div className='w-full h-[153px]  bg-white'>
       <div className='container flex flex-between h-full'>

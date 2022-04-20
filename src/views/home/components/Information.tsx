@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
-import { Spacing } from '../../../components/Spacing';
+import { memo, ReactNode } from 'react';
+import { Spacing } from '@components/Spacing';
 
 import Stake1 from '/public/pages/express/stake-1.svg';
 import Stake2 from '/public/pages/express/stake-2.svg';
@@ -11,7 +11,7 @@ interface InfoItemProps {
   icon?: ReactNode;
 }
 
-const InfoItem: FC<InfoItemProps> = ({ title, desc, icon }) => {
+const InfoItem = memo<InfoItemProps>(({ title, desc, icon }) => {
   return (
     <div className='max-w-[30%]'>
       <div className='flex flex-center mb-36'>{icon}</div>
@@ -20,9 +20,9 @@ const InfoItem: FC<InfoItemProps> = ({ title, desc, icon }) => {
       <div className='text-16 leading-[28px] text-[#828282] font-medium'>{desc}</div>
     </div>
   );
-};
+});
 
-export const Information = () => {
+export const Information = memo(() => {
   return (
     <div className='container text-center'>
       <div className='text-[32px] leading-[39px] text-2e2d33 font-bold'>Why Liquid Staking with Acala?</div>
@@ -46,4 +46,4 @@ export const Information = () => {
       </div>
     </div>
   );
-};
+});

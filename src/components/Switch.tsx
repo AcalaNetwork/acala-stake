@@ -21,7 +21,7 @@ export const Switch = memo<SwitchProps>(({ value, onChange }) => {
       <span
         className={clsx(
           'inline-block w-16 h-16 transform bg-white rounded-full ease-in-out duration-[200ms]',
-          value ? 'translate-x-[19px]' : 'translate-x-1'
+          value ? 'translate-x-[19px]' : 'translate-x-[1px]'
         )}
       />
     </HSwitch>
