@@ -13,7 +13,7 @@ export const Footer = () => {
       <div className='container flex flex-between h-full'>
         <AcaIcon className='w-[120px] h-[40px]' />
         <div className='flex flex-center text-16 text-grey-3 font-medium leading-20'>
-          <div className='pr-16 border-r border-solid border-d6d3de'>
+          <div className='pr-16 border-r border-solid border-grey-5'>
             Block:{' '}
             <a
               className='text-31c26b'

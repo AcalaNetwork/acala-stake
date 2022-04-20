@@ -21,12 +21,12 @@ export const TokenCard: FC<TokenCardProps> = memo(({ type, token, totalAmount, t
       <div className='flex items-center'>
         <TokenImage size={52} token={token} />
         <div className='ml-[17px]'>
-          <TokenName className='text-20 leading-[24px] text-494853 font-semibold' token={token} />
+          <TokenName className='text-20 leading-[24px] text-grey-2 font-semibold' token={token} />
           <div className='text-16 leading-20 font-medium text-grey-3 mt-8'>{getTokenFullName(token)}</div>
         </div>
       </div>
-      <div className='mt-24 flex flex-between bg-primary bg-opacity-5 border border-eae9f0 rounded-16 h-[105px] px-[50px]'>
-        <div className='text-494853 flex-1'>
+      <div className='mt-24 flex flex-between bg-primary bg-opacity-5 border border-grey-66 rounded-16 h-[105px] px-[50px]'>
+        <div className='text-grey-2 flex-1'>
           <div className='text-20 leading-[24px] font-semibold'>
             {formatBalance(type === 'AMOUNT' ? totalAmount : totalValue)}
           </div>
@@ -34,13 +34,13 @@ export const TokenCard: FC<TokenCardProps> = memo(({ type, token, totalAmount, t
         </div>
         <div className='flex-1 flex flex-center flex-col'>
           <div className='text-20 leading-[24px] font-semibold text-31c26b'>{formatBalance(earning)}</div>
-          <div className='text-14 leading-17 text-494853 mt-8'>Est. Earning</div>
+          <div className='text-14 leading-17 text-grey-2 mt-8'>Est. Earning</div>
         </div>
         <div className='flex-1 flex flex-center flex-col'>
           <div className='text-20 leading-[24px] text-primary font-semibold'>{(apy * 100).toFixed(2)}%</div>
-          <div className='text-14 leading-17 text-494853 mt-8'>Est. APY</div>
+          <div className='text-14 leading-17 text-grey-2 mt-8'>Est. APY</div>
         </div>
-        <div className='text-494853 flex-1 flex justify-end'>
+        <div className='text-grey-2 flex-1 flex justify-end'>
           <div className='text-20 leading-[24px] font-semibold'>{airdrop}</div>
           <div className='text-14 leading-17 mt-8'>Airdrop</div>
         </div>

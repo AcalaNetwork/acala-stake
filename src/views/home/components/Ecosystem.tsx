@@ -31,7 +31,7 @@ export const Ecosystem = memo(() => {
 
   return (
     <div className='text-center container'>
-      <div className='text-[34px] leading-[44px] tracking-[0.04em] text-2e2d33 font-bold mb-64'>Ecosystem</div>
+      <div className='text-[34px] leading-[44px] tracking-[0.04em] text-grey-1 font-bold mb-64'>Ecosystem</div>
       <div className='grid grid-cols-3 gap-x-17 gap-y-32'>
         <Item desc='Trade LDOT with other assets' icon={<AcalaSwap />} title='Acala Swap' />
         <Item

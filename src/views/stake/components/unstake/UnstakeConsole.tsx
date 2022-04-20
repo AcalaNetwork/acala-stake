@@ -41,7 +41,7 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
 
   return (
     <Card className='pt-40 pb-[111px] w-full' variant='border'>
-      <div className='w-[630px] mx-auto border border-eae9f0 rounded-[24px] px-[55px] py-32'>
+      <div className='w-[630px] mx-auto border border-grey-66 rounded-[24px] px-[55px] py-32'>
         {requesting?.amount && !requesting.amount.isZero() && (
           <InfoBox className='mb-44'>
             <InformationCircleIcon className='h-26 w-26 text-primary mr-18' />

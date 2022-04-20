@@ -27,7 +27,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({ options, value, onChange, clas
                   <div className='w-8 h-8 bg-primary rounded-circle'></div>
                 </div>
               ) : (
-                <div className='w-16 h-16 border rounded-circle border-d6d3de mr-8'></div>
+                <div className='w-16 h-16 border rounded-circle border-grey-5 mr-8'></div>
               )}
               <span className={option.className}>{option.label}</span>
             </div>

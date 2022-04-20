@@ -44,7 +44,7 @@ export const BalanceCurrencyInput: FC<BalanceCurrencyInputProps> = ({
   );
 
   return (
-    <div className='relative flex items-stretch border border-e8e7f0 h-58 rounded-8 bg-f1f0f2'>
+    <div className='relative flex items-stretch border border-e8e7f0 h-58 rounded-8 bg-grey-666'>
       <NumInput onChange={onNumChange} placeholder='0.0'
         value={value?.amount} {...rest} />
       {onMax ? (

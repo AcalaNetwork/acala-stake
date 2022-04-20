@@ -55,11 +55,11 @@ export const ConnectExtensionModal = () => {
         isFailed ? (
           <ErrorHeader />
         ) : (
-          <Dialog.Title as='h3' className='flex flex-col items-center border-b pt-32 pb-24 border-eae9f0'>
-            <div className='flex-center bg-eae9f0 rounded-circle w-48 h-48 mb-16'>
+          <Dialog.Title as='h3' className='flex flex-col items-center border-b pt-32 pb-24 border-grey-66'>
+            <div className='flex-center bg-grey-66 rounded-circle w-48 h-48 mb-16'>
               <Logo />
             </div>
-            <p className='font-semibold text-sm text-494853 mb-4'>Connect Wallet</p>
+            <p className='font-semibold text-sm text-grey-2 mb-4'>Connect Wallet</p>
             <p className='text-sm text-grey-3'>To start using Acala</p>
           </Dialog.Title>
         )
@@ -69,7 +69,7 @@ export const ConnectExtensionModal = () => {
       <div className='px-68 pt-32 pb-64'>
         <div className='flex items-center' onClick={connectThroughPolkadotExtension}>
           <PolkadotExtensionLogo />
-          <p className='flex-1 text-base pl-16 text-494853'>{isFailed ? 'Try Again' : 'Polkdot{.js} extension'}</p>
+          <p className='flex-1 text-base pl-16 text-grey-2'>{isFailed ? 'Try Again' : 'Polkdot{.js} extension'}</p>
           {isLoading ? <Loading size='sm' /> : <ColorArrow className='cursor-pointer' />}
         </div>
       </div>
@@ -83,10 +83,10 @@ export const ConnectExtensionModal = () => {
 const ErrorHeader = () => {
   return (
     <Dialog.Title as='h3' className='flex flex-col items-center pt-32 pb-56'>
-      <div className='flex-center bg-eae9f0 rounded-circle w-48 h-48 mb-16'>
+      <div className='flex-center bg-grey-66 rounded-circle w-48 h-48 mb-16'>
         <AlertCircle />
       </div>
-      <p className='font-semibold text-sm text-494853 mb-4'>Connection Failed</p>
+      <p className='font-semibold text-sm text-grey-2 mb-4'>Connection Failed</p>
     </Dialog.Title>
   );
 };

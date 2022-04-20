@@ -37,7 +37,7 @@ export const RewardsCalculator = memo(() => {
         <div className='max-w-[700px] mx-auto'>
           <p className='flex flex-between text-12 leading-15 font-medium mb-8'>Enter Amount to Stake</p>
           <BalanceInput onChange={onChange} placeholder='Enter Amount to Stake' value={value} />
-          <div className='mt-44 flex w-full h-[108px] text-16 border border-d6d3de rounded-[24px] pt-20 pb-18 pl-60 text-494853'>
+          <div className='mt-44 flex w-full h-[108px] text-16 border border-grey-5 rounded-[24px] pt-20 pb-18 pl-60 text-grey-2'>
             <div className='flex-1 flex flex-col items-start'>
               <FormatRatio className='text-24 leading-29 font-bold text-primary' data={apy} />
               <span className='text-14 leading-17 mt-12 text-grey-3'>APY</span>

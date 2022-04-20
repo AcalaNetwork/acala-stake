@@ -62,12 +62,12 @@ export const TabsCard = memo(() => {
     {
       Header: 'DOT:LDOT Rate',
       accessor: 'rate',
-      Cell: (props: any) => <div className='flex items-center text-494853 text-14'>1 : {props.value}</div>,
+      Cell: (props: any) => <div className='flex items-center text-grey-2 text-14'>1 : {props.value}</div>,
     },
     {
       Header: 'Request On',
       accessor: 'time',
-      Cell: (props: any) => <div className='flex items-center text-2e2d33 text-14 font-medium'>{props.value}</div>,
+      Cell: (props: any) => <div className='flex items-center text-grey-1 text-14 font-medium'>{props.value}</div>,
     },
     {
       Header: 'Est. Unstake Duration*',
@@ -82,17 +82,17 @@ export const TabsCard = memo(() => {
     {
       Header: () => <div className='flex flex-center w-full'>Amount</div>,
       accessor: 'amount',
-      Cell: (props: any) => <div className='flex flex-center text-494853 text-14'>{props.value}</div>,
+      Cell: (props: any) => <div className='flex flex-center text-grey-2 text-14'>{props.value}</div>,
     },
     {
       Header: <div className='flex flex-center w-full'>DOT:LDOT Rate</div>,
       accessor: 'rate',
-      Cell: (props: any) => <div className='flex flex-center text-494853 text-14'>1 : {props.value}</div>,
+      Cell: (props: any) => <div className='flex flex-center text-grey-2 text-14'>1 : {props.value}</div>,
     },
     {
       Header: <div className='flex flex-center w-full'>Date</div>,
       accessor: 'date',
-      Cell: (props: any) => <div className='flex flex-center text-494853 text-14'>{props.value}</div>,
+      Cell: (props: any) => <div className='flex flex-center text-grey-2 text-14'>{props.value}</div>,
     },
   ];
 

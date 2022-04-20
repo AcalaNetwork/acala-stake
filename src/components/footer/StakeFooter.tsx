@@ -23,13 +23,13 @@ export const StakeFooter = () => {
             </a>
             <div className='flex items-center text-16 text-primary font-medium gap-12'>
               <Link href={'/'}>Privacy</Link>
-              <Spacing className='border-r border-d6d3de' h={20} />
+              <Spacing className='border-r border-grey-5' h={20} />
               <Link href={'/'}>Terms</Link>
             </div>
           </div>
         </div>
         <div className='flex flex-col gap-24'>
-          <div className='text-20 leading-[24px] text-494853 font-bold'>Powered By Acala & Karura</div>
+          <div className='text-20 leading-[24px] text-grey-2 font-bold'>Powered By Acala & Karura</div>
           <Button
             className='h-52 w-[193px] rounded-[42px] text-14 text-fff font-semibold'
             style={{

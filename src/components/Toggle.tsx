@@ -35,8 +35,8 @@ export const Toggle: React.FC<ToggleProps> = ({ onActive, onInactive, initial = 
         id='toggle-effect'
       ></div>
       <div
-        className={`flex flex-row items-center px-2 w-52 h-24 p-1 border border-ABAAB9 rounded-full cursor-pointer ${
-          active ? 'bg-primary justify-end' : ' bg-d6d3de justify-start'
+        className={`flex flex-row items-center px-2 w-52 h-24 p-1 border border-grey-4 rounded-full cursor-pointer ${
+          active ? 'bg-primary justify-end' : ' bg-grey-5 justify-start'
         }`}
       >
         <div className='w-20 h-20 rounded-full bg-white z-10'></div>

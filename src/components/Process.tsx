@@ -8,7 +8,7 @@ export const CircleProcess: FC<{ process: number }> = ({ process }) => {
   return (
     <div className='relative w-44 h-44 flex flex-center'>
       <div className='text-primary text-10 font-medium'>{`${formatPorcess}%`}</div>
-      <div className='w-44 h-44 absolute top-0 left-0 border-4 border-eae9f0 rounded-circle'></div>
+      <div className='w-44 h-44 absolute top-0 left-0 border-4 border-grey-66 rounded-circle'></div>
       <div className='w-22 h-44 absolute top-0 left-0 overflow-hidden'>
         <div
           className='w-44 h-44 border-4 border-transparent rounded-circle absolute top-0 left-0 border-b-primary border-l-primary'
