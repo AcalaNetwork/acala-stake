@@ -37,7 +37,7 @@ export const useSDKConnector = (api?: ApiRx, network?: SDKNetwork) => {
       setHoma(wallet.homa);
       setHistory(history);
     },
-    [setWallet, setSwap, setLiquidity]
+    [setWallet, setSwap, setLiquidity, network]
   );
 
   useEffect(() => {

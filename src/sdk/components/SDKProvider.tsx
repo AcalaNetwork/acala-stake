@@ -16,8 +16,8 @@ export const SDKProvider: FC = React.memo(({ children }) => {
   const polkadotApi = useApi('polkadot');
   const karuraApi = useApi('karura');
   const kusamaApi = useApi('kusama');
-  const acalaSDK = useSDKConnector(acalaApi.api);
-  const karuraSDK = useSDKConnector(karuraApi.api);
+  const acalaSDK = useSDKConnector(acalaApi.api, 'acala');
+  const karuraSDK = useSDKConnector(karuraApi.api, 'karura');
   const crossChainSDK = useCrossChainSDKConnector({
     acalaApi: acalaApi.api,
     karuraApi: karuraApi.api,
