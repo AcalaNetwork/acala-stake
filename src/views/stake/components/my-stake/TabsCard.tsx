@@ -2,44 +2,20 @@ import { memo, useState } from 'react';
 import { Card } from '@components/Card';
 import { Spacing } from '@components/Spacing';
 import { Table } from '@components/Table';
+import { useHomaLiquidTokenSummary } from '../../hook/useHomaLiquidTokenSummary';
+import { SDKNetwork } from '@sdk/types';
+import { useHomaHistory } from '@views/stake/hook/useHomaHistory';
+import { Button } from '@components';
 
-export const TabsCard = memo(() => {
+export const TabsCard = memo<{ network: SDKNetwork }>(({ network }) => {
   const [tab, setTab] = useState(0);
-
-  const unstakeData = [
-    {
-      request: '',
-      rate: 9.8,
-      time: '2022-01-12',
-      duration: 29,
-      status: 'WAITING',
-    },
-    {
-      request: '100 LDOT (~10DOT）',
-      rate: 9.8,
-      time: '2022-01-12',
-      duration: 29,
-      status: 'UNSTAKED',
-    },
-  ];
-
-  const rewardData = [
-    {
-      amount: 1,
-      rate: 9.8,
-      date: '2022-01-12',
-    },
-    {
-      amount: 1,
-      rate: 9.8,
-      date: '2022-01-12',
-    },
-  ];
+  const summary = useHomaLiquidTokenSummary(network);
+  const history = useHomaHistory(network);
 
   const unstakeColumns = [
     {
-      Header: 'Unstake Requests',
-      accessor: 'request',
+      Header: 'Action',
+      accessor: 'action',
       Cell: (props: any) => <div className='flex items-center text-primary font-medium text-14'>{props.value}</div>,
     },
     {
@@ -47,52 +23,41 @@ export const TabsCard = memo(() => {
       accessor: 'status',
       Cell: (props: any) => (
         <div className='text-12 font-medium'>
-          {props.value === 'WAITING' ? (
-            <div className='text-[#ff8800] border border-[#ff8800] bg-[#ff8800] bg-opacity-10 w-120 h-32 rounded-16 flex flex-center'>
-              {props.value}
-            </div>
-          ) : (
-            <div className='text-[#61c288] border border-[#61c288] bg-[#61c288] bg-opacity-10 w-120 h-32 rounded-16 flex flex-center'>
-              {props.value}
-            </div>
-          )}
+          <div className='text-[#61c288] border border-[#61c288] bg-[#61c288] bg-opacity-10 w-120 h-32 rounded-16 flex flex-center'>
+            {props.value}
+          </div>
         </div>
       ),
     },
     {
-      Header: 'DOT:LDOT Rate',
-      accessor: 'rate',
-      Cell: (props: any) => <div className='flex items-center text-494853 text-14'>1 : {props.value}</div>,
-    },
-    {
-      Header: 'Request On',
-      accessor: 'time',
-      Cell: (props: any) => <div className='flex items-center text-2e2d33 text-14 font-medium'>{props.value}</div>,
-    },
-    {
-      Header: 'Est. Unstake Duration*',
-      accessor: 'duration',
-      Cell: (props: any) => (
-        <div className='flex items-center text-primary text-14 font-medium'>{props.value} Days</div>
-      ),
+      Header: 'Est. Yield',
+      accessor: 'Est',
+      Cell: (props: any) => <div className='flex items-center text-primary text-14 font-medium'>{props.value}</div>,
     },
   ];
 
   const rewardColumns = [
     {
-      Header: () => <div className='flex flex-center w-full'>Amount</div>,
-      accessor: 'amount',
-      Cell: (props: any) => <div className='flex flex-center text-494853 text-14'>{props.value}</div>,
+      Header: 'Action',
+      accessor: 'message',
+      Cell: (props: any) => <div className='flex text-494853 text-14 max-w-[300px]'>{props.value}</div>,
     },
     {
-      Header: <div className='flex flex-center w-full'>DOT:LDOT Rate</div>,
-      accessor: 'rate',
+      Header: 'Date',
+      accessor: 'date',
       Cell: (props: any) => <div className='flex flex-center text-494853 text-14'>1 : {props.value}</div>,
     },
     {
-      Header: <div className='flex flex-center w-full'>Date</div>,
-      accessor: 'date',
-      Cell: (props: any) => <div className='flex flex-center text-494853 text-14'>{props.value}</div>,
+      Header: 'Link',
+      accessor: 'link',
+      Cell: (props: any) => (
+        <Button size='sm' variant='text'>
+          <a href={props.value} rel="noreferrer"
+            target='_blank' >
+            subScan
+          </a>
+        </Button>
+      ),
     },
   ];
 
@@ -115,9 +80,9 @@ export const TabsCard = memo(() => {
       <Spacing h={37} />
       <Card className='px-[55px] py-32' variant='gradient-border'>
         {tab === 0 ? (
-          <Table columns={unstakeColumns} data={unstakeData} />
+          <Table columns={unstakeColumns} data={summary} />
         ) : (
-          <Table columns={rewardColumns} data={rewardData} />
+          <Table columns={rewardColumns} data={history} />
         )}
       </Card>
     </>
