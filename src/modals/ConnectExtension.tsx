@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { Modal } from '../components/Modal';
-import { useCloseModal, useModal, useModalVisible, useOpenModal } from '../state';
+import { useModal, useOpenModal } from '../state';
 import { ModalType } from '../state/application/types';
 import Logo from '/public/images/acala-circle.svg';
 import PolkadotExtensionLogo from '/public/images/polkadot-extension-logo.svg';
@@ -34,7 +34,8 @@ export const ConnectExtensionModal = () => {
   const isLoading = useIsLoading(extension.status === ConnectStatus.connecting);
   const isFailed = extension.status === ConnectStatus.failed;
 
-  const connectThroughPolkadotExtension = useCallback(() => {
+  const connectViaPolkadotExtension = useCallback(() => {
+    console.log('test', extension);
     extension
       .connect?.()
       .then(() => {
@@ -42,7 +43,8 @@ export const ConnectExtensionModal = () => {
         closeConnectExtension();
         openSelectAccountModal();
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         // ignore error
       });
   }, [closeConnectExtension, extension, openSelectAccountModal]);
@@ -54,7 +56,7 @@ export const ConnectExtensionModal = () => {
           <ErrorHeader />
         ) : (
           <Dialog.Title as='h3' className='flex flex-col items-center border-b pt-32 pb-24 border-grey-66'>
-            <div className='flex-center bg-grey-66 rounded-circle w-48 h-48 mb-16'>
+            <div className='flex-center rounded-circle w-48 h-48 mb-16'>
               <Logo />
             </div>
             <p className='font-semibold text-sm text-grey-2 mb-4'>Connect Wallet</p>
@@ -67,7 +69,7 @@ export const ConnectExtensionModal = () => {
     >
       {isFailed ? <ErrorContent /> : null}
       <div className='px-68 pt-32 pb-64'>
-        <div className='flex items-center' onClick={connectThroughPolkadotExtension}>
+        <div className='flex items-center' onClick={connectViaPolkadotExtension}>
           <PolkadotExtensionLogo />
           <p className='flex-1 text-base pl-16 text-grey-2'>{isFailed ? 'Try Again' : 'Polkdot{.js} extension'}</p>
           {isLoading ? <Loading size='sm' /> : <ColorArrow className='cursor-pointer' />}

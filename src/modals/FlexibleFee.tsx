@@ -1,10 +1,7 @@
 import { Token } from '@acala-network/sdk-core';
 import { useFeeSwapPaths } from '@hooks/useFeeSwapPaths';
 import { useEffect, useMemo, useState } from 'react';
-import { TokenSelector } from '../components/form';
-import { FormatBalance } from '../components/FormatBalance';
-import { Modal, ModalHeader } from '../components/Modal';
-import { TxButton, ChainImage} from '@components/TxButton';
+import { TxButton, ChainImage, Modal, ModalHeader, TokenSelector, FormatBalance } from '@components';
 import { useExtrinsic } from '@connector';
 import { useFlexiPayToken } from '@sdk/hooks/wallet/useFlexiPayToken';
 import { useSetFlexiPayToken } from '@sdk/hooks/wallet/useSetFlexiPayToken';
@@ -27,7 +24,7 @@ export const FlexibleFeeModal = () => {
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    <Modal header={<ModalHeader onClose={closeModal}>Flexible Fee</ModalHeader>} onClose={() => {}}
+    <Modal header={<ModalHeader onClose={closeModal}>Flexible Fee</ModalHeader>} onClose={closeModal}
       visible={visible}>
       <div className='px-40 py-24'>
         <div className='flex items-center gap-20 mb-20 text-333 font-medium'>
@@ -65,7 +62,7 @@ export const FlexibleFeeModal = () => {
           </div>
         </div>
         <div className='flex flex-center'>
-          <TxButton call={call} className='mt-24 w-100'
+          <TxButton call={call} className='mt-24 w-full'
             network={'acala'}>
             Save
           </TxButton>

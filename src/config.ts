@@ -45,7 +45,7 @@ const kusamaEndpoints = isDevelopment
   };
 
 const configs = {
-  appName: 'Acala DAPP',
+  appName: 'Acala Staking',
   apis: {
     acala: {
       network: 'acala',

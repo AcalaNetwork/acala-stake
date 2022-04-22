@@ -51,7 +51,6 @@ const WithSubstrate = (props) => {
     >
       <TxNotifications />
       <WithSDK {...props} />
-      <TxNotifications />
     </SubstrateConnector>
   );
 };

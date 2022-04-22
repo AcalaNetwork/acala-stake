@@ -52,10 +52,10 @@ export const useSelectedAddress = () => useSelector((state: StoreState) => state
 export const useModalVisible = (type: ModalType) =>
   useSelector((state: StoreState) => state.application.modal[type]?.visible || false);
 
-export const useOpenModal = <T = Record<string, any>>(type: ModalType) => {
+export const useOpenModal = (type: ModalType) => {
   const dispatch = useDispatch();
 
-  return useCallback((data?: T) => dispatch(setModal({ key: type, data: { visible: true, ...data } })), []);
+  return useCallback(() => dispatch(setModal({ key: type, data: { visible: true } })), [dispatch, type]);
 };
 
 export const useCloseModal = (type: ModalType) => {

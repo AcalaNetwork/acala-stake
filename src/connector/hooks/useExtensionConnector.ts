@@ -1,23 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
-import { ConnectStatus, ExtensionConnectorData, SubstrateConnectorData } from '../types';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ConnectStatus, ExtensionConnectorData } from '../types';
 import { InjectedExtension, InjectedAccount, Unsubcall } from '@polkadot/extension-inject/types';
 import { useMemo } from 'react';
 import { NoExtensions } from '../errors';
-import { useApi } from '.';
 
-export async function getExtensions(api: SubstrateConnectorData, appName: string): Promise<InjectedExtension> {
-  // wait api connected;
-  await api.isConnected;
+export async function getExtensions(appName: string): Promise<InjectedExtension> {
+// @polkadot/extension-dapp doesn't support SSR
 
-  const extensions = await // @polkadot/extension-dapp doesn't support SSR
-  (
-    await import('@polkadot/extension-dapp').then((data) => data.web3Enable)
-  )(appName);
+  const extensions = await (await import('@polkadot/extension-dapp').then((data) => data.web3Enable))(appName);
 
   if (extensions.length === 0) throw new NoExtensions();
 
   // FIXME: just select the first extension, if browser has multiply extensions, this may cause an error.
-  const currentExtensions = extensions[0];
+  const currentExtensions = extensions.find(i => i.name === 'polkadot-js');
 
   return currentExtensions;
 }
@@ -33,36 +28,35 @@ export const useExtensionConnector = ({
   defaultAddress,
   onActiveSelected,
 }: UseExtensionConnectorConfigs): ExtensionConnectorData => {
-  const api = useApi('polkadot');
   const [extension, setExtension] = useState<InjectedExtension | undefined>();
   const [status, setStatus] = useState<ExtensionConnectorData['status']>(ConnectStatus.disconnected);
   const [injectedAccounts, setInjectedAccounts] = useState<InjectedAccount[]>([]);
   const [active, setActiveData] = useState<InjectedAccount>();
   const subscriber = useRef<Unsubcall>();
 
-  const connect = useMemo(
-    () => async () => {
-      // clear accounts subscriber
-      if (subscriber.current) subscriber.current?.();
+  const connect = useCallback( async () => {
+    // clear accounts subscriber
+    if (subscriber.current) subscriber.current?.();
 
-      // if extension is not connect, connect extension first
-      if (status !== ConnectStatus.ready) {
-        try {
-          setStatus(ConnectStatus.connecting);
+    // if extension is not connect, connect extension first
+    if (status !== ConnectStatus.ready) {
+      try {
+        setStatus(ConnectStatus.connecting);
 
-          const extension = await getExtensions(api, appName);
+        const extension = await getExtensions(appName);
 
-          setExtension(extension);
-          setStatus(ConnectStatus.connected);
+        setExtension(extension);
+        setStatus(ConnectStatus.connected);
 
-          subscriber.current = extension.accounts.subscribe(setInjectedAccounts);
-        } catch (e) {
-          setStatus(ConnectStatus.failed);
-          throw e;
-        }
+        subscriber.current = extension.accounts.subscribe(setInjectedAccounts);
+      } catch (e) {
+        setStatus(ConnectStatus.failed);
+        console.error(e);
+        throw e;
       }
-    },
-    [setStatus, setExtension, setInjectedAccounts]
+    }
+  },
+  [status, appName]
   );
 
   const handleSetActive = useMemo(
@@ -82,13 +76,16 @@ export const useExtensionConnector = ({
     // do nothing if active is already selected
     if (active) return;
 
-    // do nothing if default account is not set
-    if (!defaultAddress) return;
-
     // do nothing if injected accounts is not ready
     if (!injectedAccounts.length) return;
 
-    const account = injectedAccounts.find((item) => item.address === defaultAddress);
+    let account;
+
+    if (defaultAddress) {
+      account = injectedAccounts.find((item) => item.address === defaultAddress);
+    } else {
+      account = injectedAccounts[0];
+    }
 
     if (!account) return;
 
@@ -98,7 +95,8 @@ export const useExtensionConnector = ({
   // auto connect
   useEffect(() => {
     connect();
-  }, [connect]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return useMemo(
     () => ({

@@ -1,12 +1,12 @@
 import React from 'react';
 import { memo } from 'react';
-import { FlexibleFeeModal } from '../../modals/FlexibleFee';
 import { ModalType, useModal } from '@state';
 import { Popover } from '../Popover';
 import SettingIcon from '/public/icons/setting.svg';
 
 export const Setting = memo(() => {
   const { open } = useModal(ModalType.FlexibleFee);
+
   return (
     <Popover
       content={
@@ -22,7 +22,6 @@ export const Setting = memo(() => {
       location='down'
     >
       <SettingIcon />
-      <FlexibleFeeModal />
     </Popover>
   );
 });

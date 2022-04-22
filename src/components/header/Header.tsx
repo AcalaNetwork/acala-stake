@@ -6,6 +6,7 @@ import { Menu } from './Menu';
 import { Setting } from './Setting';
 import { Wallet } from './Wallet';
 import styles from './Header.module.css';
+import { FlexibleFeeModal } from 'modals/FlexibleFee';
 
 export const Header = memo(() => {
   const active = useActiveAccount();
@@ -20,6 +21,7 @@ export const Header = memo(() => {
         <div className='flex items-center'>
           <Wallet className='mr-32' />
           {active && <Setting />}
+          {active && <FlexibleFeeModal />}
         </div>
       </div>
       <div className={styles['header-bg']} />
