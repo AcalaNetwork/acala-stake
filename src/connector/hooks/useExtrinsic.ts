@@ -33,7 +33,7 @@ export const useExtrinsic = (_data?: ExtrinsicConfigs): CallInfo => {
   const [call, setCall] = useState<CallInfo['call']>();
   const nativeToken = usePresetTokens(data.network)?.nativeToken;
   const feeDecimal = nativeToken?.decimals;
-	const active = useActiveAccount();
+  const active = useActiveAccount();
 
   const buildCall = useMemo(() => {
     return (section: string, method: string, params: ExtrinsicConfigs['params']): CallInfo['call'] => {
@@ -51,7 +51,7 @@ export const useExtrinsic = (_data?: ExtrinsicConfigs): CallInfo => {
 
   const getFee = useMemo(() => {
     return (call: CallInfo['call']) => {
-      if (!call || !call.paymentInfo || !active.address) {
+      if (!call || !call.paymentInfo || !active?.address) {
         setIsLoadingFee(false);
 
         return;
@@ -69,7 +69,7 @@ export const useExtrinsic = (_data?: ExtrinsicConfigs): CallInfo => {
         },
       });
     };
-  }, [active.address, feeDecimal]);
+  }, [active?.address, feeDecimal]);
 
   // try to build call, set call to null if build failed
   useEffect(() => {

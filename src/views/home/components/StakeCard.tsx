@@ -4,12 +4,13 @@ import { Button, LinkButton } from '@components/Button';
 import { Card } from '@components/Card';
 import { FormatBalance } from '@components/FormatBalance';
 import { FormatRatio } from '@components/FormatRatio';
-import { NetworkIcon } from '@components/NetworkIcon';
 import { Spacing } from '@components/Spacing';
 import { useHoma } from '@sdk/hooks/homa';
 import { useHomaAPY } from '@sdk/hooks/homa/useHomaAPY';
 import { useHomaTotalStaking } from '@sdk/hooks/homa/useHomaTotalStaking';
 import { getTokenName } from '@utils/token';
+import KusamaPink from '/public/network/kusama-pink.svg';
+import PolkadotPink from '/public/network/polkadot-pink.svg';
 
 type StakeCardType = 'acala' | 'karura';
 
@@ -79,16 +80,14 @@ const StakeItem = memo<StakeItemProps>(({ className, type, token, desc, staked, 
   return (
     <Card
       className={`w-[566px] h-[454px] flex-1 flex-center flex-col pt-32 pb-30 px-40 bg-opacity-[0.8] shadow-[0px_1px_25px_rgba(100, 90, 255, 0.08)] backdrop-blur-[150px] ${className}`}
+      round='sm'
     >
-      <NetworkIcon type={type === 'acala' ? 'polkadot' : 'kusama'} width={64} />
-      <Spacing h={27} />
-      <div className='tracking-[0.02em] text-center w-[322px]'>
+      {type === 'acala' ? <PolkadotPink width={64} /> : <KusamaPink width={64} />}
+      <div className='tracking-[0.02em] text-center w-[322px] mt-27'>
         <div className='text-20 leading-24 font-semibold '>{type === 'acala' ? 'Polkadot' : 'Kusama'} Staking</div>
-        <Spacing h={19} />
-        <div className='text-14 leading-21 font-medium text-grey-3'>{desc}</div>
+        <div className='mt-19 text-14 leading-21 font-medium text-grey-3'>{desc}</div>
       </div>
-      <Spacing h={29} />
-      <div className='flex w-full h-99 border border-grey-5 rounded-[24px] py-11 text-28'>
+      <div className='mt-29 flex w-full h-99 border border-grey-5 rounded-[24px] py-11 text-28'>
         <div className='flex-1 flex-col flex justify-around items-center border-r border-grey-5'>
           <span className='font-bold leading-34 text-primary'>
             <FormatBalance balance={staked} human />

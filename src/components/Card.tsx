@@ -16,7 +16,8 @@ type CardProps = PropsWithChildren<{
 
 function getClassName(round: CardRoundSize, variant: CardVariant, shadow: CardShadow) {
   const rounds = {
-    default: 'rounded-xl',
+    default: 'rounded-24',
+    sm: 'rounded-20'
   };
 
   const variants = {

@@ -7,3 +7,4 @@ export * from './TokenSelector';
 export * from './ChainSelector';
 export * from './FormErrorMessage';
 export * from './AddressInputSelector';
+export * from './Selector';

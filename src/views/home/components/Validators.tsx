@@ -39,8 +39,8 @@ export const Validators = memo(() => {
         Current Validators
       </div>
       <div className='mt-[62px] w-full grid grid-cols-2 gap-38 text-4f4f4f text-16 leading-[24px]'>
-        {validators.map((item, i) => (
-          <ValidatorItem key={i} validator={item} />
+        {validators.map((item) => (
+          <ValidatorItem key={item.stash_account_display.address} validator={item} />
         ))}
       </div>
     </div>

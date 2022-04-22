@@ -1,3 +1,4 @@
+import { RequiredActiveAccount } from '@components';
 import { StakeLayout } from '@components/layout';
 import { SDKNetwork } from '@sdk/types';
 import { useRouter } from 'next/router';
@@ -16,8 +17,10 @@ export const MyStake = memo(() => {
       <EnsureSDKReady requires={['acala-homa', 'karura-homa', 'acala-wallet', 'karura-wallet']}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={2} network={network} />
-        <div className='container pt-40'>
-          <StakingOverview network={network} />
+        <div className='container mt-40'>
+          <RequiredActiveAccount className='min-h-[560px]'>
+            <StakingOverview network={network} />
+          </RequiredActiveAccount>
         </div>
       </EnsureSDKReady>
     </StakeLayout>

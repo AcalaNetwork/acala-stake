@@ -16,8 +16,8 @@ export const useBalanceOverview = (network: SDKNetwork): BalanceOverview => {
   const active = useActiveAccount();
   const apy = useHomaAPY(network);
   const consts = useHomaConts(network);
-  const stakingBalance = useBalance(network, active.address, consts.stakingToken, 'available');
-  const liquidBalance = useBalance(network, active.address, consts.liquidToken, 'available');
+  const stakingBalance = useBalance(network, active?.address, consts.stakingToken, 'available');
+  const liquidBalance = useBalance(network, active?.address, consts.liquidToken, 'available');
   const { liquidToken, stakingToken } = consts;
 
   return {

@@ -7,7 +7,7 @@ type TopBoardProps = BaseComponentProps;
 export const TopBoard = memo<TopBoardProps>(({ className, children }) => {
   return (
     <div
-      className={clsx('bg-top-board w-screen min-h-126 bg-no-repeat bg-cover', className)}
+      className={clsx('bg-top-board w-screen h-[126px] min-h-[126px] bg-no-repeat bg-cover', className)}
       style={{ backgroundImage: `url("/images/top-board-bg.svg")` }}
     >
       <div className='container'>{children}</div>

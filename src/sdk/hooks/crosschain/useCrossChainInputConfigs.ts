@@ -15,7 +15,7 @@ export const useCrossChainInputConfigs = (network: RegisteredChain, params: Omit
 
     const adapter = crossChain.findAdapter(network);
 
-    if (!adapter || !active.address || !params.to) return;
+    if (!adapter || !active?.address || !params.to) return;
 
     setBalance(undefined);
     return adapter.subscribeInputConfigs(params).subscribe({ next: setBalance });

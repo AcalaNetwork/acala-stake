@@ -4,15 +4,15 @@ import { useHoma } from '.';
 import { useSubscription } from '../../../hooks/useSubscription';
 import { SDKNetwork } from '../../types';
 
-export const useHomaRedeemRequesting = (network: SDKNetwork, address: string) => {
+export const useHomaRedeemRequesting = (network: SDKNetwork, address?: string) => {
   const homa = useHoma(network);
   const [data, setData] = useState<RedeemRequest | undefined>();
 
   useSubscription(() => {
-    if (!homa) return;
+    if (!homa || !address) return;
 
     return homa.subscribeUserRedeemRequest(address).subscribe({ next: setData });
-  }, [homa]);
+  }, [homa, address]);
 
   return data;
 };

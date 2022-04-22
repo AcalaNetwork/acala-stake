@@ -1,12 +1,8 @@
 import React, { useMemo } from 'react';
-import { AddressAvatar } from '../components/AddressAvatar';
-import { Modal, ModalHeader } from '../components/Modal';
-import { useExtension } from '../connector';
-import { useModal } from '../state';
-import { ModalType } from '../state/application/types';
+import { useExtension } from '@connector';
+import { ModalType, useModal } from '@state';
 import { InjectedAccount } from '@polkadot/extension-inject/types';
-import { Selector } from '../components/form/Selector';
-import { Address } from '../components/Address';
+import { Address, Selector, AddressAvatar, Modal, ModalHeader } from '@components';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import CopyIcon from '/public/icons/copy.svg';
 import LinkIcon from '/public/images/link.svg';
@@ -48,8 +44,7 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
 );
 
 export const SelectActiveAccount = memo(() => {
-  const type = ModalType.selectAccount;
-  const [visible, , close] = useModal(type);
+  const { visible, close } = useModal(ModalType.SelectAccount);
   const { injectedAccounts, active, setActive } = useExtension();
 
   const handleChange = (value: InjectedAccount) => {

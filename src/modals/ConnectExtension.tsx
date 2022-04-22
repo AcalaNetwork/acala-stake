@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { Modal } from '../components/Modal';
-import { useCloseModal, useModalVisible, useOpenModal } from '../state';
+import { useCloseModal, useModal, useModalVisible, useOpenModal } from '../state';
 import { ModalType } from '../state/application/types';
 import Logo from '/public/images/acala-circle.svg';
 import PolkadotExtensionLogo from '/public/images/polkadot-extension-logo.svg';
@@ -27,10 +27,8 @@ const useIsLoading = (init: boolean) => {
 };
 
 export const ConnectExtensionModal = () => {
-  const type = ModalType.ConnectExtension;
-  const visible = useModalVisible(type);
-  const closeModal = useCloseModal(type);
-  const openSelectAccountModal = useOpenModal(ModalType.selectAccount);
+  const { visible, close: closeConnectExtension } = useModal(ModalType.ConnectExtension);
+  const openSelectAccountModal = useOpenModal(ModalType.SelectAccount);
   const extension = useExtension();
   // make sure the loading animation lasts at least 1s
   const isLoading = useIsLoading(extension.status === ConnectStatus.connecting);
@@ -41,16 +39,16 @@ export const ConnectExtensionModal = () => {
       .connect?.()
       .then(() => {
         // if the extension connected success, then open the select account modal
-        closeModal();
+        closeConnectExtension();
         openSelectAccountModal();
       })
-      .catch(() => {});
-  }, [extension]);
+      .catch(() => {
+        // ignore error
+      });
+  }, [closeConnectExtension, extension, openSelectAccountModal]);
 
   return (
     <Modal
-      visible={visible}
-      onClose={closeModal}
       header={
         isFailed ? (
           <ErrorHeader />
@@ -64,6 +62,8 @@ export const ConnectExtensionModal = () => {
           </Dialog.Title>
         )
       }
+      onClose={closeConnectExtension}
+      visible={visible}
     >
       {isFailed ? <ErrorContent /> : null}
       <div className='px-68 pt-32 pb-64'>

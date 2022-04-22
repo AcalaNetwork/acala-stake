@@ -4,20 +4,16 @@ import { useEffect, useMemo, useState } from 'react';
 import { TokenSelector } from '../components/form';
 import { FormatBalance } from '../components/FormatBalance';
 import { Modal, ModalHeader } from '../components/Modal';
-import { ChainIamge } from '../components';
-import { TxButton } from '../components/TxButton';
-import { useExtrinsic } from '../connector';
-import { useFlexiPayToken } from '../sdk/hooks/wallet/useFlexiPayToken';
-import { useSetFlexiPayToken } from '../sdk/hooks/wallet/useSetFlexiPayToken';
-import { SDKNetwork } from '../sdk/types';
-import { useCloseModal, useModalVisible } from '../state';
-import { ModalType } from '../state/application/types';
+import { TxButton, ChainImage} from '@components/TxButton';
+import { useExtrinsic } from '@connector';
+import { useFlexiPayToken } from '@sdk/hooks/wallet/useFlexiPayToken';
+import { useSetFlexiPayToken } from '@sdk/hooks/wallet/useSetFlexiPayToken';
+import { SDKNetwork } from '@sdk/types';
+import { useModal, ModalType } from '@state';
 
 export const FlexibleFeeModal = () => {
   const [network, setNetwork] = useState<SDKNetwork>('karura');
-  const type = ModalType.flexibleFee;
-  const visible = useModalVisible(type);
-  const closeModal = useCloseModal(type);
+  const { visible, close: closeModal } = useModal(ModalType.FlexibleFee);
   const feeSwapPaths = useFeeSwapPaths(network);
   const selectedableTokens = useMemo(() => feeSwapPaths.map((item) => item[0]), [feeSwapPaths]);
   const payToken = useFlexiPayToken(network);
@@ -41,7 +37,7 @@ export const FlexibleFeeModal = () => {
             }`}
             onClick={() => setNetwork('karura')}
           >
-            <ChainIamge chain={'karura'} size={20} />
+            <ChainImage chain={'karura'} size={20} />
             KARURA
           </div>
           <div
@@ -50,7 +46,7 @@ export const FlexibleFeeModal = () => {
             }`}
             onClick={() => setNetwork('acala')}
           >
-            <ChainIamge chain={'acala'} size={20} />
+            <ChainImage chain={'acala'} size={20} />
             ACALA
           </div>
         </div>

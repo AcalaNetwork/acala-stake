@@ -1,10 +1,11 @@
-import { AddressInputSelector, BalanceInput, Button, Card, FormatBalance, FormPanel, List, ListItem, ListLabel, ListValue, TokenSelector } from '@components';
+import { AddressInputSelector, BalanceInput, Button, Card, ConnectWalletButton, FormatBalance, FormPanel, List, ListItem, ListLabel, ListValue, TokenSelector } from '@components';
 import { TokenName } from '@components/TokenName';
 import { memo, useCallback } from 'react';
 import { useBridge } from '../hooks/useBridger';
 import { BridgeRouterSelector } from './BridgeRouterSelector';
 import tw from 'tailwind-styled-components';
 import { BridgeSteps } from '../types';
+import { useActiveAccount } from '@connector';
 
 const InfoItem = tw.div`flex text-13 leading16 mt-12 first:mt-0`;
 const InfoLable = tw.div`text-grey-3 mr-4`;
@@ -20,6 +21,7 @@ export const BridgeForm = memo(() => {
     onBackInForm
   } = useBridge();
   const [amountInputData, amountInputConfigs] = bridgeAmountInput;
+  const active = useActiveAccount();
 
   const handleSwap = useCallback(() => {
     bridgeRouter.onToggle();
@@ -100,12 +102,18 @@ export const BridgeForm = memo(() => {
             </Button>
           )
         }
-        <Button className='flex-1' color='primary'
-          onClick={handleNext}
-          variant='filled'
-        >
+        {
+          active ? (
+            <Button className='flex-1' color='primary'
+              onClick={handleNext}
+              variant='filled'
+            >
           Next
-        </Button>
+            </Button>
+          ) : (
+            <ConnectWalletButton className='flex-1' />
+          )
+        }
       </div>
     </Card>
   );

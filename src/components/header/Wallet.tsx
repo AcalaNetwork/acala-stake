@@ -2,11 +2,10 @@ import { useActiveAccount } from '@connector';
 import { useRouter } from 'next/router';
 import React, { FC, useCallback } from 'react';
 import { memo } from 'react';
-import { useExtension } from '../../connector/hooks/useExtension';
-import { useSS58 } from '../../connector/hooks/useSS58';
-import { ConnectStatus } from '../../connector/types';
-import { useOpenModal } from '../../state';
-import { ModalType } from '../../state/application/types';
+import { useExtension } from '@connector/hooks/useExtension';
+import { useSS58 } from '@connector/hooks/useSS58';
+import { ConnectStatus } from '@connector/types';
+import { ModalType, useModal } from '@state';
 import { Address } from '../Address';
 import { AddressAvatar } from '../AddressAvatar';
 
@@ -17,12 +16,12 @@ interface WalletProps {
 }
 
 const ConnectBtn: FC<{ className: string }> = memo(({ className }) => {
-  const openModal = useOpenModal(ModalType.ConnectExtension);
+  const { open } = useModal(ModalType.ConnectExtension);
 
   return (
     <div
       className={`whitespace-nowrap font-medium text-base text-primary ${className} pt-8 pb-8 pl-16 pr-16 `}
-      onClick={openModal}
+      onClick={open}
     >
       Connect to a wallet
     </div>
@@ -32,7 +31,7 @@ const ConnectBtn: FC<{ className: string }> = memo(({ className }) => {
 const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className, isStake }) => {
   const ss58 = useSS58();
   const active = useActiveAccount();
-  const openSelectAccountModal = useOpenModal(ModalType.selectAccount);
+  const { open: openSelectAccountModal } = useModal(ModalType.SelectAccount);
   const router = useRouter();
 
   const toWalletPage = useCallback(() => router.push(isStake ? '/stake/wallet' : '/wallet'), [isStake, router]);

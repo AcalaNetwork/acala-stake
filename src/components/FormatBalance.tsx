@@ -27,7 +27,7 @@ const defaultFormatBalanceConfig: FormatNumberProps['formatNumberConfig'] = {
 const MIN = 0.0000001;
 
 export const FormatBalance: FC<FormatBalanceProps> = memo(
-  ({ balance, className, decimalLength = 6, placeholder, loading, negativeToZero = true, ...other }) => {
+  ({ balance, className, decimalLength = 6, placeholder = '-', loading, negativeToZero = true, ...other }) => {
     if (!balance) return <p>{placeholder}</p>;
 
     const formatedBalance = formatBalance(balance);

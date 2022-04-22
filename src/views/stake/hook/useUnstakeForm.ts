@@ -12,9 +12,8 @@ export const useUnstakeForm = (network: SDKNetwork) => {
   const { value: isFastRedeem, update: setIsFastRedeem } = useBoolean(false);
   const active = useActiveAccount();
   const env = useHomaEnv(network);
-
-  const redeemRequesting = useHomaRedeemRequesting(network, active.address);
-  const liquidBalance = useBalance(network, active.address, liquidToken);
+  const redeemRequesting = useHomaRedeemRequesting(network, active?.address);
+  const liquidBalance = useBalance(network, active?.address, liquidToken);
 
   const maxAmount = useMemo(() => {
     if (!liquidBalance || !redeemRequesting?.amount) return FixedPointNumber.ZERO;

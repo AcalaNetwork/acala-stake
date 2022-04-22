@@ -4,7 +4,6 @@ import { StakeTopBoard } from './components/StakeTopBoard';
 import { UnstakeConsole } from './components/unstake/UnstakeConsole';
 import { useRouter } from 'next/router';
 import { SDKNetwork } from '@sdk/types';
-import { Spacing } from '@components';
 import { StakeSubPageTabs } from './components/StakeSubTabs';
 import { memo } from 'react';
 
@@ -17,8 +16,7 @@ export const UnStake = memo(() => {
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={1} network={network} />
-        <div className='container'>
-          <Spacing h={47} />
+        <div className='container mt-40'>
           <UnstakeConsole network={network} />
         </div>
       </EnsureSDKReady>

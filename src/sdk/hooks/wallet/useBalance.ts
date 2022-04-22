@@ -7,7 +7,7 @@ import { SDKNetwork } from '@sdk/types';
 
 export const useBalance = (
   network: SDKNetwork,
-  account: string,
+  address: string,
   token: Token,
   type: keyof BalanceData = 'available'
 ) => {
@@ -15,9 +15,9 @@ export const useBalance = (
   const wallet = useWallet(network);
 
   useSubscription(() => {
-    if (!wallet) return;
+    if (!wallet || !address) return;
 
-    return wallet.subscribeBalance(token, account).subscribe({ next: setData });
+    return wallet.subscribeBalance(token, address).subscribe({ next: setData });
   }, [wallet]);
 
   return data?.[type];

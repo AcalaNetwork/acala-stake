@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreDispatch, StoreState } from '..';
 import { setBalanceDisplayType, setBalanceVisible, setModal, setSelectedAddress, setSelectedEndpoint } from './actions';
@@ -17,7 +17,7 @@ export const useSetBalanceVisible = () => {
 
   return useCallback((visible: boolean) => {
     dispatch(setBalanceVisible({ value: visible }));
-  }, []);
+  }, [dispatch]);
 };
 
 export const useBalanceVisible = () => {
@@ -30,7 +30,7 @@ export const useSetBalanceDisplayType = () => {
 
   return useCallback((type: BalanceDisplayType) => {
     dispatch(setBalanceDisplayType({ value: type }));
-  }, []);
+  }, [dispatch]);
 };
 
 export const useBalanceDisplayType = () => {
@@ -63,7 +63,7 @@ export const useCloseModal = (type: ModalType) => {
 
   return useCallback(() => {
     dispatch(setModal({ key: type, data: { visible: false } }));
-  }, []);
+  }, [dispatch, type]);
 };
 
 export const useModal = (type: ModalType) => {
@@ -71,5 +71,5 @@ export const useModal = (type: ModalType) => {
   const open = useOpenModal(type);
   const close = useCloseModal(type);
 
-  return [visible, open, close] as const;
+  return useMemo(() => ({ visible, open, close }), [close, open, visible]);
 };

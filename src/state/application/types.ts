@@ -1,14 +1,14 @@
-export type ModalData<T = Record<string, any>> = { visible: boolean } & T;
+export type ModalData<T = Record<string, unknown>> = { visible: boolean } & T;
 
 export enum ModalType {
   'ConnectExtension',
+  'SelectAccount',
   'noExtension',
   'emptyAccount',
-  'selectAccount',
   'bridgeConfirm',
   'addLiquidityConfirm',
   'unstakeConfirm',
-  'flexibleFee',
+  'FlexibleFee',
 }
 
 export type BalanceDisplayType = 'USD' | 'AMOUNT';

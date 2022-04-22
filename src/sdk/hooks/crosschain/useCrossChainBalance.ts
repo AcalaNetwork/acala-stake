@@ -11,12 +11,12 @@ export const useCrossChainBalance = (network: RegisteredChain, token: string) =>
   const [balance, setBalance] = useState<FixedPointNumber>();
 
   useSubscription(() => {
-    if (!network || !active.address) return;
+    if (!network || !active?.address) return;
 
     const adapter = crossChain.findAdapter(network);
 
-    return adapter.subscribeAvailableBalance(token, active.address).subscribe({ next: setBalance });
-  }, [network]);
+    return adapter.subscribeAvailableBalance(token, active?.address).subscribe({ next: setBalance });
+  }, [network, active?.address]);
 
   return balance;
 };

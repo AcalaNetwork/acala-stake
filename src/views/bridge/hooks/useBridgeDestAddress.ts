@@ -39,7 +39,7 @@ export const useBridgeDestAddress = ({ init, toChain }: UseBridgeDestAddressConf
       disabled: locked,
       value: dest,
       onChange: setDest,
-      name: currentAddres.name
+      name: currentAddres?.name
     };
   }, [crossChain, dest, injectedAccounts, locked, toChain]);
 };

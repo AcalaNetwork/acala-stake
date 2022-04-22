@@ -1,7 +1,7 @@
 import { memo, useCallback } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
-import { Card, Button, Spacing, BaseComponentProps, FormatBalance } from '@components';
+import { Card, Button, Spacing, BaseComponentProps, FormatBalance, ConnectWalletButton } from '@components';
 import { useActiveAccount } from '@connector';
 import { getTokenName } from '@utils/token';
 import { useStake } from './StakeProvider';
@@ -34,9 +34,9 @@ const StakingTokenBalance = memo<StakingTokenBalanceProps>(({ available, classNa
       )}
     >
       <div>
-        {tokenName} Balance on {network} {available && '(Available to Stake)'}
+        {tokenName} Balance on {network} {available && '(Available to stake)'}
       </div>
-      <div className='font-semibold'>
+      <div className='font-semibold flex gap-4'>
         <FormatBalance balance={balance} placeholder='-' /> {tokenName}
       </div>
     </div>
@@ -71,7 +71,7 @@ export const StakeCover = memo<BaseComponentProps>(({ className }) => {
   }, [crossChain.router, stakingToken.symbol]);
 
   return (
-    <Card className={clsx('py-40 px-56', className)} variant='border'>
+    <Card className={clsx('w-[630px] py-40 px-56', className)} variant='border'>
       {availableNetworks.map((data, i) => (
         <StakingTokenBalance
           available={data === 'karura' || data === 'acala'}
@@ -92,21 +92,7 @@ export const StakeCover = memo<BaseComponentProps>(({ className }) => {
             Stake
           </Button>
         </div>
-      ) : (
-        <div className='flex flex-center flex-col'>
-          <Button className='w-full h-48 text-16' size='sm'>
-            Connect Wallet
-          </Button>
-          <Spacing h={16} />
-          <div className='text-14 leading-17 font-medium text-grey-3'>
-            Remo more on wallet guide{' '}
-            <Link href='http://www.google.com' passHref>
-              <span className='text-primary border-b border-primary cursor-pointer'>Here</span>
-            </Link>
-            .
-          </div>
-        </div>
-      )}
+      ) : <ConnectWalletButton className='mt-57' /> }
     </Card>
   );
 });

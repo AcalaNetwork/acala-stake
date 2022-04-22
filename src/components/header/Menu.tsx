@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import { useRouter } from 'next/router';
@@ -14,11 +14,18 @@ type MenuItem = PropsWithChildren<{
         path: string;
         label: string;
       }[];
+  matchPattern?: string
 }>;
 
-const MenuItem: FC<MenuItem> = memo(({ children, link }) => {
+const MenuItem: FC<MenuItem> = memo(({ matchPattern, children, link }) => {
   const { asPath } = useRouter();
-  const isActive = typeof link === 'string' ? asPath === link : link.map((i) => i.path).includes(asPath);
+  const isActive = useMemo(() => {
+    if (matchPattern && new RegExp(matchPattern).test(asPath)) {
+      return true;
+    }
+
+    return typeof link === 'string' ? asPath === link : link.map((i) => i.path).includes(asPath);
+  }, [asPath, link, matchPattern]);
   const { value: openStatus, setTrue: open, setFalse: close } = useBoolean(false, 200);
 
   return (
@@ -72,6 +79,7 @@ export const Menu = memo(() => {
           { path: '/stake/acala', label: 'Stake DOT' },
           { path: '/stake/karura', label: 'Stake KSM' },
         ]}
+        matchPattern='/stake'
       >
         Stake
       </MenuItem>
@@ -80,6 +88,7 @@ export const Menu = memo(() => {
           { path: '/bridge/acala', label: 'Brideg DOT' },
           { path: '/bridge/karura', label: 'Bridge KSM' },
         ]}
+        matchPattern='/bridge'
       >
         Bridge
       </MenuItem>

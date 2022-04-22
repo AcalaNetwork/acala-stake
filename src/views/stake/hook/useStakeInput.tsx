@@ -1,7 +1,6 @@
 import { Token } from "@acala-network/sdk-core";
-import { BalanceInputProps } from "@components";
 import { useActiveAccount } from "@connector";
-import { useBoolean, useInput } from "@hooks";
+import { useInput } from "@hooks";
 import { useBalance } from "@sdk";
 import { useHomaEnv } from "@sdk/hooks/homa";
 import { SDKNetwork } from "@sdk/types";
@@ -15,13 +14,13 @@ interface UseStakeInputConfigs {
 export const useStakeInput = ({ network, stakingToken }: UseStakeInputConfigs) => {
   const active = useActiveAccount();
   const env = useHomaEnv(network);
-  const balance = useBalance(network, active.address, stakingToken);
+  const balance = useBalance(network, active?.address, stakingToken);
 
   const inputProps = useInput({
     type: 'number',
     rules: [{
       type: 'number',
-      max: balance?.toNumber(),
+      max: balance?.toNumber() || Number.MAX_SAFE_INTEGER,
       min: env?.mintThreshold.toNumber(),
     }]
   });

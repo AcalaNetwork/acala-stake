@@ -115,7 +115,8 @@ export const Trusted = memo(() => {
           <LeftIcon className='w-40 cursor-pointer' onClick={() => setActive(active === 0 ? len -1 : (active - 1) % len)} />
           <div className='h-[320px] flex-1'>
             {dotArr.map((_, i) => (
-              <List active={active} i={i} key={i} />
+              <List active={active} i={i}
+                key={i} />
             ))}
           </div>
           <RightIcon className='w-40 cursor-pointer' onClick={() => setActive((active + 1) % len)} />

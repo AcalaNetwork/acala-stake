@@ -53,14 +53,3 @@ export const TokenImage: FC<TokenProps> = ({ className, token, size = 'md' }) =>
     </TokenWrapper>
   );
 };
-
-export const ChainIamge: FC<ChainProps> = ({ className, chain, size = 'md' }) => {
-  if (!chain) return null;
-
-  return (
-    <TokenWrapper className={className} size={size}>
-      <Image alt='symbol' height={'100%'}
-        src={`https://resources.acala.network/networks/${chain}.png`} width={'100%'} />
-    </TokenWrapper>
-  );
-};

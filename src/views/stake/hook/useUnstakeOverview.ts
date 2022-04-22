@@ -5,7 +5,7 @@ import { useBalanceOverview } from './useBalanceOverview';
 
 export const useUnstakeOverview = (network: SDKNetwork) => {
   const active = useActiveAccount();
-  const requesting = useHomaRedeemRequesting(network, active.address);
+  const requesting = useHomaRedeemRequesting(network, active?.address);
   const { liquidBalance } = useBalanceOverview(network);
 
   return {

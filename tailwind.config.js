@@ -3,7 +3,7 @@ const plugin = require("tailwindcss/plugin");
 
 const mappingPxToRem = (from, to, step) => {
   const basic = 16;
-  const len = Math.ceil((to - from) / step);
+  const len = Math.ceil((to - from) / step) + 1;
   const arr = new Array(len).fill(undefined).map((_, i) => from + step * i);
 
   return Object.fromEntries(arr.map((i) => [i, `${i / basic}rem`]));

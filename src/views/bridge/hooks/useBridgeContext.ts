@@ -36,10 +36,10 @@ export const useBridgeContext = ({ network, onBackInForm, onComplated }: UseBrid
   const bridgeAmountInput = useBridgeAmountInput(bridgeRouter.fromChain, {
     to: bridgeRouter.toChain,
     token: stakingToken.symbol,
-    address: active.address
+    address: active?.address
   });
   const bridgeDestAddress = useBridgeDestAddress({
-    init: active.address,
+    init: active?.address,
     toChain: bridgeRouter.toChain
   });
 

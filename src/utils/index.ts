@@ -4,3 +4,4 @@ export * from './formatNumber';
 export * from './formatHash';
 export * from './formatBalance';
 export * from './formatAddress';
+export * from './getHelperLinks';

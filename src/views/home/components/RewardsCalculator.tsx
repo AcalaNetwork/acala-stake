@@ -73,7 +73,7 @@ export const RewardsCalculator = memo(() => {
               <span className='text-14 leading-17 mt-12 text-grey-3'> Est. Earning/Year </span>
             </div>
           </div>
-          <LinkButton className='w-full mt-46' href={`stake/${type === 'acala' ? 'ksm' : 'dot'}`}>
+          <LinkButton className='w-full mt-46' href={`stake/${type}`}>
             Stake now
           </LinkButton>
         </div>

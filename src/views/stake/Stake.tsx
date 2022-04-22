@@ -11,10 +11,12 @@ import { StakeSubPageTabs } from './components/StakeSubTabs';
 import { StakeTopBoard } from './components/StakeTopBoard';
 import { UserGuide } from './components/stake/UserGuide';
 import { FAQ } from './components/stake/FAQ';
+import { useActiveAccount } from '@connector';
 
 export const Stake = memo(() => {
   const router = useRouter();
   const network = router.query.network as SDKNetwork;
+  const active = useActiveAccount();
 
   return (
     <StakeLayout>
@@ -27,10 +29,10 @@ export const Stake = memo(() => {
       ]}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={0} network={network} />
-        <div className='container'>
-          <BalanceOverview className='mt-47' network={network} />
+        <div className='container mt-40'>
+          { active && <BalanceOverview network={network} />}
           <StakeProvider network={network}>
-            <Card className='mt-36 pt-40 pb-38'>
+            <Card className='pb-38 pt-52' variant='gradient-border'>
               <StakeStep />
               <StakeStepsController />
             </Card>

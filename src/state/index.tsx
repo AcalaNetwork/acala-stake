@@ -34,5 +34,6 @@ export type StoreState = ReturnType<typeof store.getState>;
 
 export type StoreDispatch = typeof store.dispatch;
 
-// reexport all usefull hooks and components
+// reExport all usefull hooks and components
 export * from './application/hooks';
+export * from './application/types';
