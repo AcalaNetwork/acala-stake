@@ -23,7 +23,7 @@ function getRootClassName(size: Size, error: boolean, focuse: boolean, customCla
   };
 
   const status = {
-    normal: 'border-eae9f0',
+    normal: 'border-grey-66',
     error: 'border-acala-origian-500',
     focuse: 'border-primary',
   };

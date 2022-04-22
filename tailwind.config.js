@@ -59,18 +59,9 @@ module.exports = {
         body: "#EDEFF3", // for body background
         primary: "#645AFF",
         333: "#333333",
-        e40c5b: "#E40C5B",
         "4f4f4f": "#4F4F4F",
-        494853: "#494853",
-        "7b7986": "#7b7986",
-        eae9f0: "#EAE9F0",
         e8e7f0: "#E8E7f0",
-        f1f0f2: "#f1f0f2",
-        "2e2d33": "#2e2d33",
-        d6d3de: "#d6d3de",
         fff: "#FFFFFF",
-        overlay: "#4F4F4F",
-        abaab9: "#ABAAB9",
         "31c26b": "#31C26B",
         '8f8ab3': '#8F8AB3',
         "grey": {

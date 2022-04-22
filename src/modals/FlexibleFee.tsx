@@ -1,17 +1,16 @@
-import { MaybeCurrency, Token, TokenType } from '@acala-network/sdk-core';
+import { Token } from '@acala-network/sdk-core';
+import { useFeeSwapPaths } from '@hooks/useFeeSwapPaths';
 import { useEffect, useMemo, useState } from 'react';
-import { Button } from '../components/Button';
 import { TokenSelector } from '../components/form';
 import { FormatBalance } from '../components/FormatBalance';
 import { Modal, ModalHeader } from '../components/Modal';
-import { TokenImage } from '../components/TokenImage';
+import { ChainIamge } from '../components';
 import { TxButton } from '../components/TxButton';
 import { useExtrinsic } from '../connector';
-import { useTokens } from '../sdk';
 import { useFlexiPayToken } from '../sdk/hooks/wallet/useFlexiPayToken';
 import { useSetFlexiPayToken } from '../sdk/hooks/wallet/useSetFlexiPayToken';
 import { SDKNetwork } from '../sdk/types';
-import { useCloseModal, useModalVisible, useOpenModal } from '../state';
+import { useCloseModal, useModalVisible } from '../state';
 import { ModalType } from '../state/application/types';
 
 export const FlexibleFeeModal = () => {
@@ -19,9 +18,8 @@ export const FlexibleFeeModal = () => {
   const type = ModalType.flexibleFee;
   const visible = useModalVisible(type);
   const closeModal = useCloseModal(type);
-  const openModal = useOpenModal(ModalType.selectAccount);
-  const tokens = useTokens(TokenType.BASIC);
-  const allTokens = useMemo(() => tokens ?? [], [tokens]);
+  const feeSwapPaths = useFeeSwapPaths(network);
+  const selectedableTokens = useMemo(() => feeSwapPaths.map((item) => item[0]), [feeSwapPaths]);
   const payToken = useFlexiPayToken(network);
   const [value, setValue] = useState<Token>();
   const setFlexiPayToken = useSetFlexiPayToken(network);
@@ -32,6 +30,7 @@ export const FlexibleFeeModal = () => {
   }, [payToken]);
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     <Modal header={<ModalHeader onClose={closeModal}>Flexible Fee</ModalHeader>} onClose={() => {}}
       visible={visible}>
       <div className='px-40 py-24'>
@@ -42,7 +41,7 @@ export const FlexibleFeeModal = () => {
             }`}
             onClick={() => setNetwork('karura')}
           >
-            <TokenImage size={20} token={'kar'} />
+            <ChainIamge chain={'karura'} size={20} />
             KARURA
           </div>
           <div
@@ -51,19 +50,19 @@ export const FlexibleFeeModal = () => {
             }`}
             onClick={() => setNetwork('acala')}
           >
-            <TokenImage size={20} token={'aca'} />
+            <ChainIamge chain={'acala'} size={20} />
             ACALA
           </div>
         </div>
         <div className='text-16 font-medium text-333 mb-8'>Set the next default token</div>
         <TokenSelector
-          className='relative border border-333 h-60 rounded-16'
+          className='relative border border-grey-5 h-60 rounded-16'
           listClassName='h-[150px] overflow-y-auto'
           onChange={(e) => setValue(e)}
-          tokens={allTokens}
+          tokens={selectedableTokens}
           value={value}
         />
-        <div className='border border-333 h-60 rounded-16 mt-24 flex flex-between px-16 text-494853 text-16 font-medium bg-d6d3de'>
+        <div className='border border-grey-5 h-60 rounded-16 mt-24 flex flex-between px-16 text-grey-2 text-16 font-medium bg-grey-5'>
           <div>Flexible Fee</div>
           <div>
             <FormatBalance balance={fee.amount} token={fee.token} />

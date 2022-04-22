@@ -36,14 +36,14 @@ export const Asset = memo<{ data: Itotal }>(({ data }) => {
       >
         <div className='flex items-center justify-end cursor-pointer select-none' onClick={toggle}>
           {balanceVisible ? <EyeIcon /> : <EyeCloseIcon className='w-16 h-16' />}
-          <p className='ml-8 text-abaab9 font-semibold text-[11px] leading-[13px]'>Hide Balance</p>
+          <p className='ml-8 text-grey-4 font-semibold text-[11px] leading-[13px]'>Hide Balance</p>
         </div>
         <div className='flex items-center mt-15'>
           <WalletIcon className='mr-40' />
           <div className='flex flex-1 items-center'>
             <div className='flex-1'>
               <p className='font-medium text-14 leading-17 text-grey-3 mb-12'>Estimated Portfolio</p>
-              <div className='text-2e2d33 font-semibold text-[32px] leading-[39px]'>
+              <div className='text-grey-1 font-semibold text-[32px] leading-[39px]'>
                 {balanceVisible
                   ? formatNumber(balanceDisplayType === 'USD' ? data?.totalValue : data?.totalAmount)
                   : '******'}
@@ -51,7 +51,7 @@ export const Asset = memo<{ data: Itotal }>(({ data }) => {
             </div>
             <div className='flex-1 ml-20'>
               <p className='font-medium text-14 leading-17 text-grey-3 mb-12'>Est. Earning</p>
-              <div className='text-2e2d33 font-semibold text-[32px] leading-[39px]'>
+              <div className='text-grey-1 font-semibold text-[32px] leading-[39px]'>
                 {balanceVisible ? formatNumber(data?.earning) : '******'}
               </div>
             </div>

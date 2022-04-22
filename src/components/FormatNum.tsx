@@ -34,7 +34,7 @@ export const FormatNumber: FC<FormatNumberProps> = memo(
     return (
       <span className={`whitespace-nowrap	${className}`}>
         {loading ? (
-          <span className='animate-pulse bg-d6d3de text-d6d3de'>000</span>
+          <span className='animate-pulse bg-grey-5 text-grey-5'>000</span>
         ) : (
           <span>
             {prefix ? <span>{prefix}</span> : null}

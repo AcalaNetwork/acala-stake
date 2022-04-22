@@ -9,8 +9,8 @@ export const UserGuide = memo<BaseComponentProps>(({ className }) => {
       style={{ backgroundImage: `url("/images/top-board-bg.svg")` }}
     >
       <div>
-        <div className='text-20 leading-[24px] text-2e2d33 font-semibold'>Powered Acala Bridge Service</div>
-        <div className='mt-12 text-16 leading-[27px] text-494853 font-medium'>
+        <div className='text-20 leading-[24px] text-grey-1 font-semibold'>Powered Acala Bridge Service</div>
+        <div className='mt-12 text-16 leading-[27px] text-grey-2 font-medium'>
           Bring cross-chain assets to Acala Network.
         </div>
       </div>

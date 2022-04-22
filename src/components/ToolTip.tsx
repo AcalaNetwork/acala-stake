@@ -12,7 +12,7 @@ export const ToolTip: React.FC = ({ children }) => {
       >
         ToolTip
         <div
-          className={`absolute flex flex-row justify-start text-333 items-center px-16 bg-gray-50 border-2 border-eae9f0 w-[330px] min-h-126 mt-32 rounded-8 translate-y-64 ${
+          className={`absolute flex flex-row justify-start text-333 items-center px-16 bg-gray-50 border-2 border-grey-66 w-[330px] min-h-126 mt-32 rounded-8 translate-y-64 ${
             showToolTip ? '' : 'hidden'
           }`}
         >

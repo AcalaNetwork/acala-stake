@@ -14,7 +14,7 @@ interface SwitchSelectorItemProps {
 }
 
 function getSwitchSelectorClassName(className?: string) {
-  const basic = 'relative flex item-stretch bg-eae9f0 border border-d6d3de rounded-12 h-36 w-[fit-content] p-[2px]';
+  const basic = 'relative flex item-stretch bg-grey-66 border border-grey-5 rounded-12 h-36 w-[fit-content] p-[2px]';
 
   return `${basic} ${className ?? ''}`;
 }
@@ -25,7 +25,7 @@ function getSwitchSelectorItemClassName(active?: boolean, className?: string) {
 
   const colors = {
     active: 'text-fff bg-primary transition-all',
-    'non-active': 'text-abaab9 ',
+    'non-active': 'text-grey-4 ',
   };
 
   return `${basic} ${colors[active ? 'active' : 'non-active']} ${className ?? ''}`;

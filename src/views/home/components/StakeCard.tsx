@@ -88,25 +88,25 @@ const StakeItem = memo<StakeItemProps>(({ className, type, token, desc, staked, 
         <div className='text-14 leading-21 font-medium text-grey-3'>{desc}</div>
       </div>
       <Spacing h={29} />
-      <div className='flex w-full h-99 border border-d6d3de rounded-[24px] py-11 text-28'>
-        <div className='flex-1 flex-col flex justify-around items-center border-r border-d6d3de'>
+      <div className='flex w-full h-99 border border-grey-5 rounded-[24px] py-11 text-28'>
+        <div className='flex-1 flex-col flex justify-around items-center border-r border-grey-5'>
           <span className='font-bold leading-34 text-primary'>
             <FormatBalance balance={staked} human />
           </span>
-          <span className='mt-8 text-16 leading-20 font-medium text-494853 opacity-80'>Staked</span>
+          <span className='mt-8 text-16 leading-20 font-medium text-grey-2 opacity-80'>Staked</span>
         </div>
         <div className='flex-1 flex-col flex justify-around items-center'>
           <div className='relative'>
             <FormatRatio className='font-bold leading-34 text-primary' data={apy} />
             {token.toString() === 'DOT' && (
-              <div className='text-e40c5b border border-e40c5b py-2 px-9 leading-[13px] text-[11px] rounded-8 absolute top-0 right-0 transform translate-x-full'>
+              <div className='text-acala-pink-500 border border-acala-pink-500 py-2 px-9 leading-[13px] text-[11px] rounded-8 absolute top-0 right-0 transform translate-x-full'>
                 BOOST
               </div>
             )}
           </div>
-          <span className='text-16 leading-20 font-medium text-494853 opacity-80'>Est.APY</span>
+          <span className='text-16 leading-20 font-medium text-grey-2 opacity-80'>Est.APY</span>
           {token.toString() === 'DOT' && (
-            <span className='text-e40c5b font-medium text-11 leading-13'>+10% APR ACA airdrop</span>
+            <span className='text-acala-pink-500 font-medium text-11 leading-13'>+10% APR ACA airdrop</span>
           )}
         </div>
       </div>

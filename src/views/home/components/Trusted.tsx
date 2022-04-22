@@ -110,7 +110,7 @@ export const Trusted = memo(() => {
   return (
     <div className='bg-fff'>
       <div className='container pt-56'>
-        <div className='text-[36px] leading-[44px] tracking-[0.04em] text-2e2d33 font-bold text-center'>Trusted By</div>
+        <div className='text-[36px] leading-[44px] tracking-[0.04em] text-grey-1 font-bold text-center'>Trusted By</div>
         <div className='flex flex-between'>
           <LeftIcon className='w-40 cursor-pointer' onClick={() => setActive(active === 0 ? len -1 : (active - 1) % len)} />
           <div className='h-[320px] flex-1'>

@@ -39,7 +39,7 @@ const CurrencyInput: FC<CurrencyInputProps> = React.memo(({ size, value, focuse,
     <BaseInputRoot className='border-none' focuse={focuse}>
       <div className='flex-1 flex items-center' onClick={onFocuse}>
         <TokenImage size={size} token={value} />
-        <TokenName className='mx-8 leading-20 text-16 font-medium text-494853' token={value} />
+        <TokenName className='mx-8 leading-20 text-16 font-medium text-grey-2' token={value} />
       </div>
       <TriangleIcon aria-hidden='true' />
     </BaseInputRoot>

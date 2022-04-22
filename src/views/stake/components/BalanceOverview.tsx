@@ -33,7 +33,7 @@ export const BalanceOverview = memo<{ network: SDKNetwork; className?: string }>
               <FormatRatio data={apy} />
             </span>
           </span>
-          <span className='text-e40c5b'>+10% APR ACA airdrop</span>
+          <span className='text-acala-pink-500'>+10% APR ACA airdrop</span>
         </div>
       </div>
     </Card>

@@ -21,7 +21,7 @@ const btnRender = (active: InjectedAccount) => {
           size={40} />
         <div className='ml-22'>
           <span className='text-20 leading-[24px] font-medium text-333'>{active?.name}</span>
-          <Address address={active?.address} className='text-14 leading-17 text-494853 mt-8' />
+          <Address address={active?.address} className='text-14 leading-17 text-grey-2 mt-8' />
         </div>
       </div>
       <ChevronDownIcon className='w-18 h-18' />
@@ -37,7 +37,7 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
       <div className='ml-8 text-16 font-medium text-333'>{value.name}</div>
     </div>
     <div className='flex flex-center gap-10'>
-      <Address address={value.address} className='text-14 leading-17 text-494853' />
+      <Address address={value.address} className='text-14 leading-17 text-grey-2' />
       {selected && selected.address === value.address ? (
         <CheckIcon aria-hidden='true' className='h-[20px] w-[20px] text-primary' />
       ) : (
@@ -81,7 +81,7 @@ export const SelectActiveAccount = memo(() => {
           items={items}
           onChange={handleChange}
           render={btnRender}
-          rootClassName='border border-d6d3de rounded-16 h-[80px] relative'
+          rootClassName='border border-grey-5 rounded-16 h-[80px] relative'
           value={active}
         />
         <div className='mt-14 ml-7 mb-36 text-primary text-14 leading-17 flex'>
@@ -99,15 +99,15 @@ export const SelectActiveAccount = memo(() => {
       </div>
       <div className='text-14 bg-[#645aef] bg-opacity-5 pt-26 px-40 pb-40'>
         <div className='flex flex-between'>
-          <span className='leading-20 font-medium text-494853'>Transactions History</span>
+          <span className='leading-20 font-medium text-grey-2'>Transactions History</span>
           <span className='text-primary leading-17'>View All</span>
         </div>
         <div className=' max-h-[212px] overflow-y-auto'>
           {data.map((item, i) => {
             return (
               <div className=' mt-32 flex flex-between' key={i}>
-                <div className='text-2e2d33'>{item.mint}</div>
-                <div className=' text-494853'>{item.type}</div>
+                <div className='text-grey-1'>{item.mint}</div>
+                <div className=' text-grey-2'>{item.type}</div>
                 <div className='text-13 text-grey-3'>{item.time}</div>
               </div>
             );

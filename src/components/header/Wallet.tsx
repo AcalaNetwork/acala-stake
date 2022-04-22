@@ -42,12 +42,12 @@ const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className, isSta
   return (
     <div className={`flex items-stretch font-medium ${className}`}>
       <div
-        className='flex-center text-16 leading-20 pl-16 pr-8 py-8 text-primary border-r-2 border-eae9f0 underline'
+        className='flex-center text-16 leading-20 pl-16 pr-8 py-8 text-primary border-r-2 border-grey-66 underline'
         onClick={toWalletPage}
       >
         Wallet
       </div>
-      <div className='flex-center text-16 text-494853 leading-17 pl-8 pr-16 py-8' onClick={openSelectAccountModal}>
+      <div className='flex-center text-16 text-grey-2 leading-17 pl-8 pr-16 py-8' onClick={openSelectAccountModal}>
         <Address
           address={active.address}
           className='w-[100px] overflow-hidden overflow-ellipsis'
@@ -61,7 +61,7 @@ const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className, isSta
 });
 
 export const Wallet: FC<WalletProps> = memo(({ className }) => {
-  const rootClassName = `cursor-pointer h-38 bg-f1f0f2 rounded-12 border border-eae9f0 ${className}`;
+  const rootClassName = `cursor-pointer h-38 bg-grey-666 rounded-12 border border-grey-66 ${className}`;
   const extension = useExtension();
   const isConnected = extension.status === ConnectStatus.ready;
 

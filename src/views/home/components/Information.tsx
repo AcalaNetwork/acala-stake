@@ -15,7 +15,7 @@ const InfoItem = memo<InfoItemProps>(({ title, desc, icon }) => {
   return (
     <div className='max-w-[30%]'>
       <div className='flex flex-center mb-36'>{icon}</div>
-      <div className='text-20 leading-[24px] tracking-[1.6px] font-bold text-494853'>{title}</div>
+      <div className='text-20 leading-[24px] tracking-[1.6px] font-bold text-grey-2'>{title}</div>
       <Spacing h={20} />
       <div className='text-16 leading-[28px] text-[#828282] font-medium'>{desc}</div>
     </div>
@@ -25,7 +25,7 @@ const InfoItem = memo<InfoItemProps>(({ title, desc, icon }) => {
 export const Information = memo(() => {
   return (
     <div className='container text-center'>
-      <div className='text-[32px] leading-[39px] text-2e2d33 font-bold'>Why Liquid Staking with Acala?</div>
+      <div className='text-[32px] leading-[39px] text-grey-1 font-bold'>Why Liquid Staking with Acala?</div>
       <Spacing h={120} />
       <div className='flex flex-between px-40'>
         <InfoItem

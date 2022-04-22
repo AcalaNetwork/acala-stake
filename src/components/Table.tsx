@@ -62,7 +62,7 @@ export const Table = ({ columns, data, size = 'default', pagination = {}, defaul
   const tableProps = getTableProps();
   const rootClassName = `select-none ${PADDING_CONFIGS[size]}`;
   const headerClassName = 'text-12 leading-15 text-grey-3 font-semibold';
-  const headerItemClassName = 'px-16 border-b border-eae9f0 pb-16 first:pl-0 last:pr-0';
+  const headerItemClassName = 'px-16 border-b border-grey-66 pb-16 first:pl-0 last:pr-0';
   const itemClassName = 'p-16 border-b border-eae9fo first:pl-0 last:pr-0';
 
   return (

@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = ({ children, visible, header, onClose, cont
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Dialog.Overlay className='fixed inset-0 bg-overlay opacity-70' />
+            <Dialog.Overlay className='fixed inset-0 bg-4f4f4f opacity-70' />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -60,7 +60,7 @@ interface ModalHeaderProps {
 
 export const ModalHeader: FC<ModalHeaderProps> = ({ onClose, children }) => {
   return (
-    <Dialog.Title className='relative font-medium text-24 text-2e2d33 leading-29  pt-24 pb-20 px-40 border-b border-eae9f0'>
+    <Dialog.Title className='relative font-medium text-24 text-grey-1 leading-29  pt-24 pb-20 px-40 border-b border-grey-66'>
       <div className='flex flex-between'>
         {children}
         {onClose && <CloseIcon className=' cursor-pointer' onClick={onClose} />}

@@ -49,7 +49,7 @@ export const BalanceInput: FC<BalanceInputProps> = ({ currency, value, onMax, on
         </Button>
       ) : null}
       {currency ? (
-        <div className='flex-center pl-10 pr-16 text-16 font-medium text-494853'>
+        <div className='flex-center pl-10 pr-16 text-16 font-medium text-grey-2'>
           <TokenImage token={currency} />
           <TokenName className='ml-4' token={currency} />
         </div>

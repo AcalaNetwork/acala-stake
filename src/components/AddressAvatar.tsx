@@ -41,7 +41,7 @@ const Identicon = memo<{
 export const AddressAvatar: FC<AddressAvatarProps> = memo(({ address, className = '', size = 24 }) => {
   return (
     <div
-      className={`w-${size} h-${size} flex-center cursor-pointer rounded-full ${className} border-2 border-d6d3de`}
+      className={`w-${size} h-${size} flex-center cursor-pointer rounded-full ${className} border-2 border-grey-5`}
       onClick={() => navigator.clipboard.writeText(address)}
     >
       <Identicon address={address} size={size}
