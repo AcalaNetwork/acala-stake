@@ -30,6 +30,7 @@ import LeftIcon from '../assets/left-icon.svg';
 import RightIcon from '../assets/right-icon.svg';
 import React from 'react';
 import Image from 'next/image';
+import { Transition } from '@headlessui/react';
 
 const list = [
   { name: 'chainlink', img: <Chainlink />, link: 'https://chain.link' },
@@ -85,8 +86,16 @@ const List = memo<{ active: number; i: number }>(({ active, i }) => {
 
   const onClick = (link) => window.open(link);
   return (
-    <div>
-      {show && (
+    <Transition
+      enter='transition-translate ease-out duration-75'
+      enterFrom='translate-x-[100%]'
+      enterTo='translate-x-0'
+      leave='transition-translate ease-in duration-150'
+      leaveFrom='translate-x-0'
+      leaveTo='translate-x-[-100%]'
+      show={show}
+    >
+      <div className=' absolute top-0 right-0 left-0 bottom-0'>
         <ul className='grid grid-cols-4 w-full h-[320px]'>
           {data.map((item) => (
             <div
@@ -98,8 +107,8 @@ const List = memo<{ active: number; i: number }>(({ active, i }) => {
             </div>
           ))}
         </ul>
-      )}
-    </div>
+      </div>
+    </Transition>
   );
 });
 
@@ -111,14 +120,20 @@ export const Trusted = memo(() => {
     <div className='bg-fff'>
       <div className='container pt-56'>
         <div className='text-[36px] leading-[44px] tracking-[0.04em] text-2e2d33 font-bold text-center'>Trusted By</div>
-        <div className='flex flex-between'>
-          <LeftIcon className='w-40 cursor-pointer' onClick={() => setActive(active === 0 ? len -1 : (active - 1) % len)} />
-          <div className='h-[320px] flex-1'>
+        <div className='flex flex-between relative'>
+          <LeftIcon
+            className='w-40 cursor-pointer absolute left-0 top-[50%] z-50'
+            onClick={() => setActive(active === 0 ? len - 1 : (active - 1) % len)}
+          />
+          <div className='h-[320px] flex-1 relative'>
             {dotArr.map((_, i) => (
               <List active={active} i={i} key={i} />
             ))}
           </div>
-          <RightIcon className='w-40 cursor-pointer' onClick={() => setActive((active + 1) % len)} />
+          <RightIcon
+            className='w-40 cursor-pointer absolute right-0 top-[50%] z-50'
+            onClick={() => setActive((active + 1) % len)}
+          />
         </div>
         <Spacing h={10} />
         <div className='flex mx-auto w-full justify-center'>
