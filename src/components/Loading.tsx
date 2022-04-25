@@ -28,8 +28,11 @@ const LoadingRoot = styled.div<{ width: number; size?: string }>`
       ? `
     width: 24px;
     height: 24px;
-  `
-      : ''};
+  `:
+      size === 'xs' ? `
+    width: 20px;
+    height: 20px;
+    ` : ''};
 
   > div {
     position: absolute;

@@ -73,7 +73,7 @@ const handleResult = (result: ISubmittableResult, api: ApiRx) => {
 const sendCall = (
   api: ApiRx,
   data: SubmitData,
-  signedAccount: string,
+  address: string,
   updater: (data: Partial<SubmitData>) => void
 ) => {
   // check the track list
@@ -85,12 +85,15 @@ const sendCall = (
   const { call } = data;
 
   const subscriber = call
-    .signAsync(signedAccount, { nonce: -1 })
+    .signAsync(address, { nonce: -1 })
     .pipe(
       tap((signedTx: SubmittableExtrinsic<'rxjs'>) => {
         const hash = signedTx.hash.toString();
         // update
         updater({ trackId: data.trackId, status: SendSatuts.sending, hash });
+
+        // onSend callback
+        data.onSend && data.onSend();
 
         return signedTx;
       }),

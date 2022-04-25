@@ -1,35 +1,18 @@
-import { Transition } from "@headlessui/react";
 import { memo } from "react";
 import { useBridge } from "../hooks/useBridger";
 import { BridgeSteps } from "../types";
 import { BridgeConfirm } from "./BridgeConfirm";
 import { BridgeForm } from "./BridgeForm";
-import { BridgeSuccess } from "./BridgeSuccess";
+import { BridgeComplated } from "./BridgeComplated";
 
 export const BridgeStepsController = memo(() => {
   const { step } = useBridge();
 
-  return (
-    <>
-      <Transition show={step === BridgeSteps.FORM}>
-        <BridgeForm />
-      </Transition>
-      <Transition
-        enter="transition-opacity transition-300 transition-delay-10"
-        enterFrom='opacity-0'
-        enterTo='opacity-100'
-        show={step === BridgeSteps.CONFIRM}
-      >
-        <BridgeConfirm />
-      </Transition>
-      <Transition
-        enter="transition-opacity transition-300 transition-delay-10"
-        enterFrom='opacity-0'
-        enterTo='opacity-100'
-        show={step === BridgeSteps.COMPLATED}
-      >
-        <BridgeSuccess />
-      </Transition>
-    </>
-  );
+  if (step === BridgeSteps.FORM) return <BridgeForm />;
+
+  if (step === BridgeSteps.CONFIRM) return <BridgeConfirm />;
+  
+  if (step === BridgeSteps.COMPLATED) return <BridgeComplated />;
+
+  return null;
 });

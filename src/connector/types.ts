@@ -27,6 +27,7 @@ export interface SubmitData {
   status: SendSatuts;
   hash?: string;
   network: ConnectedNetworks;
+  onSend?: () => void;
   onSuccess?: () => void;
   onFailed?: () => void;
   onInBlock?: () => void;
