@@ -42,7 +42,14 @@ const Top = memo(() => {
 export const Home = memo(() => {
   return (
     <StakeLayout>
-      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
+      <EnsureSDKReady requires={[
+        'acala-wallet',
+        'karura-wallet',
+        'acala-homa',
+        'karura-homa',
+        'acala-incentive',
+        'karura-incentive'
+      ]}>
         <Top />
         <Spacing h={162} />
         <Information />

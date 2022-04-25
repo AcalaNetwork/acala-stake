@@ -13,7 +13,7 @@ import { memo } from "react";
 import { useCallback } from "react";
 import { StakeSteps } from "@views/stake/types";
 import { getTokenName } from "@utils";
-import { usePresetTokens } from "@connector/hooks/usePresetTokens";
+import { usePresetTokens } from "@sdk";
 
 export const StakeForm = memo(() => {
   const {

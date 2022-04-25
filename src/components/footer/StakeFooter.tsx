@@ -8,7 +8,7 @@ import { Button } from '../Button';
 
 export const StakeFooter = () => {
   return (
-    <div className='w-full h-[153px]  bg-white'>
+    <footer className='w-full h-[153px]  bg-white'>
       <div className='container flex flex-between h-full'>
         <div>
           <AcaIcon className='w-[120px] h-[40px]' />
@@ -40,6 +40,6 @@ export const StakeFooter = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };

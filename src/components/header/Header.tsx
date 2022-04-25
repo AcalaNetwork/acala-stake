@@ -7,6 +7,7 @@ import { Setting } from './Setting';
 import { Wallet } from './Wallet';
 import styles from './Header.module.css';
 import { FlexibleFeeModal } from 'modals/FlexibleFee';
+import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 
 export const Header = memo(() => {
   const active = useActiveAccount();
@@ -20,8 +21,17 @@ export const Header = memo(() => {
         </div>
         <div className='flex items-center'>
           <Wallet className='mr-32' />
-          {active && <Setting />}
-          {active && <FlexibleFeeModal />}
+          <EnsureSDKReady loading={null} requires={['acala-wallet', 'karura-wallet']}>
+            {
+              active && (
+                <>
+                  <Setting />
+                  <FlexibleFeeModal />
+                </>
+              )
+            }
+
+          </EnsureSDKReady>
         </div>
       </div>
       <div className={styles['header-bg']} />
