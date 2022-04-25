@@ -15,6 +15,7 @@ interface TxButtonProps extends Omit<ButtonProps, 'onClick'> {
   network: ConnectedNetworks;
   onSuccess?: () => void;
   onError?: () => void;
+  onSend?: () => void;
 }
 
 export const TxButton: FC<TxButtonProps> = React.memo(
@@ -25,6 +26,7 @@ export const TxButton: FC<TxButtonProps> = React.memo(
     call,
     message,
     network,
+    onSend,
     onError: onCustomErrorHandler,
     onSuccess: onCustomSuccessHandler,
     ...rest
@@ -50,6 +52,7 @@ export const TxButton: FC<TxButtonProps> = React.memo(
           message,
           status: SendSatuts.pending,
           network,
+          onSend: onSend,
           onFailed: () => {
             setTrackId('-1');
             onCustomErrorHandler && onCustomErrorHandler();
@@ -61,17 +64,7 @@ export const TxButton: FC<TxButtonProps> = React.memo(
         });
         setTrackId(id);
       }
-    }, [
-      needConnect,
-      call,
-      error,
-      openConnectExtension,
-      sendTx,
-      message,
-      network,
-      onCustomErrorHandler,
-      onCustomSuccessHandler,
-    ]);
+    }, [needConnect, call, error, openConnectExtension, onSend, sendTx, message, network, onCustomErrorHandler, onCustomSuccessHandler]);
 
     const disabled = useMemo(() => {
       if (!txData) return false;

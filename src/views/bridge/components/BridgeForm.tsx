@@ -29,7 +29,7 @@ export const BridgeForm = memo(() => {
   }, [amountInputData, bridgeRouter]);
 
   const handleNext = useCallback(async () => {
-    await amountInputData.onValidate().then((value) => {
+    await amountInputData.onValidate().then(() => {
       setStep(BridgeSteps.CONFIRM);
     }).catch(() => {
       // ingore error
@@ -105,6 +105,7 @@ export const BridgeForm = memo(() => {
         {
           active ? (
             <Button className='flex-1' color='primary'
+              disabled={!amountInputConfigs.max}
               onClick={handleNext}
               variant='filled'
             >

@@ -26,9 +26,8 @@ export const BridgeConfirm = memo(() => {
   }, [setStep]);
 
   const handleNext = useCallback(() => {
-    amountInputData.onReset();
     setStep(BridgeSteps.COMPLATED);
-  }, [setStep, amountInputData]);
+  }, [setStep]);
 
   const createTx = useCreateCrossChainTx(bridgeRouter.fromChain);
 
@@ -88,7 +87,7 @@ export const BridgeConfirm = memo(() => {
           </ListValue>
         </ListItem>
         <ListItem>
-          <ListLabel>You will receive::</ListLabel>
+          <ListLabel>You will receive:</ListLabel>
           <ListValue className="flex items-center gap-4">
             <TokenImage size={20} token={token} />
             <FormatBalance balance={amountInputConfigs.expectedReceive} />
@@ -107,7 +106,7 @@ export const BridgeConfirm = memo(() => {
           {...params}
           className='flex-1'
           color='primary'
-          onSuccess={handleNext}
+          onSend={handleNext}
           variant='filled'
         >
           Next

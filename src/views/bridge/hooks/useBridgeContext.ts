@@ -1,23 +1,11 @@
-import { Token } from '@acala-network/sdk-core';
 import { useActiveAccount } from '@connector';
 import { useHomaConts } from '@sdk/hooks/homa';
 import { SDKNetwork } from '@sdk/types';
 import { useState, createContext, useMemo, useEffect } from 'react';
-import { BridgeAmountInputConfigs, useBridgeAmountInput } from './useBridgeAmountInput';
-import { BridgeDestAddress, useBridgeDestAddress } from './useBridgeDestAddress';
-import { BridgeRouter, useBridgeRouter } from './useBridgeRouterSelector';
+import { useBridgeAmountInput } from './useBridgeAmountInput';
+import { useBridgeDestAddress } from './useBridgeDestAddress';
+import { useBridgeRouter } from './useBridgeRouterSelector';
 import { BridgeSteps } from '../types';
-
-export interface BridgeContextData {
-  step: BridgeSteps;
-  setStep: (step: BridgeSteps) => void;
-  token?: Token;
-  bridgeRouter: BridgeRouter;
-  bridgeAmountInput: BridgeAmountInputConfigs; 
-  bridgeDestAddress: BridgeDestAddress;
-  onBackInForm?: () => void;
-  onComplated?: () => void;
-}
 
 export const BridgeProviderContext = createContext<BridgeContextData>({} as BridgeContextData);
 
@@ -59,8 +47,10 @@ export const useBridgeContext = ({ network, onBackInForm, onComplated }: UseBrid
       bridgeAmountInput,
       bridgeDestAddress,
       onBackInForm,
-      onComplated
+      onComplated,
     }),
     [step, stakingToken, bridgeRouter, bridgeAmountInput, bridgeDestAddress, onBackInForm, onComplated]
   );
 };
+
+export type BridgeContextData = ReturnType<typeof useBridgeContext>;
