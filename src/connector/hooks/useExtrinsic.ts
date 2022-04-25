@@ -1,16 +1,15 @@
 import { FixedPointNumber } from '@acala-network/sdk-core';
-import { AccountId } from '@acala-network/types/interfaces';
 import { useEffect, useMemo, useState } from 'react';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { assert } from '@polkadot/util';
 import { useApi } from '.';
 import { useSubscription } from '../../hooks/useSubscription';
-import { usePresetTokens } from './usePresetTokens';
 import { SDKNetwork } from '@sdk/types';
 import { TokenAmount } from '@connector/types';
 import { useMemoized } from '@hooks';
 import { useActiveAccount } from './useActiveAccount';
+import { usePresetTokens } from '@sdk';
 
 export interface ExtrinsicConfigs {
   section: string;

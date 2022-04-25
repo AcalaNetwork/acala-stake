@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { usePresetTokens } from '../../../connector/hooks/usePresetTokens';
-import { useActiveAccount, useApi } from '../../../connector';
+import { useActiveAccount, useApi } from '@connector';
 import { SDKNetwork } from '../../types';
 import { Token } from '@acala-network/sdk-core';
-import { useSubscription } from '../../../hooks/useSubscription';
-import { useWallet } from '..';
+import { useSubscription } from '@hooks';
+import { usePresetTokens, useWallet } from '..';
 
 export const useFlexiPayToken = (network: SDKNetwork) => {
   const active = useActiveAccount();

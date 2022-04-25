@@ -2,7 +2,7 @@ import { BaseSDK } from '@acala-network/sdk/types';
 import React, { FC, ReactElement, useMemo } from 'react';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { useSwap, useWallet } from '..';
+import { useIncentive, useWallet } from '..';
 import { PageLoading } from '../../components/PageLoading';
 import { useBoolean, useMemoized } from '../../hooks';
 import { useSubscription } from '../../hooks/useSubscription';
@@ -14,10 +14,12 @@ type SDKType =
   | 'crosschain'
   | 'acala-wallet'
   | 'acala-liquidity'
+  | 'acala-incentive'
   | 'acala-homa'
   | 'karura-wallet'
   | 'karura-liquidity'
-  | 'karura-homa';
+  | 'karura-homa'
+  | 'karura-incentive';
 interface EnsureSDKProps {
   requires: SDKType[];
   loading?: ReactElement;
@@ -44,10 +46,12 @@ export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(({ requires, childr
   const acalaWallet = useWallet('acala');
   const acalaLiquidity = useLiquidity('acala');
   const acalaHoma = useHoma('acala');
+  const acalaIncentive = useIncentive('acala');
   // karura sdk
   const karuraWallet = useWallet('karura');
   const karuraLiquidity = useLiquidity('karura');
   const karuraHoma = useHoma('karura');
+  const karuraIncentive = useIncentive('karura');
   // crosschain
   const crossChian = useCrossChain();
 
@@ -57,11 +61,13 @@ export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(({ requires, childr
       'acala-wallet': acalaWallet,
       'acala-homa': acalaHoma,
       'acala-liquidity': acalaLiquidity,
+      'acala-incentive': acalaIncentive,
       'karura-wallet': karuraWallet,
       'karura-homa': karuraHoma,
       'karura-liquidity': karuraLiquidity,
+      'karura-incentive': karuraIncentive,
     });
-  }, [crossChian, acalaWallet, acalaHoma, acalaLiquidity, karuraWallet, karuraHoma, karuraLiquidity]);
+  }, [crossChian, acalaWallet, acalaHoma, acalaLiquidity, acalaIncentive, karuraWallet, karuraHoma, karuraLiquidity, karuraIncentive]);
 
   useSubscription(() => {
     if (!subscribeReadyStatus) return;
@@ -71,7 +77,7 @@ export const EnsureSDKReady: FC<EnsureSDKProps> = React.memo(({ requires, childr
     });
   }, [subscribeReadyStatus, memoRequireds]);
 
-  if (!isReady) return loading || <PageLoading />;
+  if (!isReady) return loading !== undefined ? loading : <PageLoading />;
 
   return <>{children}</>;
 });

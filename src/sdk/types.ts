@@ -1,12 +1,7 @@
-import { CrossChain, Homa, Liquidity, Wallet } from '@acala-network/sdk';
-import { SwapRx } from '@acala-network/sdk-swap';
+import { CrossChain } from '@acala-network/sdk';
+import { useSDKConnector } from './hooks/useSDKConnector';
 
-export interface SDK {
-  wallet?: Wallet;
-  swap?: SwapRx;
-  liquidity?: Liquidity;
-  homa?: Homa;
-}
+export type SDK = ReturnType<typeof useSDKConnector>;
 
 export type SDKNetwork = 'karura' | 'acala';
 

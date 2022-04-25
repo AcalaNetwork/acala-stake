@@ -11,6 +11,7 @@ import { useHomaTotalStaking } from '@sdk/hooks/homa/useHomaTotalStaking';
 import { getTokenName } from '@utils/token';
 import KusamaPink from '/public/network/kusama-pink.svg';
 import PolkadotPink from '/public/network/polkadot-pink.svg';
+import { useLiquidTokenIncentivePool } from '@sdk';
 
 type StakeCardType = 'acala' | 'karura';
 
@@ -21,34 +22,38 @@ export const StakeCard = memo(() => {
   const karuraHomaAPY = useHomaAPY('karura');
   const acalaTotalStaking = useHomaTotalStaking('acala');
   const karuraTotalStaking = useHomaTotalStaking('karura');
+  const karuraIncentive = useLiquidTokenIncentivePool('karura');
+  const acalaIncentive = useLiquidTokenIncentivePool('acala');
 
   return (
-    <div className='gap-100 flex flex-center'>
+    <div className='flex flex-center justify-between'>
       <div className='flex-1'>
         <StakeItem
-          apy={acalaHomaAPY}
           className='flex-1'
           desc={`Stake ${getTokenName(
             acalaHoma.consts.stakingToken
           )} to receive daily rewards and retain control of your staked ${getTokenName(
             acalaHoma?.consts.stakingToken
           )}s in ${getTokenName(acalaHoma.consts.liquidToken)}.`}
+          homaAPY={acalaHomaAPY}
+          incentiveAPR={acalaIncentive?.apr?.apr}
+          incentiveRewardsTokens={acalaIncentive?.rewardTokensConfig.map(i => i.token)}
           staked={acalaTotalStaking}
-          token={acalaHoma.consts.stakingToken}
           type='acala'
         />
       </div>
       <div className='flex-1'>
         <StakeItem
-          apy={karuraHomaAPY}
           className='flex-1'
           desc={`Stake ${getTokenName(
             karuraHoma.consts.stakingToken
           )} to receive daily rewards and retain control of your staked ${getTokenName(
             karuraHoma.consts.stakingToken
           )}s in ${getTokenName(karuraHoma?.consts.liquidToken)}.`}
+          homaAPY={karuraHomaAPY}
+          incentiveAPR={karuraIncentive?.apr?.apr}
+          incentiveRewardsTokens={karuraIncentive?.rewardTokensConfig.map(i => i.token)}
           staked={karuraTotalStaking}
-          token={karuraHoma.consts.stakingToken}
           type='karura'
         />
       </div>
@@ -70,13 +75,14 @@ export const NumIcon = memo<{ cardNum: number }>(({ cardNum }) => (
 interface StakeItemProps {
   type: StakeCardType;
   className?: string;
-  token: Token;
   desc: string;
   staked: FixedPointNumber;
-  apy: number;
+  homaAPY: number;
+  incentiveAPR: number;
+  incentiveRewardsTokens: Token[]
 }
 
-const StakeItem = memo<StakeItemProps>(({ className, type, token, desc, staked, apy }) => {
+const StakeItem = memo<StakeItemProps>(({ className, type, desc, staked, homaAPY, incentiveAPR, incentiveRewardsTokens }) => {
   return (
     <Card
       className={`w-[566px] h-[454px] flex-1 flex-center flex-col pt-32 pb-30 px-40 bg-opacity-[0.8] shadow-[0px_1px_25px_rgba(100, 90, 255, 0.08)] backdrop-blur-[150px] ${className}`}
@@ -96,16 +102,23 @@ const StakeItem = memo<StakeItemProps>(({ className, type, token, desc, staked, 
         </div>
         <div className='flex-1 flex-col flex justify-around items-center'>
           <div className='relative'>
-            <FormatRatio className='font-bold leading-34 text-primary' data={apy} />
-            {token.toString() === 'DOT' && (
-              <div className='text-acala-pink-500 border border-acala-pink-500 py-2 px-9 leading-[13px] text-[11px] rounded-8 absolute top-0 right-0 transform translate-x-full'>
-                BOOST
+            <FormatRatio className='font-bold leading-34 text-primary' data={homaAPY} />
+            { !!incentiveAPR && (
+              <div className='text-acala-pink-500 border border-acala-pink-500 py-2 px-4 leading-6 text-6 rounded-8 absolute -top-4 -right-4 transform translate-x-full'>
+                  BOOST
               </div>
-            )}
+            )
+            }
           </div>
           <span className='text-16 leading-20 font-medium text-grey-2 opacity-80'>Est.APY</span>
-          {token.toString() === 'DOT' && (
-            <span className='text-acala-pink-500 font-medium text-11 leading-13'>+10% APR ACA airdrop</span>
+          { !!incentiveAPR && (
+            <span className='text-acala-pink-500 font-medium text-11 leading-13'>
+              +
+              <FormatRatio data={incentiveAPR} />
+              {' '}APR{' '}
+              {incentiveRewardsTokens?.map(i => getTokenName(i)).join(',')}{' '}
+              airdrop
+            </span>
           )}
         </div>
       </div>
