@@ -1,5 +1,5 @@
 import { InformationCircleIcon } from '@heroicons/react/outline';
-import { LinkButton } from '@components/Button';
+import { Button, LinkButton } from '@components/Button';
 import { Card } from '@components/Card';
 import { FormatBalance } from '@components/FormatBalance';
 import { FormatRatio } from '@components/FormatRatio';
@@ -9,6 +9,9 @@ import { useStakingOverview } from '../../hook/useStakingOverview';
 import { memo } from 'react';
 import { SDKNetwork } from '@sdk/types';
 import { TokenName } from '@components/TokenName';
+import { useUserLoanIncentive, usePresetTokens } from '@sdk';
+import { ClaimLoanIncentiveRewards } from 'modals/ClaimLoanIncentiveRewards';
+import { ModalType, useModal } from '@state';
 
 interface StakingOverviewProps {
   network: SDKNetwork;
@@ -16,6 +19,9 @@ interface StakingOverviewProps {
 
 export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
   const data = useStakingOverview(network);
+  const { liquidToken } = usePresetTokens(network);
+  const rewards = useUserLoanIncentive(network, liquidToken);
+  const { open: openClaim } = useModal(ModalType.ClaimLoanIncentiveRewards); 
 
   return (
     <Card className='px-60 pt-56 pb-32 mx-auto' variant='gradient-border'>
@@ -55,24 +61,43 @@ export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
             </div>
             <div className='text-14 leading-17'>Est. APY</div>
           </div>
-          <div className='flex flex-col items-center'>
-            <div className='text-20 leading-24 font-semibold'>*** ACA</div>
-            <div className='text-14 leading-17 my-12 text-grey-3 font-medium'>*****</div>
-            <div className='text-14 leading-17 mb-8'>Airdrop</div>
-          </div>
+          {
+            rewards && (
+              <div className='flex flex-col items-center'>
+                <div className='text-20 leading-24 font-semibold'>
+                  {
+                    rewards.rewards.map((data) => (
+                      <div className='flex gap-4 mt-8 justify-end' key={`rewards-${data.rewardToken.symbol}`}>
+                        <FormatBalance balance={data.claimableReward} />
+                        <TokenName token={data.rewardToken} />
+                      </div>
+                    ))
+                  }
+                </div>
+                <div className='text-14 leading-17 mt-12'>Airdrop</div>
+              </div>
+            )
+          }
         </div>
       ) : null}
       <div className='flex flex-center gap-90 mt-33'>
-        <LinkButton className='w-[200px]' href={`/stake/${network}`} size='sm'>
+        <LinkButton className='w-[200px]' href={`/stake/${network}`}
+          size='sm'>
           Stake More
         </LinkButton>
-        <LinkButton className='w-[200px]' href={`/stake/${network}/unstake`} size='sm'>
+        <LinkButton className='w-[200px]' href={`/stake/${network}/unstake`}
+          size='sm'>
           Unstake
         </LinkButton>
-        {/* <LinkButton className="w-[200px]" size="sm">
+        <Button className="w-[200px]" onClick={openClaim}
+          size="sm">
           Claim Airdrop
-        </LinkButton> */}
+        </Button>
       </div>
+      <ClaimLoanIncentiveRewards
+        network={network}
+        token={liquidToken}
+      />
     </Card>
   );
 });

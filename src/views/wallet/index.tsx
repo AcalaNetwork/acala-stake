@@ -1,23 +1,24 @@
 import { memo } from 'react';
 import { StakeLayout } from '@components/layout';
-import { Spacing } from '@components/Spacing';
 import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { Asset } from './components/Asset';
-import { Detail } from './components/Detail';
-import { useStakesCalculator } from './hook/useStakesCalculator';
+import { Details } from './components/Details';
+import { useAssetOverview } from './hook/useAssetOverview';
+import { DisplaySelector } from './components/DisplaySelector';
+import { ClaimLoanIncentiveRewards } from 'modals/ClaimLoanIncentiveRewards';
 
 export const Wallet = memo(() => {
-  const { result, total } = useStakesCalculator();
+  const { overview, details } = useAssetOverview();
 
   return (
     <StakeLayout>
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
         <div className='w-[1040px] mx-auto'>
-          <Spacing h={40} />
-          <Asset data={total} />
-          <Spacing h={40} />
-          <Detail data={result} />
+          <Asset className='mt-40' overview={overview} />
+          <DisplaySelector className='mt-40' />
+          <Details className='mt-40' details={details} />
         </div>
+        <ClaimLoanIncentiveRewards />
       </EnsureSDKReady>
     </StakeLayout>
   );

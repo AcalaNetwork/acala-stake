@@ -50,7 +50,7 @@ export const FlexibleFeeModal = () => {
         <div className='text-16 font-medium text-333 mb-8'>Set the next default token</div>
         <TokenSelector
           className='relative border border-grey-5 h-60 rounded-16'
-          listClassName='h-[150px] overflow-y-auto'
+          listClassName='max-h-[260px] overflow-y-auto'
           onChange={(e) => setValue(e)}
           tokens={selectedableTokens}
           value={value}

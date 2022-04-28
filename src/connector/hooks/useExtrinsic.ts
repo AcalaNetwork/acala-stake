@@ -26,11 +26,11 @@ export interface CallInfo {
 
 export const useExtrinsic = (_data?: ExtrinsicConfigs): CallInfo => {
   const data = useMemoized(_data);
-  const api = useApi(data.network);
+  const api = useApi(data?.network);
   const [isLoadingFee, setIsLoadingFee] = useState<boolean>(false);
   const [fee, setFee] = useState<FixedPointNumber>(FixedPointNumber.ZERO);
   const [call, setCall] = useState<CallInfo['call']>();
-  const nativeToken = usePresetTokens(data.network)?.nativeToken;
+  const nativeToken = usePresetTokens(data?.network)?.nativeToken;
   const feeDecimal = nativeToken?.decimals;
   const active = useActiveAccount();
 

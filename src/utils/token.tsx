@@ -32,16 +32,20 @@ export function getTokenName(token?: Token): string {
   return token.display;
 }
 
+const fixSymbol = (a: string) => {
+  if (a === 'aUSD') return 'AUSD';
+
+  if (a === 'lcDOT') return 'LCDOT';
+
+  return a;
+}
+
 export function getTokenImage(
   token: Token | string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   props?: React.PropsWithChildren<any>
 ): JSX.Element {
-  let symbol = token instanceof Token ?  token.symbol : token;
-
-  if (symbol == 'lc://13') {
-    symbol = 'LCDOT';
-  }
+  const symbol = fixSymbol(token instanceof Token ?  token.symbol : token);
 
   const resource = `https://resources.acala.network/tokens/${symbol}.png`;
 

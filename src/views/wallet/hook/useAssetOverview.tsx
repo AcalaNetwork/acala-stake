@@ -2,33 +2,38 @@ import { useSubscription } from '@hooks/useSubscription';
 import { useWallet } from '@sdk';
 import { useHoma } from '@sdk/hooks/homa';
 import { combineLatest } from 'rxjs';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FixedPointNumber, Token } from '@acala-network/sdk-core';
 import { useActiveAccount } from '@connector';
+import { puls } from '@utils';
+import { SDKNetwork } from '@sdk/types';
 
 export interface StakeData {
   token: Token;
-  totalAmount: FixedPointNumber;
-  totalValue: FixedPointNumber;
-  earning: FixedPointNumber;
+  chain: SDKNetwork;
+  amount: FixedPointNumber;
+  value: FixedPointNumber;
+  estEarning: FixedPointNumber;
   apy: number;
   airdrop?: FixedPointNumber;
 }
 
-export interface Itotal {
-  totalAmount: FixedPointNumber;
-  totalValue: FixedPointNumber;
-  earning: FixedPointNumber;
+export interface OverviewData {
+  overview: {
+    value: FixedPointNumber;
+    estEarning: FixedPointNumber;
+  }
+  details: StakeData[]
 }
 
-export const useStakesCalculator = () => {
+export const useAssetOverview = () => {
   const active = useActiveAccount();
   const karuraWallet = useWallet('karura');
   const acalaWallet = useWallet('acala');
   const karuraHoma = useHoma('karura');
   const acalaHoma = useHoma('acala');
-  const [result, setResult] = useState<StakeData[]>();
-  const [total, setTotal] = useState<Itotal>();
+  const [details, setDetails] = useState<StakeData[]>([]);
+  const [overview, setOverview] = useState<OverviewData['overview']>();
 
   useSubscription(() => {
     if (!(karuraHoma?.consts && acalaHoma?.consts && karuraWallet && acalaWallet && active?.address)) return;
@@ -62,34 +67,35 @@ export const useStakesCalculator = () => {
         const acalaStakingValue = acalaStakingPrice.mul(acalaStakingAmount || FixedPointNumber.ZERO);
         const karuraStakingValue = karuraStakingPrice.mul(karuraStakingAmount || FixedPointNumber.ZERO);
 
-        const acalaEarning = acalaStakingValue.mul(new FixedPointNumber(acalaApy));
-        const karuraRarning = karuraStakingValue.mul(new FixedPointNumber(karuraApy));
+        const acalaEstEarning = acalaStakingValue.mul(new FixedPointNumber(acalaApy));
+        const karuraEstEarning = karuraStakingValue.mul(new FixedPointNumber(karuraApy));
 
-        setResult([
+        setDetails([
           {
+            chain: 'acala',
             token: acalaStakingToken,
-            totalAmount: acalaStakingAmount,
-            totalValue: acalaStakingValue,
+            amount: acalaStakingAmount,
+            value: acalaStakingValue,
             apy: acalaApy,
-            earning: acalaEarning,
+            estEarning: acalaEstEarning,
           },
           {
+            chain: 'karura',
             token: karuraStakingToken,
-            totalAmount: karuraStakingAmount,
-            totalValue: karuraStakingValue,
+            amount: karuraStakingAmount,
+            value: karuraStakingValue,
             apy: karuraApy,
-            earning: karuraRarning,
+            estEarning: karuraEstEarning,
           },
         ]);
 
-        setTotal({
-          totalAmount: acalaStakingAmount.plus(karuraStakingAmount),
-          totalValue: acalaStakingValue.plus(karuraStakingValue),
-          earning: acalaEarning.plus(karuraRarning),
+        setOverview({
+          value: puls(acalaStakingValue, karuraStakingValue),
+          estEarning: puls(acalaEstEarning, karuraEstEarning)
         });
       },
     });
-  }, [karuraHoma, acalaHoma, karuraWallet, acalaWallet, active?.address]);
+  }, [karuraHoma, karuraHoma?.consts, acalaHoma?.consts, acalaHoma, karuraWallet, acalaWallet, active?.address]);
 
-  return { result, total };
+  return useMemo(() => ({ overview, details }), [details, overview]);
 };

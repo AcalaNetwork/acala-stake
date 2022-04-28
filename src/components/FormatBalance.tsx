@@ -16,6 +16,7 @@ export interface FormatBalanceProps extends Omit<FormatNumberProps, 'data'> {
   icon?: boolean;
   decimalLength?: number;
   negativeToZero?: boolean;
+  visiable?: boolean;
 }
 
 const defaultFormatBalanceConfig: FormatNumberProps['formatNumberConfig'] = {
@@ -27,7 +28,7 @@ const defaultFormatBalanceConfig: FormatNumberProps['formatNumberConfig'] = {
 const MIN = 0.0000001;
 
 export const FormatBalance: FC<FormatBalanceProps> = memo(
-  ({ balance, className, decimalLength = 6, placeholder = '-', loading, negativeToZero = true, ...other }) => {
+  ({ visiable, balance, className, decimalLength = 6, placeholder = '-', loading, negativeToZero = true, ...other }) => {
     if (!balance) return <p>{placeholder}</p>;
 
     const formatedBalance = formatBalance(balance);
@@ -51,6 +52,7 @@ export const FormatBalance: FC<FormatBalanceProps> = memo(
         formatNumberConfig={formatNumberConfig}
         human={false}
         loading={loading}
+        visiable={visiable}
         {...other}
       />
     );

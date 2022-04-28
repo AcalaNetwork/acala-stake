@@ -34,7 +34,7 @@ export const StakeForm = memo(() => {
 
   const toConfirm = useCallback(async () => {
     inputProps.onValidate().then(() => {
-      setStep(StakeSteps.CONFIRM);
+      setStep(StakeSteps.BRIDGE);
     }).catch(() => {
       // ignore error
     });

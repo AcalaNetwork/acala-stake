@@ -9,6 +9,7 @@ export enum ModalType {
   'addLiquidityConfirm',
   'unstakeConfirm',
   'FlexibleFee',
+  'ClaimLoanIncentiveRewards'
 }
 
 export type BalanceDisplayType = 'USD' | 'AMOUNT';

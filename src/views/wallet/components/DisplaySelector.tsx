@@ -1,15 +1,16 @@
 import React, { memo } from 'react';
 import { SwitchSelector, SwitchSelectorItem } from '@components/SwitchSelector';
-import { BalanceDisplayType } from '@state/application/types';
+import { BaseComponentProps } from '@components';
+import { useBalanceDisplayType } from '@state';
 
-interface DisplaySwitchSelectorProps {
-  onChange?: (type: BalanceDisplayType) => void;
-  value?: BalanceDisplayType;
-}
+type DisplaySwitchSelectorProps = BaseComponentProps
 
-export const DisplaySelector = memo<DisplaySwitchSelectorProps>(({ onChange, value }) => {
+export const DisplaySelector = memo<DisplaySwitchSelectorProps>(({ className }) => {
+  const { type, update } = useBalanceDisplayType();
+
   return (
-    <SwitchSelector onChange={onChange} value={value}>
+    <SwitchSelector className={className} onChange={update}
+      value={type}>
       <SwitchSelectorItem value='USD'>USD</SwitchSelectorItem>
       <SwitchSelectorItem value='AMOUNT'>Token</SwitchSelectorItem>
     </SwitchSelector>

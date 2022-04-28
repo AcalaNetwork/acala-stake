@@ -23,6 +23,7 @@ export const useStakeCall = ({ network, amount, liquidToken, stakingToken, stake
   const [estResult, setEstResutl] = useState<EstimateMintResult | undefined>();
   const params = useMemo((): ExtrinsicConfigs | undefined => {
     if (!api.api) return;
+
     if(stakeImmediately && !estResult) return;
 
     const fixedAmount = new FixedPointNumber(amount || 0,  stakingToken.decimals);
@@ -57,7 +58,12 @@ export const useStakeCall = ({ network, amount, liquidToken, stakingToken, stake
 
     const fixedAmount = new FixedPointNumber(amount, stakingToken.decimals);
 
-    return homa.subscribeEstimateMintResult(fixedAmount).subscribe({ next: setEstResutl });
+    return homa.subscribeEstimateMintResult(fixedAmount).subscribe({
+      next: setEstResutl,
+      error: () => {
+        // ignore error
+      }
+    });
   }, [homa, amount]);
 
   return useMemo(() => ({

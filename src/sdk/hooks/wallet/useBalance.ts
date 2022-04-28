@@ -1,4 +1,4 @@
-import { Token } from '@acala-network/sdk-core';
+import { FixedPointNumber, Token } from '@acala-network/sdk-core';
 import { useState } from 'react';
 import { BalanceData } from '@acala-network/sdk/wallet/type';
 import { useWallet } from '.';
@@ -20,5 +20,5 @@ export const useBalance = (
     return wallet.subscribeBalance(token, address).subscribe({ next: setData });
   }, [wallet]);
 
-  return data?.[type];
+  return data?.[type] || FixedPointNumber.ZERO;
 };
