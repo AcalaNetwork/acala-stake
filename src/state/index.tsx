@@ -1,23 +1,26 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import createFilter from 'redux-persist-transform-filter';
 
 import { applicationReducer } from './application/reducers';
 
-const storageFilter = createFilter('application.selectedAddress');
-
-const persistConfig: any = {
+const rootPersistConfig = {
   key: 'root',
   storage,
-  transform: [storageFilter],
+  blacklist: ['application']
+};
+
+const applicationPersistConfig = {
+  key: 'application',
+  storage,
+  blacklist: ['modal']
 };
 
 const reducers = combineReducers({
-  application: applicationReducer,
+  application: persistReducer(applicationPersistConfig, applicationReducer),
 });
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer(rootPersistConfig, reducers);
 
 export const store = configureStore({
   middleware: (getDefaultMiddleware) => {

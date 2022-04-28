@@ -6,9 +6,12 @@ import { TokenName } from '@components/TokenName';
 import { useBalanceOverview } from '../hook/useBalanceOverview';
 import { SDKNetwork } from '@sdk/types';
 import clsx from 'clsx';
+import { useLiquidTokenIncentivePool } from '@sdk';
+import { getTokenName } from '@utils';
 
 export const BalanceOverview = memo<{ network: SDKNetwork; className?: string }>(({ className, network }) => {
   const { stakingBalance, liquidBalance, apy, liquidToken, stakingToken } = useBalanceOverview(network);
+  const incentive = useLiquidTokenIncentivePool(network);
 
   return (
     <Card className={clsx('flex flex-between h-[150px] px-[119px] text-grey-3', className)} variant='gradient-border'>
@@ -33,7 +36,15 @@ export const BalanceOverview = memo<{ network: SDKNetwork; className?: string }>
               <FormatRatio data={apy} />
             </span>
           </span>
-          <span className='text-acala-pink-500'>+10% APR ACA airdrop</span>
+          { !!incentive?.apr?.apr && (
+            <span className='text-acala-pink-500'>
+              +
+              <FormatRatio data={incentive.apr.apr} />
+              {' '}APR{' '}
+              {incentive.rewardTokensConfig?.map(i => getTokenName(i.token)).join(',')}{' '}
+              airdrop
+            </span>
+          )}
         </div>
       </div>
     </Card>

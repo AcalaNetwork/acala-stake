@@ -29,12 +29,12 @@ export const StakeForm = memo(() => {
   const stableToken = presetTokens?.stableToken;
 
   const backToCover = useCallback(() => {
-    setStep(StakeSteps.COMPLATED);
+    setStep(StakeSteps.BRIDGE);
   }, [setStep]);
 
   const toConfirm = useCallback(async () => {
     inputProps.onValidate().then(() => {
-      setStep(StakeSteps.BRIDGE);
+      setStep(StakeSteps.CONFIRM);
     }).catch(() => {
       // ignore error
     });
