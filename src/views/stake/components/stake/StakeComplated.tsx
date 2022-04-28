@@ -29,7 +29,7 @@ export const StakeComplated = memo(() => {
         </div>
         <div className="mt-40">
           <Button className="h-48 w-[200px]" size="sm">
-            <Link href={`/stake/${network}/mystake`}>My Stakes</Link>
+            <Link href={`/stake/${network}/user`}>My Stakes</Link>
           </Button>
         </div>
       </Card>

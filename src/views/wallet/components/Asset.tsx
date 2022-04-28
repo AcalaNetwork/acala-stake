@@ -12,7 +12,7 @@ import EyeIcon from '/public/icons/eye.svg';
 import EyeCloseIcon from '/public/icons/eye-close.svg';
 import WalletIcon from '/public/icons/wallet.svg';
 import { AddressAvatar } from '@components/AddressAvatar';
-import { OverviewData } from '../hook/useStakesCalculator';
+import { OverviewData } from '../hook/useAssetOverview';
 import { BaseComponentProps, FormatValue } from '@components';
 import clsx from 'clsx';
 

@@ -17,9 +17,8 @@ interface ClaimLoanIncentiveRewards {
 
 export const ClaimLoanIncentiveRewards = memo<ClaimLoanIncentiveRewards>(({ network, token }) => {
   const { visible, close, data } = useModal(ModalType.ClaimLoanIncentiveRewards);
-  
   const selectedNetwork = network || data?.network as SDKNetwork;
-  const selectedToken = token || data?.token as Token;
+  const selectedToken =  token || data?.token as Token;
 
   const user = useUserLoanIncentive(selectedNetwork, selectedToken);
   const { call } = useClaimIncentiveCall(selectedNetwork, selectedToken);
