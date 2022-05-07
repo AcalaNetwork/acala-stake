@@ -86,7 +86,7 @@ function calculateRedeem(
       method: 'batch',
       section: 'utility',
       params: [
-        [api.tx.homa.requestRedeem(redeemResult.request.toChainData(), true), api.tx.homa.fastMatchRedeems([current])],
+        [api.tx.homa.requestRedeem(redeemResult.request.toChainData(), true), api.tx.homa.fastMatchRedeemsCompletely([current])],
       ],
     },
   };
