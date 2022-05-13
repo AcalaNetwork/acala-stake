@@ -55,3 +55,58 @@ export const formatNumber = (
 
   return [thousand(i), d].join('.');
 };
+
+export const format = (data: number | string | undefined, decimalLength = 4, prefix?: string): string => {
+  if( data == undefined) return '0';
+  if (data === 0 || data === '0') return '0';
+
+  if (!data) return '-';
+  
+  if (Number(data) < 0.001 && Number(data) > 0) {
+    return '<0.001';
+  }
+
+  let num = '';
+  let postfix = '';
+
+  if(Number(data) >= 1000000000) {
+    num = (Number(data) / 1000000000).toFixed(2);
+    postfix = 'B';
+  } else if (Number(data) >= 1000000) {
+    num = (Number(data) / 1000000).toFixed(2);
+    postfix = 'M';
+  } else if (Number(data) > 1000) {
+    num = (Number(data) / 1000).toFixed(2);
+    postfix = 'k';
+  } else {
+    num = Number(data).toFixed(4);
+  }
+
+  const {integer, decimals, negative} = formatSpacedNumber(num);
+
+  return `${negative ? '-' : ''}${prefix || ''}${integer}${decimalLength > 0 ? '.' : ''}${decimals.length <= decimalLength ? decimals : decimals.slice(0, decimalLength)}${postfix}`;
+};
+
+const formatSpacedNumber = (num: string) => {
+  const _num = num.startsWith('-') ? num.slice(1) : num;
+  const [integer, decimals] = _num.toString().split('.');
+  let res = '';
+
+  integer.split('').reverse().map((number, index) => {
+    if((index + 1) % 3 === 0) {
+      if(index === integer.length -1 ) {
+        res = `${number}${res}`;
+      } else {
+        res = `,${number}${res}`;
+      }
+    } else {
+      res = `${number}${res}`;
+    }
+  });
+
+  return {
+    negative: num.startsWith('-'),
+    integer: res,
+    decimals: decimals
+  };
+};

@@ -26,7 +26,7 @@ export const StakeProvider = memo<PropsWithChildren<{ network: SDKNetwork }>>(({
   const conts = useHomaConts(network);
   const { stakingToken, liquidToken } = conts;
   const stakingInput = useStakeInput({ network, stakingToken });
-  const stakeImmediately = useBoolean(false);
+  const stakeImmediately = useBoolean(true);
   const callData = useStakeCall({
     network,
     amount: stakingInput?.inputProps?.value?.toString(),

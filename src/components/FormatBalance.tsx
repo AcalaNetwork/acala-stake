@@ -43,7 +43,7 @@ export const FormatBalance: FC<FormatBalanceProps> = memo(
 
     const formatNumberConfig = { ...defaultFormatBalanceConfig };
 
-    if (decimalLength) formatNumberConfig.decimalLength = decimalLength;
+    formatNumberConfig.decimalLength = decimalLength;
 
     return (
       <FormatNumber

@@ -6,14 +6,17 @@ import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { BalanceInput, FormPanel } from "@components/form";
 import { FormatBalance } from "@components/FormatBalance";
-import { Popover, Switch } from "@components";
+import { FormatRatio, Popover, Switch } from "@components";
 import { useStake } from "./StakeProvider";
 import { TokenName } from "@components/TokenName";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { useCallback } from "react";
 import { StakeSteps } from "@views/stake/types";
 import { getTokenName } from "@utils";
 import { usePresetTokens } from "@sdk";
+import { useAPY } from "@views/stake/hook/useAPY";
+import EqualCircleIcon from '/public/icons/equal.svg';
+import PlusCircleIcon from '/public/icons/plus.svg';
 
 export const StakeForm = memo(() => {
   const {
@@ -27,9 +30,11 @@ export const StakeForm = memo(() => {
   const { inputProps, configs: inputConfigs } = stakingInput;
   const presetTokens = usePresetTokens(network);
   const stableToken = presetTokens?.stableToken;
+  const { apy, rewardApy } = useAPY(network, presetTokens.liquidToken);
+  const totalApy = useMemo(() => stakeImmediately.value ? apy + rewardApy : apy , [apy, rewardApy, stakeImmediately]);
 
   const backToCover = useCallback(() => {
-    setStep(StakeSteps.BRIDGE);
+    setStep(StakeSteps.COVER);
   }, [setStep]);
 
   const toConfirm = useCallback(async () => {
@@ -82,14 +87,34 @@ export const StakeForm = memo(() => {
         <Popover
           content={
             <div className="w-[180px]">
-              {getTokenName(liquidToken)} received can be automatically used as collateral to
-                  borrow {getTokenName(stableToken)} credit. You can withdraw unused {getTokenName(liquidToken)} any time.
+              Stake {getTokenName(liquidToken)} to receive additional Reward APY, stake {getTokenName(liquidToken)} also can be used as collateral to mint {getTokenName(stableToken)}.
             </div>
           }
         >
           <InformationCircleIcon className="w-14 h-14 text-[#b1b0bc]" />
         </Popover>
         <Switch  onChange={stakeImmediately.update} value={stakeImmediately.value} />
+      </div>
+      <div className="flex justify-center items-center gap-10 mt-16 text-12 font-medium">
+        <div className="border border-grey-5 rounded-36 p-10">
+          Protocol APY:{' '}
+          <span className=" text-acala-blue-600">
+            <FormatRatio data={apy} />
+          </span>
+        </div>
+        { stakeImmediately.value && <PlusCircleIcon height={14} width={14} />}
+        <div className="border border-grey-5 rounded-36 p-10" style={{opacity: !stakeImmediately.value ? '0.3' : '1'}}>
+          Reward APY:{' '}
+          <span className=" text-acala-blue-600">
+            <FormatRatio data={rewardApy} />
+          </span>
+        </div>
+        <EqualCircleIcon />
+        <div className="border border-grey-5 rounded-36 p-10">
+          Total APY:{' '}
+          <span className=" text-acala-blue-600"><FormatRatio data={totalApy} />
+          </span>
+        </div>
       </div>
       <Button
         className="h-48 w-full font-medium mt-32"

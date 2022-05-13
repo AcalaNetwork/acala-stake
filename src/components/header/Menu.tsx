@@ -85,7 +85,7 @@ export const Menu = memo(() => {
       </MenuItem>
       <MenuItem
         link={[
-          { path: '/bridge/acala', label: 'Brideg DOT' },
+          { path: '/bridge/acala', label: 'Bridge DOT' },
           { path: '/bridge/karura', label: 'Bridge KSM' },
         ]}
         matchPattern='/bridge'

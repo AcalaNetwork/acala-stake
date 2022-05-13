@@ -1,11 +1,10 @@
 import { memo } from 'react';
-import { FormatBalance } from '@components/FormatBalance';
 import { FormatValue } from '@components/FormatValue';
 import { TokenImage } from '@components/TokenImage';
 import { TopBoard } from '@components/TopBoard';
 import { useTotalStaking } from '../hook/useTotalStaking';
 import { SDKNetwork } from '@sdk/types';
-import { getTokenName } from '@utils';
+import { format, getTokenName } from '@utils';
 
 export const StakeTopBoard = memo<{ network: SDKNetwork }>(({ network }) => {
   const data = useTotalStaking(network);
@@ -22,7 +21,7 @@ export const StakeTopBoard = memo<{ network: SDKNetwork }>(({ network }) => {
                   token={data.token} />
                 <div className='flex flex-col gap-12'>
                   <div className='flex justify-start items-center gap-12 text-grey-1'>
-                    <FormatBalance balance={data.amount} human />
+                    {format(data.amount.toString(), 0)}{' '}
                     {getTokenName(data.token)}
                   </div>
                   <div className='text-20 text-grey-3 font-medium'>

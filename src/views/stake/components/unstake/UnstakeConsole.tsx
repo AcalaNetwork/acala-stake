@@ -19,7 +19,7 @@ import { SDKNetwork } from '@sdk/types';
 import { useHomaConts } from '@sdk/hooks/homa';
 import { useUnstakeForm } from '../../hook/useUnstakeForm';
 import { useUnstakeOverview } from '@views/stake/hook/useUnstakeOverview';
-import { formatBalance, getNetworkName, getTokenName } from '@utils';
+import { formatBalance } from '@utils';
 import { TokenName } from '@components/TokenName';
 import { useUnstakeCall } from '@views/stake/hook/useUnstakeCall';
 
@@ -122,10 +122,8 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
                   <div className='p-16 w-[280px]'>
                     <div className='text-center text-20 font-medium text-grey-1'>Unstake Instantly</div>
                     <div className='mt-20 text-16 leading-20 text-grey-2'>
-                      Unstake Instantly will fastRedeem {getTokenName(stakingToken)} from the toBond pool&apos;s staking
-                      queue has enough {getTokenName(stakingToken)} , otherwise it will swap {getTokenName(liquidToken)}{' '}
-                      to {getTokenName(stakingToken)} with {getNetworkName(network)} Dex Swap. Fees and slippage
-                      incurred will be included in the redemption fee.
+                      Unstake Instantly is a feature enable immediate redeem, which would normally be 28 days on Polkadot, and 7 days on Kusama.
+                      A fee is associated to enable the immediate redeem, and simply toggle the Unstake Instantly off will revert back to normal unstake period for Polkadot, and Kusama with out the fee.
                     </div>
                   </div>
                 }

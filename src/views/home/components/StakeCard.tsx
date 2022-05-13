@@ -2,7 +2,6 @@ import { FixedPointNumber, Token } from '@acala-network/sdk-core';
 import React, { memo } from 'react';
 import { Button, LinkButton } from '@components/Button';
 import { Card } from '@components/Card';
-import { FormatBalance } from '@components/FormatBalance';
 import { FormatRatio } from '@components/FormatRatio';
 import { Spacing } from '@components/Spacing';
 import { useHoma } from '@sdk/hooks/homa';
@@ -12,6 +11,7 @@ import { getTokenName } from '@utils/token';
 import KusamaPink from '/public/network/kusama-pink.svg';
 import PolkadotPink from '/public/network/polkadot-pink.svg';
 import { useLiquidTokenIncentivePool } from '@sdk';
+import { format, formatNumber } from '@utils';
 
 type StakeCardType = 'acala' | 'karura';
 
@@ -96,7 +96,7 @@ const StakeItem = memo<StakeItemProps>(({ className, type, desc, staked, homaAPY
       <div className='mt-29 flex w-full h-99 border border-grey-5 rounded-[24px] py-11 text-28'>
         <div className='flex-1 flex-col flex justify-around items-center border-r border-grey-5'>
           <span className='font-bold leading-34 text-primary'>
-            <FormatBalance balance={staked} human />
+            {format(staked.toString(), 0)}
           </span>
           <span className='mt-8 text-16 leading-20 font-medium text-grey-2 opacity-80'>Staked</span>
         </div>

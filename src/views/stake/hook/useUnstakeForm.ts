@@ -9,7 +9,7 @@ import { useBoolean, useInput } from '@hooks';
 export const useUnstakeForm = (network: SDKNetwork) => {
   const homaConts = useHomaConts(network);
   const { liquidToken } = homaConts;
-  const { value: isFastRedeem, update: setIsFastRedeem } = useBoolean(false);
+  const { value: isFastRedeem, update: setIsFastRedeem } = useBoolean(true);
   const active = useActiveAccount();
   const env = useHomaEnv(network);
   const redeemRequesting = useHomaRedeemRequesting(network, active?.address);

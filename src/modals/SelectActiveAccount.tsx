@@ -74,6 +74,7 @@ export const SelectActiveAccount = memo(() => {
       <div className='px-40 pt-32 w-full'>
         <Selector
           items={items}
+          listClassName='max-h-[150px]  overflow-y-auto'
           onChange={handleChange}
           render={btnRender}
           rootClassName='border border-grey-5 rounded-16 h-[80px] relative'
