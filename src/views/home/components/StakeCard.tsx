@@ -38,6 +38,7 @@ export const StakeCard = memo(() => {
           homaAPY={acalaHomaAPY}
           incentiveAPR={acalaIncentive?.apr?.apr}
           incentiveRewardsTokens={acalaIncentive?.rewardTokensConfig.map(i => i.token)}
+          learnMoreLink='https://guide.acalaapps.wiki/staking/ldot-staking'
           staked={acalaTotalStaking}
           type='acala'
         />
@@ -53,6 +54,7 @@ export const StakeCard = memo(() => {
           homaAPY={karuraHomaAPY}
           incentiveAPR={karuraIncentive?.apr?.apr}
           incentiveRewardsTokens={karuraIncentive?.rewardTokensConfig.map(i => i.token)}
+          learnMoreLink='https://wiki.karura.app/liquid-staking'
           staked={karuraTotalStaking}
           type='karura'
         />
@@ -80,9 +82,10 @@ interface StakeItemProps {
   homaAPY: number;
   incentiveAPR: number;
   incentiveRewardsTokens: Token[]
+  learnMoreLink: string;
 }
 
-const StakeItem = memo<StakeItemProps>(({ className, type, desc, staked, homaAPY, incentiveAPR, incentiveRewardsTokens }) => {
+const StakeItem = memo<StakeItemProps>(({ className, type, desc, staked, homaAPY, incentiveAPR, incentiveRewardsTokens, learnMoreLink }) => {
   return (
     <Card
       className={`w-[566px] h-[454px] flex-1 flex-center flex-col pt-32 pb-30 px-40 bg-opacity-[0.8] shadow-[0px_1px_25px_rgba(100, 90, 255, 0.08)] backdrop-blur-[150px] ${className}`}
@@ -125,7 +128,8 @@ const StakeItem = memo<StakeItemProps>(({ className, type, desc, staked, homaAPY
       <Spacing h={40} />
       <div className='flex w-full justify-around'>
         <Button className='font-normal w-[180px] h-44 pt-0 pb-0' variant='outline'>
-          Learn More
+          <a href={learnMoreLink} rel="noreferrer"
+            target='_blank'>Learn More</a>
         </Button>
         <LinkButton className='font-normal w-[180px] h-44 pt-0 pb-0' href={`/stake/${type}`}>
           {"Let's Go"}

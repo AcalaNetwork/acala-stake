@@ -18,7 +18,7 @@ const btnRender = (active: InjectedAccount) => {
         <AddressAvatar address={active?.address} className='w-40 h-40 bg-[#E5EBF1]'
           size={40} />
         <div className='ml-22'>
-          <span className='text-20 leading-[24px] font-medium text-333'>{active?.name}</span>
+          <div className='text-20 leading-[24px] font-medium text-333 max-w-[320px] truncate'>{active?.name}</div>
           <Address address={active?.address} className='text-14 leading-17 text-grey-2 mt-8' />
         </div>
       </div>

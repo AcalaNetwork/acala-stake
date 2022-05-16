@@ -18,8 +18,8 @@ export const useAccountBalance = (injectedAccounts: InjectedAccount[]) => {
 
     const run = async () => {
       const balance = await Promise.all(injectedAccounts.map(async account => {
-        const ksm = await kwallet.getBalance('KSM', account.address);
-        const dot = await awallet.getBalance('DOT', account.address);
+        const ksm = await kwallet?.getBalance('KSM', account.address);
+        const dot = await awallet?.getBalance('DOT', account.address);
         return {
           ...account,
           ksm,

@@ -69,34 +69,12 @@ export const Ecosystem = memo(() => {
           link='https://apps.karura.network/earn/loan-staking'
           title='Taiga'
         />
-        {isAll && (
-          <>
-            <Item desc='Trade LDOT with other assets' icon={<AcalaSwap />}
-              title='Acala Swap' />
-            <Item
-              desc='Use LDOT as collateral to borrow aUSD'
-              icon={<TokenImage size={64} token={'AUSD'} />}
-              title='Acala Dollar'
-            />
-            <Item desc='Trade stable assets efficiently' icon={<AcalaSwap />}
-              title='Tapio' />
-            <Item desc='Trade LKSM with other assets' icon={<KaruraSwap />}
-              title='Karura Swap' />
-            <Item
-              desc='Use LKSM as collateral to borrow kUSD'
-              icon={<TokenImage size={64} token={'KUSD'} />}
-              title='Karura Dollar'
-            />
-            <Item desc='Trade stable assets efficiently' icon={<TokenImage size={64} token={'TAI'} />}
-              title='Taigo' />
-          </>
-        )}
       </div>
-      <Spacing h={20} />
+      {/* <Spacing h={20} />
       <Button className=' rounded-[41px] w-[183px] font-normal h-56' onClick={() => setIsAll(!isAll)}
         variant='outline'>
         {isAll ? 'VIEW LESS' : 'VIEW ALL'}
-      </Button>
+      </Button> */}
     </div>
   );
 });

@@ -3,7 +3,7 @@ import { BalanceChangedStatus } from "@acala-network/sdk/cross-chain/types";
 import { Button, LinkButton, Loading } from "@components";
 import { useSubscription } from "@hooks";
 import { useCrossChainBalanceChanged } from "@sdk/hooks/crosschain";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { memo } from "react";
 import { useBridge } from "../hooks/useBridger";
 import { BridgeSteps } from "../types";
@@ -16,8 +16,12 @@ export const BridgeComplated = memo(() => {
     onComplated,
     bridgeAmountInput,
     bridgeRouter,
-    bridgeDestAddress
+    bridgeDestAddress,
+    hash,
+    network
   } = useBridge();
+
+  const extrinsicLink = useMemo(() => `https://${network === 'acala' ? 'polkadot': 'kusama'}.subscan.io/extrinsic/${hash}`, [hash, network]);
 
   const subscribeBalanceChanged = useCrossChainBalanceChanged(bridgeRouter.toChain);
   const [status, setStatus] = useState<BalanceChangedStatus>(BalanceChangedStatus.CHECKING);
@@ -64,7 +68,8 @@ export const BridgeComplated = memo(() => {
         {status === BalanceChangedStatus.TIMEOUT && 'Transaction Completed!'}
       </div>
       <LinkButton color='primary' variant='text'>
-        View Transaction
+        <a href={extrinsicLink} rel="noreferrer"
+          target={'_blank'}>View Transaction</a>
       </LinkButton>
       <Button className='mt-44 w-[200px]' color="primary"
         onClick={handleClick}>
