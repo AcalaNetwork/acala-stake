@@ -26,7 +26,7 @@ export const useSuggestInput = (
       .paymentInfo(address)
       .pipe(
         switchMap((paymentInfo) => {
-          return wallet.subscribeSuggestInput(token, address, isAllowDeath, paymentInfo);
+          return wallet.subscribeSuggestInput(token, address, isAllowDeath, { currency: token, amount: new FN(1.2)});
         })
       )
       .subscribe({ next: setData });
