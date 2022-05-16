@@ -2,12 +2,14 @@ import React, { useMemo } from 'react';
 import { useExtension } from '@connector';
 import { ModalType, useModal } from '@state';
 import { InjectedAccount } from '@polkadot/extension-inject/types';
-import { Address, Selector, AddressAvatar, Modal, ModalHeader } from '@components';
+import { Address, Selector, AddressAvatar, Modal, ModalHeader, TokenImage } from '@components';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import CopyIcon from '/public/icons/copy.svg';
 import LinkIcon from '/public/images/link.svg';
 import { Copy } from '../components/Copy';
 import { memo } from 'react';
+import { BalanceAccount, useAccountBalance } from '@hooks/useAccountBalance';
+import { format } from '@utils';
 
 const btnRender = (active: InjectedAccount) => {
   return (
@@ -25,14 +27,28 @@ const btnRender = (active: InjectedAccount) => {
   );
 };
 
-const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
+const ItemRender = (value: BalanceAccount, selected: InjectedAccount) => (
   <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
-    <div className='flex flex-center'>
+    <div className='flex flex-center w-[120px]'>
       <AddressAvatar address={value.address} className='w-20 h-20 bg-[#E5EBF1]'
         size={20} />
-      <div className='ml-8 text-16 font-medium text-333'>{value.name}</div>
+      <div className='ml-8 text-16 font-medium text-333 max-w-[100px] truncate'>{value.name}</div>
     </div>
-    <div className='flex flex-center gap-10'>
+    <div>
+      <div className='text-12 flex-1'>
+        <div className='flex flex-between w-50'>
+          <TokenImage size={12} token={'DOT'} />
+          {format(value.dot.free.toString(), 2)}
+        </div>
+      </div>
+      <div className='text-12 flex-1'>
+        <div className='flex flex-between w-50'>
+          <TokenImage size={12} token={'KSM'} />
+          {format(value.ksm.free.toString(), 2)}
+        </div>
+      </div>
+    </div>
+    <div className='flex flex-center gap-10 w-[150px]'>
       <Address address={value.address} className='text-14 leading-17 text-grey-2' />
       {selected && selected.address === value.address ? (
         <CheckIcon aria-hidden='true' className='h-[20px] w-[20px] text-primary' />
@@ -46,21 +62,22 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
 export const SelectActiveAccount = memo(() => {
   const { visible, close } = useModal(ModalType.SelectAccount);
   const { injectedAccounts, active, setActive } = useExtension();
+  const balanceAccounts = useAccountBalance(injectedAccounts);
 
   const handleChange = (value: InjectedAccount) => {
     setActive(value);
   };
 
   const items = useMemo(() => {
-    return injectedAccounts
-      ? injectedAccounts.map((item) => {
+    return balanceAccounts
+      ? balanceAccounts.map((item) => {
         return {
           value: item,
           render: ItemRender,
         };
       })
       : [];
-  }, [injectedAccounts]);
+  }, [balanceAccounts]);
 
   const data = [];
 
