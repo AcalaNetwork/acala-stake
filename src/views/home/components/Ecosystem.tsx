@@ -1,12 +1,11 @@
 import { memo, ReactNode } from 'react';
-import { Button } from '@components/Button';
 import { Card } from '@components/Card';
-import { Spacing } from '@components/Spacing';
 import AcalaSwap from '/public/pages/express/acala-swap.svg';
 import KaruraSwap from '/public/pages/express/karura-swap.svg';
 import { TokenImage } from '@components/TokenImage';
 import { useState } from 'react';
-import { useGetToken } from '@sdk';
+import { useGetToken, usePresetTokens } from '@sdk';
+import { useAPY } from '@views/stake/hook/useAPY';
 
 interface ItemProps {
   title: string;
@@ -37,10 +36,12 @@ const Item = memo<ItemProps>(({ title, desc, icon, link }) => (
 ));
 
 export const Ecosystem = memo(() => {
-  const [isAll, setIsAll] = useState<boolean>(false);
   const getAcalaToken = useGetToken('acala');
   const getKaruraToken = useGetToken('karura');
-
+  const { liquidToken: KliquidToken} = usePresetTokens('karura');
+  const { liquidToken: AliquidToken} = usePresetTokens('acala');
+  const { apy: aAPY, rewardApy: aRewardApy } = useAPY('acala', AliquidToken);
+  const { apy: kAPY, rewardApy: kRewardApy } = useAPY('karura', KliquidToken);
   return (
     <div className='text-center container'>
       <div className='text-[34px] leading-[44px] tracking-[0.04em] text-grey-1 font-bold mb-64'>Ecosystem</div>
@@ -48,17 +49,18 @@ export const Ecosystem = memo(() => {
         <Item desc='Trade LDOT with other assets' icon={<AcalaSwap />}
           title='Acala Swap' />
         <Item
-          desc='Use LDOT as collateral and earn x%, +  y% from staking DOT'
+          desc={`Use LDOT as collateral and earn ${(aAPY * 100).toFixed(2)}%, +  ${(aRewardApy * 100).toFixed(2)}% from staking DOT`}
           icon={<TokenImage size={64} token={getAcalaToken('AUSD')} />}
           link='https://apps.acala.network/vault'
           title='Acala Dollar'
         />
-        <Item desc='Trade stable assets efficiently' icon={<AcalaSwap />}
+        <Item desc='Mint tDOT and earn additional rewards' icon={<AcalaSwap />}
+          link="https://apps.acala.network/earn/loan-staking"
           title='Tapio' />
         <Item desc='Trade LKSM with other assets' icon={<KaruraSwap />}
           title='Karura Swap' />
         <Item
-          desc='Use LKSM as collateral and earn x%, +  y% from staking KSM'
+          desc={`Use LKSM as collateral and earn ${(kAPY * 100).toFixed(2)}%, +  ${(kRewardApy * 100).toFixed(2)}% from staking KSM`}
           icon={<TokenImage size={64} token={getKaruraToken('AUSD')} />}
           link='https://apps.karura.network/vault'
           title='Karura Dollar'
