@@ -38,13 +38,13 @@ const ItemRender = (value: BalanceAccount, selected: InjectedAccount) => (
       <div className='text-12 flex-1'>
         <div className='flex flex-between w-50'>
           <TokenImage size={12} token={'DOT'} />
-          {format(value.dot.free.toString(), 2)}
+          {format(value.dot?.free.toString(), 2)}
         </div>
       </div>
       <div className='text-12 flex-1'>
         <div className='flex flex-between w-50'>
           <TokenImage size={12} token={'KSM'} />
-          {format(value.ksm.free.toString(), 2)}
+          {format(value.ksm?.free.toString(), 2)}
         </div>
       </div>
     </div>
