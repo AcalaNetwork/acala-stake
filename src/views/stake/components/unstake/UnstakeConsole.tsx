@@ -22,6 +22,7 @@ import { useUnstakeOverview } from '@views/stake/hook/useUnstakeOverview';
 import { formatBalance } from '@utils';
 import { TokenName } from '@components/TokenName';
 import { useUnstakeCall } from '@views/stake/hook/useUnstakeCall';
+import { useUnstake } from './UnstakeProvider';
 
 interface UnstakeConsoleProps extends BaseComponentProps {
   network: SDKNetwork;
@@ -29,6 +30,7 @@ interface UnstakeConsoleProps extends BaseComponentProps {
 
 export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
   const conts = useHomaConts(network);
+  const { setStep } = useUnstake();
   const { liquidToken, stakingToken } = conts;
   const { amount, onAmountChange, amountError, onMaxAmount, maxAmount, isFastRedeem, setIsFastRedeem } =
     useUnstakeForm(network);
@@ -135,7 +137,8 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
         >
           <div>
             <TxButton call={call} className='h-48 w-full font-medium'
-              network={network}>
+              network={network}
+              onSuccess={() => setStep(1)}>
               Unstake
             </TxButton>
           </div>

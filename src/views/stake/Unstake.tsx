@@ -1,11 +1,12 @@
 import { StakeLayout } from '@components/layout';
 import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 import { StakeTopBoard } from './components/StakeTopBoard';
-import { UnstakeConsole } from './components/unstake/UnstakeConsole';
 import { useRouter } from 'next/router';
 import { SDKNetwork } from '@sdk/types';
 import { StakeSubPageTabs } from './components/StakeSubTabs';
 import { memo } from 'react';
+import { UnstakeStepsController } from './components/unstake/UnstakeStepsController';
+import { UnstakeProvider } from './components/unstake/UnstakeProvider';
 
 export const UnStake = memo(() => {
   const router = useRouter();
@@ -16,9 +17,11 @@ export const UnStake = memo(() => {
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={1} network={network} />
-        <div className='container mt-40'>
-          <UnstakeConsole network={network} />
-        </div>
+        <UnstakeProvider network={network}>
+          <div className='container mt-40'>
+            <UnstakeStepsController network={network}/>
+          </div>
+        </UnstakeProvider>
       </EnsureSDKReady>
     </StakeLayout>
   );
