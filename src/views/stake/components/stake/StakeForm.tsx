@@ -83,7 +83,7 @@ export const StakeForm = memo(() => {
         </span>
       </div>
       <div className="flex items-center justify-end mt-16">
-        <div>Use LDOT as Collateral</div>
+        <div>Use {getTokenName(liquidToken)} as Collateral</div>
         <Popover
           content={
             <div className="w-[180px]">

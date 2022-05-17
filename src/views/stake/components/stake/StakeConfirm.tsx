@@ -19,6 +19,7 @@ export const StakeConfirm = memo(() => {
     stakingInput,
     callData,
     setStep,
+    setHash
   } = useStake();
   const { inputProps, configs: inputConfigs } = stakingInput;
 
@@ -27,8 +28,9 @@ export const StakeConfirm = memo(() => {
   }, [setStep]);
 
   const toComplated = useCallback(() => {
+    setHash(callData?.callData?.call?.hash.toString() || '');
     setStep(StakeSteps.COMPLATED);
-  }, [setStep]);
+  }, [callData?.callData?.call?.hash, setHash, setStep]);
 
   const txMessage = useMemo(() => {
     return `Stake ${formatBalance(inputProps.value)} ${getTokenName(stakingToken)} to Homa`;
