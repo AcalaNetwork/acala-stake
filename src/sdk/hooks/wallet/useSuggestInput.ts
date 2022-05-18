@@ -5,6 +5,7 @@ import { SDKNetwork } from '@sdk/types';
 import { useState } from 'react';
 import { switchMap } from 'rxjs';
 import { useWallet } from '.';
+import { usePresetTokens } from '..';
 import { useApi } from '../../../connector';
 import { useSubscription } from '../../../hooks/useSubscription';
 
@@ -18,6 +19,7 @@ export const useSuggestInput = (
   const [data, setData] = useState<FN>();
   const api = useApi(network);
   const wallet = useWallet(network);
+  const { nativeToken } = usePresetTokens(network);
 
   useSubscription(() => {
     if (!api.api || !wallet || !call || !address || !token) return;
@@ -26,7 +28,10 @@ export const useSuggestInput = (
       .paymentInfo(address)
       .pipe(
         switchMap((paymentInfo) => {
-          return wallet.subscribeSuggestInput(token, address, isAllowDeath, { currency: token, amount: new FN(1.2)});
+          return wallet.subscribeSuggestInput(token, address, isAllowDeath, {
+            amount: FN.fromInner(paymentInfo.partialFee.toString(), nativeToken.decimals).mul(new FN(1.2)),
+            currency: nativeToken
+          });
         })
       )
       .subscribe({ next: setData });

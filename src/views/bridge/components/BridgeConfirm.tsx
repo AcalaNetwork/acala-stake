@@ -49,6 +49,7 @@ export const BridgeConfirm = memo(() => {
     };
   }, [amountInputData.value, bridgeRouter.fromChain, bridgeRouter.toChain, call, token]);
 
+  const setTxHash = useCallback(() => () => setHash(call.hash.toString()), [call.hash, setHash]);
 
   return (
     <Card className="w-[630px] px-55 py-32" variant="border">
@@ -112,7 +113,7 @@ export const BridgeConfirm = memo(() => {
           className='flex-1'
           color='primary'
           onSend={handleNext}
-          onSuccess={() => setHash(call.hash.toString())}
+          onSuccess={setTxHash}
           variant='filled'
         >
           Next

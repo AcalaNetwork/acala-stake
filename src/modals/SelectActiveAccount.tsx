@@ -8,8 +8,8 @@ import CopyIcon from '/public/icons/copy.svg';
 import LinkIcon from '/public/images/link.svg';
 import { Copy } from '../components/Copy';
 import { memo } from 'react';
-import { BalanceAccount, useAccountBalance } from '@hooks/useAccountBalance';
 import { format } from '@utils';
+import { useBalance, usePresetTokens } from '@sdk';
 
 const btnRender = (active: InjectedAccount) => {
   return (
@@ -27,57 +27,63 @@ const btnRender = (active: InjectedAccount) => {
   );
 };
 
-const ItemRender = (value: BalanceAccount, selected: InjectedAccount) => (
-  <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
-    <div className='flex flex-center w-[120px]'>
-      <AddressAvatar address={value.address} className='w-20 h-20 bg-[#E5EBF1]'
-        size={20} />
-      <div className='ml-8 text-16 font-medium text-333 max-w-[100px] truncate'>{value.name}</div>
-    </div>
-    <div>
-      <div className='text-12 flex-1'>
-        <div className='flex flex-between w-50'>
-          <TokenImage size={12} token={'DOT'} />
-          {format(value.dot?.free.toString(), 2)}
+const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => {
+  const Ktokens = usePresetTokens('karura');
+  const Atokens = usePresetTokens('acala');
+  const DOTBalance = useBalance('acala', value.address, Atokens?.stakingToken, 'free');
+  const KSMBalance = useBalance('karura', value.address, Ktokens.stakingToken, 'free');
+
+  return (
+    <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
+      <div className='flex flex-center w-[120px]'>
+        <AddressAvatar address={value.address} className='w-20 h-20 bg-[#E5EBF1]'
+          size={20} />
+        <div className='ml-8 text-16 font-medium text-333 max-w-[100px] truncate'>{value.name}</div>
+      </div>
+      <div>
+        <div className='text-12 flex-1'>
+          <div className='flex flex-between w-50'>
+            <TokenImage size={12} token={Atokens?.stakingToken.name} />
+            {format(DOTBalance.toString(), 2)}
+          </div>
+        </div>
+        <div className='text-12 flex-1'>
+          <div className='flex flex-between w-50'>
+            <TokenImage size={12} token={Ktokens?.stakingToken.name} />
+            {format(KSMBalance.toString(), 2)}
+          </div>
         </div>
       </div>
-      <div className='text-12 flex-1'>
-        <div className='flex flex-between w-50'>
-          <TokenImage size={12} token={'KSM'} />
-          {format(value.ksm?.free.toString(), 2)}
-        </div>
+      <div className='flex flex-center gap-10 w-[150px]'>
+        <Address address={value.address} className='text-14 leading-17 text-grey-2' />
+        {selected && selected.address === value.address ? (
+          <CheckIcon aria-hidden='true' className='h-[20px] w-[20px] text-primary' />
+        ) : (
+          <div className='h-[20px] w-[20px]'></div>
+        )}
       </div>
     </div>
-    <div className='flex flex-center gap-10 w-[150px]'>
-      <Address address={value.address} className='text-14 leading-17 text-grey-2' />
-      {selected && selected.address === value.address ? (
-        <CheckIcon aria-hidden='true' className='h-[20px] w-[20px] text-primary' />
-      ) : (
-        <div className='h-[20px] w-[20px]'></div>
-      )}
-    </div>
-  </div>
-);
+  );
+};
 
 export const SelectActiveAccount = memo(() => {
   const { visible, close } = useModal(ModalType.SelectAccount);
   const { injectedAccounts, active, setActive } = useExtension();
-  const balanceAccounts = useAccountBalance(injectedAccounts);
 
   const handleChange = (value: InjectedAccount) => {
     setActive(value);
   };
 
   const items = useMemo(() => {
-    return balanceAccounts
-      ? balanceAccounts.map((item) => {
+    return injectedAccounts
+      ? injectedAccounts.map((item) => {
         return {
           value: item,
           render: ItemRender,
         };
       })
       : [];
-  }, [balanceAccounts]);
+  }, [injectedAccounts]);
 
   const data = [];
 
