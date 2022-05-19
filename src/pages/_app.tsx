@@ -16,6 +16,7 @@ import { NotificationProvider } from '../notification';
 import { TxNotifications } from '../components/TxNotifications';
 import { useCallback } from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
+import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
 
 const SubstrateConnector = dynamic(() => import('../connector/components/SubstrateConnector').then((i) => i.default), { ssr: false });
 
@@ -24,9 +25,11 @@ const connectorConfigs = Object.values(configs.apis);
 const WithSDK = ({ Component, pageProps }) => {
   return (
     <SDKProvider>
-      <ConnectExtensionModal />
-      <SelectActiveAccount />
-      <Component {...pageProps} />
+      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
+        <ConnectExtensionModal />
+        <SelectActiveAccount />
+        <Component {...pageProps} />
+      </EnsureSDKReady>
     </SDKProvider>
   );
 };

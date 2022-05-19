@@ -31,7 +31,7 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => {
   const Ktokens = usePresetTokens('karura');
   const Atokens = usePresetTokens('acala');
   const DOTBalance = useBalance('acala', value.address, Atokens?.stakingToken, 'free');
-  const KSMBalance = useBalance('karura', value.address, Ktokens.stakingToken, 'free');
+  const KSMBalance = useBalance('karura', value.address, Ktokens?.stakingToken, 'free');
 
   return (
     <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
