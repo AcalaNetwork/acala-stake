@@ -28,10 +28,10 @@ const btnRender = (active: InjectedAccount) => {
 };
 
 const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => {
-  const Ktokens = usePresetTokens('karura');
-  const Atokens = usePresetTokens('acala');
-  const DOTBalance = useBalance('acala', value.address, Atokens?.stakingToken, 'free');
-  const KSMBalance = useBalance('karura', value.address, Ktokens?.stakingToken, 'free');
+  const kTokens = usePresetTokens('karura');
+  const aTokens = usePresetTokens('acala');
+  const dotBalance = useBalance('acala', value.address, aTokens?.stakingToken, 'free');
+  const ksmBalance = useBalance('karura', value.address, kTokens?.stakingToken, 'free');
 
   return (
     <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
@@ -43,14 +43,14 @@ const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => {
       <div>
         <div className='text-12 flex-1'>
           <div className='flex flex-between w-50'>
-            <TokenImage size={12} token={Atokens?.stakingToken.name} />
-            {format(DOTBalance.toString(), 2)}
+            <TokenImage size={12} token={aTokens?.stakingToken.name} />
+            {format(dotBalance.toString(), 2)}
           </div>
         </div>
         <div className='text-12 flex-1'>
           <div className='flex flex-between w-50'>
-            <TokenImage size={12} token={Ktokens?.stakingToken.name} />
-            {format(KSMBalance.toString(), 2)}
+            <TokenImage size={12} token={kTokens?.stakingToken.name} />
+            {format(ksmBalance.toString(), 2)}
           </div>
         </div>
       </div>

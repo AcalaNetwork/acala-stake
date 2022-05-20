@@ -17,7 +17,7 @@ export const ConnectWalletButton = memo<BaseComponentProps>(({ className }) => {
         Connect Wallet
       </Button>
       <div className='text-14 leading-17 font-medium text-grey-3'>
-        Remd more on wallet guide{' '}
+        Read more on wallet guide{' '}
         <Link href={walletGuide} passHref>
           <span className='text-primary border-b border-primary cursor-pointer'>Here</span>
         </Link>

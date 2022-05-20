@@ -12,6 +12,7 @@ import KusamaPink from '/public/network/kusama-pink.svg';
 import PolkadotPink from '/public/network/polkadot-pink.svg';
 import { useLiquidTokenIncentivePool } from '@sdk';
 import { format } from '@utils';
+import BoostIcon from '/public/icons/boost.svg';
 
 type StakeCardType = 'acala' | 'karura';
 
@@ -107,8 +108,8 @@ const StakeItem = memo<StakeItemProps>(({ className, type, desc, staked, homaAPY
           <div className='relative'>
             <FormatRatio className='font-bold leading-34 text-primary' data={homaAPY} />
             { !!incentiveAPR && (
-              <div className='text-acala-pink-500 border border-acala-pink-500 py-2 px-4 leading-6 text-6 rounded-8 absolute -top-4 -right-4 transform translate-x-full'>
-                  BOOST
+              <div className='absolute -top-4 -right-4 transform translate-x-full'>
+                <BoostIcon />
               </div>
             )
             }

@@ -1,4 +1,4 @@
-import { AddressInputSelector, BalanceInput, Button, Card, ConnectWalletButton, FormatBalance, FormPanel, List, ListItem, ListLabel, ListValue, TokenSelector } from '@components';
+import { AddressInputSelector, BalanceInput, Button, Card, ConnectWalletButton, FormatBalance, FormPanel, TokenSelector } from '@components';
 import { TokenName } from '@components/TokenName';
 import { memo, useCallback } from 'react';
 import { useBridge } from '../hooks/useBridger';
