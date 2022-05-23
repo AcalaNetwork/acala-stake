@@ -13,7 +13,7 @@ export const Wallet = memo(() => {
   return (
     <StakeLayout>
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa']}>
-        <div className='w-[1040px] mx-auto'>
+        <div className='w-[1040px] mx-auto mb-[50px]'>
           <Asset className='mt-40' overview={overview} />
           <DisplaySelector className='mt-40' />
           <Details className='mt-40' details={details} />

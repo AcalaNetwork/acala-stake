@@ -17,7 +17,7 @@ export const MyStake = memo(() => {
       <EnsureSDKReady requires={['acala-homa', 'karura-homa', 'acala-wallet', 'karura-wallet']}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={2} network={network} />
-        <div className='container mt-40'>
+        <div className='container mt-40 mb-[80px]'>
           <RequiredActiveAccount className='min-h-[560px]'>
             <StakingOverview network={network} />
           </RequiredActiveAccount>

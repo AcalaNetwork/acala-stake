@@ -18,7 +18,7 @@ export const UnStake = memo(() => {
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={1} network={network} />
         <UnstakeProvider network={network}>
-          <div className='container mt-40'>
+          <div className='container mt-40 mb-[80px]'>
             <UnstakeStepsController network={network}/>
           </div>
         </UnstakeProvider>
