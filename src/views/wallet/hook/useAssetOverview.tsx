@@ -1,5 +1,5 @@
 import { useSubscription } from '@hooks/useSubscription';
-import { useWallet } from '@sdk';
+import { useIncentive, useWallet } from '@sdk';
 import { useHoma } from '@sdk/hooks/homa';
 import { combineLatest } from 'rxjs';
 import { useMemo, useState } from 'react';
@@ -34,6 +34,8 @@ export const useAssetOverview = () => {
   const acalaHoma = useHoma('acala');
   const [details, setDetails] = useState<StakeData[]>([]);
   const [overview, setOverview] = useState<OverviewData['overview']>();
+  const karuraIncentive = useIncentive('karura');
+  const acalaIncentive = useIncentive('acala');
 
   useSubscription(() => {
     if (!(karuraHoma?.consts && acalaHoma?.consts && karuraWallet && acalaWallet && active?.address)) return;
@@ -49,6 +51,8 @@ export const useAssetOverview = () => {
       karuraStakingPrice: karuraWallet.subscribePrice(karuraStakingToken),
       acalaLiquidTokenBalace: acalaWallet.subscribeBalance(acalaLiquidToken, address),
       karuraLiquidTokenBalance: karuraWallet.subscribeBalance(karuraLiquidToken, address),
+      karuraReward: karuraIncentive.subscribeUserIncentive(`loans-${karuraLiquidToken.name}`, active.address),
+      acalaReward: acalaIncentive.subscribeUserIncentive(`loans-${acalaLiquidToken.name}`, active.address)
     }).subscribe({
       next: ({
         acalaHomaEnv,
@@ -57,12 +61,17 @@ export const useAssetOverview = () => {
         karuraStakingPrice,
         acalaLiquidTokenBalace,
         karuraLiquidTokenBalance,
+        karuraReward,
+        acalaReward
       }) => {
         const { exchangeRate: acalaExchangeRate, apy: acalaApy } = acalaHomaEnv;
         const { exchangeRate: karuraExchangeRate, apy: karuraApy } = karuraHomaEnv;
 
         const acalaStakingAmount = acalaExchangeRate.mul(acalaLiquidTokenBalace.available);
         const karuraStakingAmount = karuraExchangeRate.mul(karuraLiquidTokenBalance.available);
+
+        const acalaRewardAmount = acalaExchangeRate.mul(acalaReward.shares);
+        const karuraRewardAmount = karuraExchangeRate.mul(karuraReward.shares);
 
         const acalaStakingValue = acalaStakingPrice.mul(acalaStakingAmount || FixedPointNumber.ZERO);
         const karuraStakingValue = karuraStakingPrice.mul(karuraStakingAmount || FixedPointNumber.ZERO);
@@ -74,7 +83,7 @@ export const useAssetOverview = () => {
           {
             chain: 'acala',
             token: acalaStakingToken,
-            amount: acalaStakingAmount,
+            amount: acalaStakingAmount.add(acalaRewardAmount),
             value: acalaStakingValue,
             apy: acalaApy,
             estEarning: acalaEstEarning,
@@ -82,7 +91,7 @@ export const useAssetOverview = () => {
           {
             chain: 'karura',
             token: karuraStakingToken,
-            amount: karuraStakingAmount,
+            amount: karuraStakingAmount.add(karuraRewardAmount),
             value: karuraStakingValue,
             apy: karuraApy,
             estEarning: karuraEstEarning,
@@ -95,7 +104,7 @@ export const useAssetOverview = () => {
         });
       },
     });
-  }, [karuraHoma, karuraHoma?.consts, acalaHoma?.consts, acalaHoma, karuraWallet, acalaWallet, active?.address]);
+  }, [karuraHoma, karuraHoma?.consts, acalaHoma?.consts, acalaHoma, karuraWallet, acalaWallet, active?.address, karuraIncentive, acalaIncentive]);
 
   return useMemo(() => ({ overview, details }), [details, overview]);
 };
