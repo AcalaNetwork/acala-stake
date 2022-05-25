@@ -49,7 +49,7 @@ export const BridgeConfirm = memo(() => {
     };
   }, [amountInputData.value, bridgeRouter.fromChain, bridgeRouter.toChain, call, token]);
 
-  const setTxHash = useCallback(() => () => setHash(call.hash.toString()), [call.hash, setHash]);
+  const setTxHash = useCallback(() => setHash(call.hash.toString()), [call.hash, setHash]);
 
   return (
     <Card className="w-[630px] px-55 py-32" variant="border">
