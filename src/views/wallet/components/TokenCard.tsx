@@ -60,7 +60,7 @@ export const TokenCard = memo<TokenCardProps>(({
         <div className='text-grey-2 flex-1 flex justify-end flex-col items-center'>
           <div className='text-18 leading-20 font-semibold'>
             {
-              rewards ? (
+              (rewards && !rewards.shares.isZero()) ? (
                 rewards.rewards.map((item) => {
                   return (
                     <div className='flex gap-4 mt-8 justify-end' key={`${item.rewardToken.symbol}`}>
