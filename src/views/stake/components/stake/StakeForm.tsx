@@ -104,14 +104,14 @@ export const StakeForm = memo(() => {
         </div>
         { stakeImmediately.value && <PlusCircleIcon height={14} width={14} />}
         <div className="border border-grey-5 rounded-36 p-10" style={{opacity: !stakeImmediately.value ? '0.3' : '1'}}>
-          Reward APY:{' '}
+          Reward APR:{' '}
           <span className=" text-acala-blue-600">
             <FormatRatio data={rewardApy} />
           </span>
         </div>
         <EqualCircleIcon />
         <div className="border border-grey-5 rounded-36 p-10">
-          Total APY:{' '}
+          Total:{' '}
           <span className=" text-acala-blue-600"><FormatRatio data={totalApy} />
           </span>
         </div>
