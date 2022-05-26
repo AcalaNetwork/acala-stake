@@ -28,8 +28,10 @@ export const useStakingOverview = (network: SDKNetwork) => {
   useEffect(() => {
     if (!env || !price) return;
 
+    const rewardsAmount = (rewards?.shares || FixedPointNumber.ZERO).times(env?.exchangeRate || FixedPointNumber.ONE);
+
     const stakedBalance = liquidBalance.mul(env.exchangeRate);
-    const estEarning = stakedBalance.add(rewards?.shares || FixedPointNumber.ZERO).mul(new FixedPointNumber(env.apy, 18));
+    const estEarning = stakedBalance.add(rewardsAmount).mul(new FixedPointNumber(env.apy, 18));
     const stakedValue = stakedBalance.mul(price);
     const estEarningValue = estEarning.mul(price);
 
