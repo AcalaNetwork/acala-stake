@@ -18,10 +18,9 @@ export const BridgeComplated = memo(() => {
     bridgeRouter,
     bridgeDestAddress,
     hash,
-    network
   } = useBridge();
 
-  const extrinsicLink = useMemo(() => `https://${network === 'acala' ? 'polkadot': 'kusama'}.subscan.io/extrinsic/${hash}`, [hash, network]);
+  const extrinsicLink = useMemo(() => `https://${bridgeRouter.fromChain}.subscan.io/extrinsic/${hash}`, [bridgeRouter.fromChain, hash]);
 
   const subscribeBalanceChanged = useCrossChainBalanceChanged(bridgeRouter.toChain);
   const [status, setStatus] = useState<BalanceChangedStatus>(BalanceChangedStatus.CHECKING);

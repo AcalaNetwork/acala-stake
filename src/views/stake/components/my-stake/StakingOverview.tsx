@@ -61,23 +61,19 @@ export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
             </div>
             <div className='text-14 leading-17'>Est. APY</div>
           </div>
-          {
-            rewards && (
-              <div className='flex flex-col items-center'>
-                <div className='text-20 leading-24 font-semibold'>
-                  {
-                    rewards.rewards.map((data) => (
-                      <div className='flex gap-4 mt-8 justify-end' key={`rewards-${data.rewardToken.symbol}`}>
-                        <FormatBalance balance={data.claimableReward} />
-                        <TokenName token={data.rewardToken} />
-                      </div>
-                    ))
-                  }
-                </div>
-                <div className='text-14 leading-17 mt-12'>Airdrop</div>
-              </div>
-            )
-          }
+          <div className='flex flex-col items-center'>
+            <div className='text-20 leading-24 font-semibold'>
+              {rewards && !data.staked.amount.isZero() ? (
+                rewards.rewards.map((data) => (
+                  <div className='flex gap-4 mt-8 justify-end' key={`rewards-${data.rewardToken.symbol}`}>
+                    <FormatBalance balance={data.claimableReward} />
+                    <TokenName token={data.rewardToken} />
+                  </div>
+                ))): 'NaN'
+              }
+            </div>
+            <div className='text-14 leading-17 mt-12'>Airdrop</div>
+          </div>
         </div>
       ) : null}
       <div className='flex flex-center gap-90 mt-33'>

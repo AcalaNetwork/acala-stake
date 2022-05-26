@@ -16,6 +16,7 @@ export interface StakeData {
   estEarning: FixedPointNumber;
   apy: number;
   airdrop?: FixedPointNumber;
+  freebalance: FixedPointNumber;
 }
 
 export interface OverviewData {
@@ -87,6 +88,7 @@ export const useAssetOverview = () => {
             value: acalaStakingValue,
             apy: acalaApy,
             estEarning: acalaEstEarning,
+            freebalance: acalaLiquidTokenBalace.free
           },
           {
             chain: 'karura',
@@ -95,6 +97,7 @@ export const useAssetOverview = () => {
             value: karuraStakingValue,
             apy: karuraApy,
             estEarning: karuraEstEarning,
+            freebalance: karuraLiquidTokenBalance.free
           },
         ]);
 
