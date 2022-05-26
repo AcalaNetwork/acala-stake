@@ -74,8 +74,11 @@ export const useAssetOverview = () => {
         const acalaRewardAmount = acalaExchangeRate.mul(acalaReward.shares);
         const karuraRewardAmount = karuraExchangeRate.mul(karuraReward.shares);
 
-        const acalaStakingValue = acalaStakingPrice.mul(acalaStakingAmount || FixedPointNumber.ZERO);
-        const karuraStakingValue = karuraStakingPrice.mul(karuraStakingAmount || FixedPointNumber.ZERO);
+        const totalAcala = acalaStakingAmount.add(acalaRewardAmount);
+        const totalKarura = karuraStakingAmount.add(karuraRewardAmount);
+
+        const acalaStakingValue = acalaStakingPrice.mul(totalAcala || FixedPointNumber.ZERO);
+        const karuraStakingValue = karuraStakingPrice.mul(totalKarura || FixedPointNumber.ZERO);
 
         const acalaEstEarning = acalaStakingValue.mul(new FixedPointNumber(acalaApy));
         const karuraEstEarning = karuraStakingValue.mul(new FixedPointNumber(karuraApy));
@@ -84,7 +87,7 @@ export const useAssetOverview = () => {
           {
             chain: 'acala',
             token: acalaStakingToken,
-            amount: acalaStakingAmount.add(acalaRewardAmount),
+            amount: totalAcala,
             value: acalaStakingValue,
             apy: acalaApy,
             estEarning: acalaEstEarning,
@@ -93,7 +96,7 @@ export const useAssetOverview = () => {
           {
             chain: 'karura',
             token: karuraStakingToken,
-            amount: karuraStakingAmount.add(karuraRewardAmount),
+            amount: totalKarura,
             value: karuraStakingValue,
             apy: karuraApy,
             estEarning: karuraEstEarning,

@@ -21,7 +21,6 @@ export const TokenCard = memo<TokenCardProps>(({
   apy,
   chain,
   className,
-  freebalance
 }) => {
   const { type } = useBalanceDisplayType();
   const visiable = useBalanceVisible();
@@ -61,7 +60,7 @@ export const TokenCard = memo<TokenCardProps>(({
         <div className='text-grey-2 flex-1 flex justify-end flex-col items-center'>
           <div className='text-18 leading-20 font-semibold'>
             {
-              rewards && !freebalance.isZero() ? (
+              rewards ? (
                 rewards.rewards.map((item) => {
                   return (
                     <div className='flex gap-4 mt-8 justify-end' key={`${item.rewardToken.symbol}`}>
@@ -73,7 +72,7 @@ export const TokenCard = memo<TokenCardProps>(({
               ) : 'NaN'
             }
           </div>
-          <div className='text-14 leading-17 mt-8'>Airdrop</div>
+          <div className='text-14 leading-17 mt-8'>Rewards</div>
         </div>
       </div>
       <div className='mt-[33px] flex flex-between'>
@@ -90,7 +89,7 @@ export const TokenCard = memo<TokenCardProps>(({
         <Button className='w-[218px] h-40 py-0 text-14' onClick={() => openCliam({ network: chain, token: liquidToken })}
           round='lg'
           size='sm'>
-          Claim Airdrop
+          Claim Rewards
         </Button>
         <LinkButton className='w-[218px] h-40 py-0 text-14' href={`stake/${chain}/user`}
           round='lg'

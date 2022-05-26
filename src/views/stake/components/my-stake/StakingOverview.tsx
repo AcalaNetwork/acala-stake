@@ -12,6 +12,7 @@ import { TokenName } from '@components/TokenName';
 import { useUserLoanIncentive, usePresetTokens } from '@sdk';
 import { ClaimLoanIncentiveRewards } from 'modals/ClaimLoanIncentiveRewards';
 import { ModalType, useModal } from '@state';
+import { FixedPointNumber } from '@acala-network/sdk-core';
 
 interface StakingOverviewProps {
   network: SDKNetwork;
@@ -36,6 +37,7 @@ export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
               <FormatValue data={data.stakedValue} />
             </div>
             <div className='text-14 leading-17 mb-8 flex'>Total Staked</div>
+            <div className='text-12 leading-17 text-grey-3'><FormatBalance balance={rewards?.shares || FixedPointNumber.ZERO} human /> {liquidToken.display} in Collateral</div>
           </div>
           <div className='flex flex-col items-center'>
             <div className='text-20 leading-24 font-semibold flex gap-10'>
@@ -63,7 +65,7 @@ export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
           </div>
           <div className='flex flex-col items-center'>
             <div className='text-20 leading-24 font-semibold'>
-              {rewards && !data.staked.amount.isZero() ? (
+              {rewards ? (
                 rewards.rewards.map((data) => (
                   <div className='flex gap-4 mt-8 justify-end' key={`rewards-${data.rewardToken.symbol}`}>
                     <FormatBalance balance={data.claimableReward} />
@@ -72,7 +74,7 @@ export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
                 ))): 'NaN'
               }
             </div>
-            <div className='text-14 leading-17 mt-12'>Airdrop</div>
+            <div className='text-14 leading-17 mt-12'>Rewards</div>
           </div>
         </div>
       ) : null}
@@ -87,7 +89,7 @@ export const StakingOverview = memo<StakingOverviewProps>(({ network }) => {
         </LinkButton>
         <Button className="w-[200px]" onClick={openClaim}
           size="sm">
-          Claim Airdrop
+          Claim Rewards
         </Button>
       </div>
       <ClaimLoanIncentiveRewards
