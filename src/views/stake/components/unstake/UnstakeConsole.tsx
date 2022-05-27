@@ -1,6 +1,6 @@
 import { BaseComponentProps, InfoBox } from '@components';
 import { InformationCircleIcon } from '@heroicons/react/outline';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Card } from '@components/Card';
 import {
   BalanceInput,
@@ -30,7 +30,7 @@ interface UnstakeConsoleProps extends BaseComponentProps {
 
 export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
   const conts = useHomaConts(network);
-  const { setStep } = useUnstake();
+  const { setStep, setHash } = useUnstake();
   const { liquidToken, stakingToken } = conts;
   const { amount, onAmountChange, amountError, onMaxAmount, maxAmount, isFastRedeem, setIsFastRedeem } =
     useUnstakeForm(network);
@@ -41,6 +41,11 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
     isFastRedeem,
   });
 
+  const handleSuccess = useCallback(() => {
+    setHash(call?.hash.toString() || '');
+    setStep(1);
+  }, [call, setHash, setStep]);
+
   return (
     <Card className='pt-40 pb-[111px] w-full' variant='border'>
       <div className='w-[630px] mx-auto border border-grey-66 rounded-[24px] px-[55px] py-32'>
@@ -48,9 +53,9 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
           <InfoBox className='mb-44'>
             <InformationCircleIcon className='h-26 w-26 text-primary mr-18' />
             <div className='flex-1 text-14 leading-20 text-grey-2'>
-              <div>
-                Queued Unstake Request:
-                {formatBalance(requesting.amount)} <TokenName className='text-grey-1' token={liquidToken} />
+              <div className='flex'>
+                Queued Unstake Request:{' '}
+                {formatBalance(requesting.amount)}{' '}<TokenName className='text-grey-1' token={liquidToken} />
               </div>
               <div>New Unstake Request will replace currently queued request</div>
             </div>
@@ -138,7 +143,7 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
           <div>
             <TxButton call={call} className='h-48 w-full font-medium'
               network={network}
-              onSuccess={() => setStep(1)}>
+              onSuccess={handleSuccess}>
               Unstake
             </TxButton>
           </div>
