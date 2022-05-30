@@ -83,7 +83,7 @@ function calculateRedeem(
     unstakeFee: redeemResult.fee,
     params: {
       network,
-      method: 'batch',
+      method: 'batchAll',
       section: 'utility',
       params: [
         [api.tx.homa.requestRedeem(redeemResult.request.toChainData(), true), api.tx.homa.fastMatchRedeemsCompletely([current])],
