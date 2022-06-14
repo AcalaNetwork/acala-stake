@@ -2,12 +2,14 @@ import React, { useMemo } from 'react';
 import { useExtension } from '@connector';
 import { ModalType, useModal } from '@state';
 import { InjectedAccount } from '@polkadot/extension-inject/types';
-import { Address, Selector, AddressAvatar, Modal, ModalHeader } from '@components';
+import { Address, Selector, AddressAvatar, Modal, ModalHeader, TokenImage } from '@components';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/solid';
 import CopyIcon from '/public/icons/copy.svg';
 import LinkIcon from '/public/images/link.svg';
 import { Copy } from '../components/Copy';
 import { memo } from 'react';
+import { format } from '@utils';
+import { useBalance, usePresetTokens } from '@sdk';
 
 const btnRender = (active: InjectedAccount) => {
   return (
@@ -16,7 +18,7 @@ const btnRender = (active: InjectedAccount) => {
         <AddressAvatar address={active?.address} className='w-40 h-40 bg-[#E5EBF1]'
           size={40} />
         <div className='ml-22'>
-          <span className='text-20 leading-[24px] font-medium text-333'>{active?.name}</span>
+          <div className='text-20 leading-[24px] font-medium text-333 max-w-[320px] truncate'>{active?.name}</div>
           <Address address={active?.address} className='text-14 leading-17 text-grey-2 mt-8' />
         </div>
       </div>
@@ -25,23 +27,44 @@ const btnRender = (active: InjectedAccount) => {
   );
 };
 
-const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => (
-  <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
-    <div className='flex flex-center'>
-      <AddressAvatar address={value.address} className='w-20 h-20 bg-[#E5EBF1]'
-        size={20} />
-      <div className='ml-8 text-16 font-medium text-333'>{value.name}</div>
+const ItemRender = (value: InjectedAccount, selected: InjectedAccount) => {
+  const kTokens = usePresetTokens('karura');
+  const aTokens = usePresetTokens('acala');
+  const dotBalance = useBalance('acala', value.address, aTokens?.stakingToken, 'free');
+  const ksmBalance = useBalance('karura', value.address, kTokens?.stakingToken, 'free');
+
+  return (
+    <div className='py-12 px-8 rounded-8 flex flex-between hover:bg-fff'>
+      <div className='flex flex-center w-[120px]'>
+        <AddressAvatar address={value.address} className='w-20 h-20 bg-[#E5EBF1]'
+          size={20} />
+        <div className='ml-8 text-16 font-medium text-333 max-w-[100px] truncate'>{value.name}</div>
+      </div>
+      <div>
+        <div className='text-12 flex-1'>
+          <div className='flex flex-between w-50'>
+            <TokenImage size={12} token={aTokens?.stakingToken.name} />
+            {format(dotBalance.toString(), 2)}
+          </div>
+        </div>
+        <div className='text-12 flex-1'>
+          <div className='flex flex-between w-50'>
+            <TokenImage size={12} token={kTokens?.stakingToken.name} />
+            {format(ksmBalance.toString(), 2)}
+          </div>
+        </div>
+      </div>
+      <div className='flex flex-center gap-10 w-[150px]'>
+        <Address address={value.address} className='text-14 leading-17 text-grey-2' />
+        {selected && selected.address === value.address ? (
+          <CheckIcon aria-hidden='true' className='h-[20px] w-[20px] text-primary' />
+        ) : (
+          <div className='h-[20px] w-[20px]'></div>
+        )}
+      </div>
     </div>
-    <div className='flex flex-center gap-10'>
-      <Address address={value.address} className='text-14 leading-17 text-grey-2' />
-      {selected && selected.address === value.address ? (
-        <CheckIcon aria-hidden='true' className='h-[20px] w-[20px] text-primary' />
-      ) : (
-        <div className='h-[20px] w-[20px]'></div>
-      )}
-    </div>
-  </div>
-);
+  );
+};
 
 export const SelectActiveAccount = memo(() => {
   const { visible, close } = useModal(ModalType.SelectAccount);
@@ -74,6 +97,7 @@ export const SelectActiveAccount = memo(() => {
       <div className='px-40 pt-32 w-full'>
         <Selector
           items={items}
+          listClassName='max-h-[150px]  overflow-y-auto'
           onChange={handleChange}
           render={btnRender}
           rootClassName='border border-grey-5 rounded-16 h-[80px] relative'

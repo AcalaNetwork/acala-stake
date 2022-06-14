@@ -29,7 +29,7 @@ export const Stake = memo(() => {
       ]}>
         <StakeTopBoard network={network} />
         <StakeSubPageTabs active={0} network={network} />
-        <div className='container mt-40'>
+        <div className='container mt-40 mb-[80px]'>
           { active && <BalanceOverview className='mb-36' network={network} />}
           <StakeProvider network={network}>
             <Card className='pb-38 pt-52' variant='gradient-border'>

@@ -17,6 +17,7 @@ export interface UseBridgeContextConfigs {
 
 export const useBridgeContext = ({ network, onBackInForm, onComplated }: UseBridgeContextConfigs) => {
   const [step, setStep] = useState<BridgeSteps>(BridgeSteps.FORM);
+  const [hash, setHash] = useState<string>('');
   const conts = useHomaConts(network);
   const { stakingToken } = conts;
   const active = useActiveAccount();
@@ -48,8 +49,11 @@ export const useBridgeContext = ({ network, onBackInForm, onComplated }: UseBrid
       bridgeDestAddress,
       onBackInForm,
       onComplated,
+      hash,
+      setHash,
+      network
     }),
-    [step, stakingToken, bridgeRouter, bridgeAmountInput, bridgeDestAddress, onBackInForm, onComplated]
+    [step, stakingToken, bridgeRouter, bridgeAmountInput, bridgeDestAddress, onBackInForm, onComplated, hash, network]
   );
 };
 

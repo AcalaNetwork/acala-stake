@@ -6,7 +6,7 @@ import { SDKNetwork } from '../../../sdk/types';
 export const useRewardsCalculator = (type: SDKNetwork) => {
   const apy = useHomaAPY(type);
   const { value: amount, onChange } = useInput({
-    init: '0',
+    init: '100',
     type: 'number',
     rules: [{
       type: 'number',

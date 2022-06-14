@@ -5,7 +5,8 @@ import { SDKNetwork } from '@sdk/types';
 import { useBalanceOverview } from './useBalanceOverview';
 import { useEffect } from 'react';
 import { TokenAmount } from '@connector/types';
-import { usePrice } from '@sdk';
+import { usePrice, useUserLoanIncentive } from '@sdk';
+import { UserIncentivePool } from '@acala-network/sdk/incentive/types';
 
 export interface StakingOverview {
   staked: TokenAmount;
@@ -14,19 +15,23 @@ export interface StakingOverview {
   estEarningValue: FixedPointNumber;
   apy: number;
   airdrop: TokenAmount;
+  rewards: UserIncentivePool
 }
 
 export const useStakingOverview = (network: SDKNetwork) => {
-  const { liquidBalance, stakingToken } = useBalanceOverview(network);
+  const { liquidBalance, stakingToken, liquidToken } = useBalanceOverview(network);
   const env = useHomaEnv(network);
   const [result, setResult] = useState<StakingOverview>();
   const price = usePrice(network, stakingToken);
+  const rewards = useUserLoanIncentive(network, liquidToken);
 
   useEffect(() => {
     if (!env || !price) return;
 
+    const rewardsAmount = (rewards?.shares || FixedPointNumber.ZERO).times(env?.exchangeRate || FixedPointNumber.ONE);
+
     const stakedBalance = liquidBalance.mul(env.exchangeRate);
-    const estEarning = stakedBalance.mul(new FixedPointNumber(env.apy, 18));
+    const estEarning = stakedBalance.add(rewardsAmount).mul(new FixedPointNumber(env.apy, 18));
     const stakedValue = stakedBalance.mul(price);
     const estEarningValue = estEarning.mul(price);
 
@@ -46,8 +51,9 @@ export const useStakingOverview = (network: SDKNetwork) => {
         token: stakingToken,
         amount: estEarning,
       },
+      rewards
     });
-  }, [env, liquidBalance, price, stakingToken]);
+  }, [env, liquidBalance, price, rewards, stakingToken]);
 
   return result;
 };

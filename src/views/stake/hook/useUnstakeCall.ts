@@ -9,8 +9,8 @@ import { useSwap } from '@sdk';
 import { useHoma } from '@sdk/hooks/homa';
 import { SDKNetwork } from '@sdk/types';
 import { useCallback, useMemo, useState } from 'react';
-import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 interface Configs {
   network: SDKNetwork;
@@ -54,7 +54,7 @@ function calculateRedeem(
     };
   }
 
-  const receiveFromSwap = swapResult.output.balance.mul(DEFAULT_SWAP_SLIPPAGE);
+  const receiveFromSwap = swapResult?.output.balance.mul(DEFAULT_SWAP_SLIPPAGE) || FixedPointNumber.ZERO;
   const receiveFromFastRedeem = redeemResult.receive;
 
   if (receiveFromSwap.gt(receiveFromFastRedeem)) {
@@ -107,7 +107,7 @@ export const useUnstakeCall = ({ network, amount, isFastRedeem }: Configs): Rede
     const fixedAmount = new FixedPointNumber(amount, liquidToken.decimals);
 
     return combineLatest({
-      swap: swap.swap([liquidToken, stakingToken], fixedAmount, 'EXACT_INPUT'),
+      swap: swap.swap([liquidToken, stakingToken], fixedAmount, 'EXACT_INPUT').pipe(catchError(() => of(undefined))),
       redeem: homa.subscribeEstimateRedeemResult(fixedAmount, isFastRedeem),
     })
       .pipe(map(({ redeem, swap }) => calculateRedeem(network, api, current.address, swap, redeem, isFastRedeem)))

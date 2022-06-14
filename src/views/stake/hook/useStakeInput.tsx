@@ -20,7 +20,7 @@ export const useStakeInput = ({ network, stakingToken }: UseStakeInputConfigs) =
     type: 'number',
     rules: [{
       type: 'number',
-      max: balance?.toNumber() || Number.MAX_SAFE_INTEGER,
+      max: balance?.toNumber() || 0,
       min: env?.mintThreshold.toNumber(),
     }]
   });

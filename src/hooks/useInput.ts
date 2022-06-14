@@ -113,8 +113,6 @@ export const useInput = (originConfigs: UseInputConfigs) => {
       return Promise.resolve(true);
     } catch (e) {
       setError(e.message || e);
-
-      return Promise.reject(e.message || e);
     }
 
   }, [configs]);

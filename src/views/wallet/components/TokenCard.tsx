@@ -72,7 +72,7 @@ export const TokenCard = memo<TokenCardProps>(({
               ) : 'NaN'
             }
           </div>
-          <div className='text-14 leading-17 mt-8'>Airdrop</div>
+          <div className='text-14 leading-17 mt-8'>Rewards</div>
         </div>
       </div>
       <div className='mt-[33px] flex flex-between'>
@@ -89,7 +89,7 @@ export const TokenCard = memo<TokenCardProps>(({
         <Button className='w-[218px] h-40 py-0 text-14' onClick={() => openCliam({ network: chain, token: liquidToken })}
           round='lg'
           size='sm'>
-          Claim Airdrop
+          Claim Rewards
         </Button>
         <LinkButton className='w-[218px] h-40 py-0 text-14' href={`stake/${chain}/user`}
           round='lg'

@@ -19,7 +19,7 @@ export const Address: FC<AddressProps> = ({
   className,
   mini = true,
   name,
-  ss58 = defaults.prefix,
+  ss58 = 10,
   showBoth = false,
   nameClassName,
   addressClassName,

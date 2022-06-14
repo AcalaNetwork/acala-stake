@@ -19,6 +19,7 @@ export const BridgeConfirm = memo(() => {
     bridgeAmountInput,
     bridgeRouter,
     bridgeDestAddress,
+    setHash
   } = useBridge();
   const [amountInputData, amountInputConfigs] = bridgeAmountInput;
   const handlePrev = useCallback(() => {
@@ -31,19 +32,24 @@ export const BridgeConfirm = memo(() => {
 
   const createTx = useCreateCrossChainTx(bridgeRouter.fromChain);
 
+  const call = useMemo(() => {
+    return createTx({
+      token: token.symbol,
+      to: bridgeRouter.toChain,
+      amount: new FixedPointNumber(amountInputData.value, amountInputConfigs.decimals),
+      address: bridgeDestAddress.value
+    });
+  }, [amountInputConfigs.decimals, amountInputData.value, bridgeDestAddress.value, bridgeRouter.toChain, createTx, token.symbol]);
+
   const params = useMemo(() => {
     return {
       network: bridgeRouter.fromChain as ConnectedNetworks,
       message: `Transfer ${formatBalance(amountInputData.value)} ${getTokenName(token)} from ${getNetworkName(bridgeRouter.fromChain)} to ${getNetworkName(bridgeRouter.toChain)}`,
-      call: createTx({
-        token: token.symbol,
-        to: bridgeRouter.toChain,
-        amount: new FixedPointNumber(amountInputData.value, amountInputConfigs.decimals),
-        address: bridgeDestAddress.value
-      })
+      call: call
     };
-  }, [amountInputConfigs.decimals, amountInputData.value, bridgeDestAddress.value, bridgeRouter.fromChain, bridgeRouter.toChain, createTx, token]);
+  }, [amountInputData.value, bridgeRouter.fromChain, bridgeRouter.toChain, call, token]);
 
+  const setTxHash = useCallback(() => setHash(call.hash.toString()), [call.hash, setHash]);
 
   return (
     <Card className="w-[630px] px-55 py-32" variant="border">
@@ -107,6 +113,7 @@ export const BridgeConfirm = memo(() => {
           className='flex-1'
           color='primary'
           onSend={handleNext}
+          onSuccess={setTxHash}
           variant='filled'
         >
           Next

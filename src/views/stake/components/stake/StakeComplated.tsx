@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Button } from "@components/Button";
 import { Card } from "@components/Card";
 import { useStake } from "./StakeProvider";
@@ -7,7 +7,9 @@ import { useStake } from "./StakeProvider";
 import Success from "/public/images/result-success.svg";
 
 export const StakeComplated = memo(() => {
-  const {  network } = useStake();
+  const { network, hash } = useStake();
+
+  const extrinsicLink = useMemo(() => `https://${network === 'acala' ? 'acala': 'karura'}.subscan.io/extrinsic/${hash}`, [hash, network]);
 
   return (
     <>
@@ -21,10 +23,8 @@ export const StakeComplated = memo(() => {
         </div>
         <div className="flex gap-40 mt-24">
           <Button className="pt-0 font-normal" variant="text">
-            See Bridge Transaction
-          </Button>
-          <Button className="pt-0 font-normal" variant="text">
-            See Stake Transaction
+            <a href={extrinsicLink} rel="noreferrer"
+              target={'_blank'}>View Transaction</a>
           </Button>
         </div>
         <div className="mt-40">

@@ -14,7 +14,7 @@ export const Bridge = memo(() => {
     <StakeLayout>
       <EnsureSDKReady requires={['acala-wallet', 'karura-wallet', 'acala-homa', 'karura-homa', 'crosschain']}>
         <BridgeTopBoard network={network} />
-        <div className='container mt-[39px]'>
+        <div className='container mt-40 mb-[80px]'>
           <BridgeConsole network={network} />
         </div>
       </EnsureSDKReady>

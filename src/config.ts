@@ -2,7 +2,7 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 const acalaEndpoints = isDevelopment
   ? {
-    Mandala: 'wss://acala-rpc-1.aca-api.network',
+    Mandala: 'wss://acala-polkadot.api.onfinality.io/public-ws',
   }
   : {
     'Host By Onfinality': 'wss://acala-polkadot.api.onfinality.io/public-ws',

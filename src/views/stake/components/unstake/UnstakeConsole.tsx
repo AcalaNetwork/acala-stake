@@ -1,6 +1,6 @@
 import { BaseComponentProps, InfoBox } from '@components';
 import { InformationCircleIcon } from '@heroicons/react/outline';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Card } from '@components/Card';
 import {
   BalanceInput,
@@ -19,9 +19,10 @@ import { SDKNetwork } from '@sdk/types';
 import { useHomaConts } from '@sdk/hooks/homa';
 import { useUnstakeForm } from '../../hook/useUnstakeForm';
 import { useUnstakeOverview } from '@views/stake/hook/useUnstakeOverview';
-import { formatBalance, getNetworkName, getTokenName } from '@utils';
+import { formatBalance } from '@utils';
 import { TokenName } from '@components/TokenName';
 import { useUnstakeCall } from '@views/stake/hook/useUnstakeCall';
+import { useUnstake } from './UnstakeProvider';
 
 interface UnstakeConsoleProps extends BaseComponentProps {
   network: SDKNetwork;
@@ -29,6 +30,7 @@ interface UnstakeConsoleProps extends BaseComponentProps {
 
 export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
   const conts = useHomaConts(network);
+  const { setStep, setHash } = useUnstake();
   const { liquidToken, stakingToken } = conts;
   const { amount, onAmountChange, amountError, onMaxAmount, maxAmount, isFastRedeem, setIsFastRedeem } =
     useUnstakeForm(network);
@@ -39,6 +41,11 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
     isFastRedeem,
   });
 
+  const handleSuccess = useCallback(() => {
+    setHash(call?.hash.toString() || '');
+    setStep(1);
+  }, [call, setHash, setStep]);
+
   return (
     <Card className='pt-40 pb-[111px] w-full' variant='border'>
       <div className='w-[630px] mx-auto border border-grey-66 rounded-[24px] px-[55px] py-32'>
@@ -46,9 +53,9 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
           <InfoBox className='mb-44'>
             <InformationCircleIcon className='h-26 w-26 text-primary mr-18' />
             <div className='flex-1 text-14 leading-20 text-grey-2'>
-              <div>
-                Queued Unstake Request:
-                {formatBalance(requesting.amount)} <TokenName className='text-grey-1' token={liquidToken} />
+              <div className='flex'>
+                Queued Unstake Request:{' '}
+                {formatBalance(requesting.amount)}{' '}<TokenName className='text-grey-1' token={liquidToken} />
               </div>
               <div>New Unstake Request will replace currently queued request</div>
             </div>
@@ -122,10 +129,8 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
                   <div className='p-16 w-[280px]'>
                     <div className='text-center text-20 font-medium text-grey-1'>Unstake Instantly</div>
                     <div className='mt-20 text-16 leading-20 text-grey-2'>
-                      Unstake Instantly will fastRedeem {getTokenName(stakingToken)} from the toBond pool&apos;s staking
-                      queue has enough {getTokenName(stakingToken)} , otherwise it will swap {getTokenName(liquidToken)}{' '}
-                      to {getTokenName(stakingToken)} with {getNetworkName(network)} Dex Swap. Fees and slippage
-                      incurred will be included in the redemption fee.
+                      Unstake Instantly is a feature enable immediate redeem, which would normally be 28 days on Polkadot, and 7 days on Kusama.
+                      A fee is associated to enable the immediate redeem, and simply toggle the Unstake Instantly off will revert back to normal unstake period for Polkadot, and Kusama with out the fee.
                     </div>
                   </div>
                 }
@@ -137,7 +142,8 @@ export const UnstakeConsole = memo<UnstakeConsoleProps>(({ network }) => {
         >
           <div>
             <TxButton call={call} className='h-48 w-full font-medium'
-              network={network}>
+              network={network}
+              onSuccess={handleSuccess}>
               Unstake
             </TxButton>
           </div>

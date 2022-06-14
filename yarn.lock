@@ -5,32 +5,32 @@ __metadata:
   version: 4
   cacheKey: 8
 
-"@acala-network/api-derive@npm:4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/api-derive@npm:4.1.2-14"
+"@acala-network/api-derive@npm:4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/api-derive@npm:4.1.4-1"
   dependencies:
-    "@acala-network/types": 4.1.2-14
+    "@acala-network/types": 4.1.4-1
     "@babel/runtime": ^7.10.2
     "@open-web3/orml-types": ^1.1.4
-    "@polkadot/api-derive": ^7.1.1
-  checksum: 1a9438202de0ea92cec22ae794011f8617c2e94a305c1bc635e3a7313aebf7b7b6c6dc4b4b87211f1590aacc41d5c1cb39a8f2e25c173f75a12347bfa97ce959
+    "@polkadot/api-derive": ^8.5.1
+  checksum: dffafd822f97943620c3f8afe7efd7533117974e95c4ad15f3c9ec2878891473e36a272a1fb2952fbd9b6eaec04f9e3a6acb19f2caba18eb2e0f708a3597c4de
   languageName: node
   linkType: hard
 
-"@acala-network/api@npm:4.1.2-14, @acala-network/api@npm:^4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/api@npm:4.1.2-14"
+"@acala-network/api@npm:4.1.4-1, @acala-network/api@npm:^4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/api@npm:4.1.4-1"
   dependencies:
-    "@acala-network/api-derive": 4.1.2-14
-    "@acala-network/types": 4.1.2-14
+    "@acala-network/api-derive": 4.1.4-1
+    "@acala-network/types": 4.1.4-1
     "@babel/runtime": ^7.10.2
     "@open-web3/orml-api-derive": ^1.1.4
-    "@polkadot/api": ^7.1.1
-    "@polkadot/rpc-core": ^7.1.1
+    "@polkadot/api": ^8.5.1
+    "@polkadot/rpc-core": ^8.5.1
   peerDependencies:
-    "@polkadot/api": ^7.1.1
-    "@polkadot/types": ^7.1.1
-  checksum: 0458c10fd5d971ce39205fc445d0308de5350b2043ccbc107d9677803d079f245550587e48c8e4668ce45af10da4e951e3ae9a25e78c2d69f1322b82b3ac7f68
+    "@polkadot/api": ^8.5.1
+    "@polkadot/types": ^8.5.1
+  checksum: d78208b388ae5463e01502ea7cf162048eb171e45cf593dacf9797a430c33c43604ed1ecdd5d5ce7aeeda93c2b0d2ffc4a7f490c41a00327af10769b01f1fb7c
   languageName: node
   linkType: hard
 
@@ -125,41 +125,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@acala-network/sdk-core@npm:^4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/sdk-core@npm:4.1.2-14"
+"@acala-network/sdk-core@npm:^4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/sdk-core@npm:4.1.4-1"
   dependencies:
-    "@polkadot/api": ^7.1.1
-    "@polkadot/types": ^7.1.1
+    "@polkadot/api": ^8.5.1
+    "@polkadot/types": ^8.5.1
     "@types/events": ^3.0.0
     bignumber.js: ^9.0.0
     events: ^3.2.0
     lodash: ^4.17.20
-  checksum: c076f3963dad44af414a7bc543950e81364adb429147d533da7541c431f772ba8d8ee91d8aef773a5e09dd654e1ffaa40a0ffc922147e104677934657550579f
+  checksum: 884183ab0d2e85d0c57f4d367d8a80ca23f210f0a645f4f54f3a6614ea96a4acb4404c6ca2ddf45ea2e76464611ff63a02cf6361dc7d955302c7bea9c45718be
   languageName: node
   linkType: hard
 
-"@acala-network/sdk-swap@npm:^4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/sdk-swap@npm:4.1.2-14"
+"@acala-network/sdk-swap@npm:^4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/sdk-swap@npm:4.1.4-1"
   dependencies:
-    "@polkadot/api": ^7.1.1
-    "@polkadot/types": ^7.1.1
+    "@polkadot/api": ^8.5.1
+    "@polkadot/types": ^8.5.1
     lodash: ^4.17.20
     rxjs: ^7.4.0
-  checksum: de54fe602371ba01735ad8ca1b754514177f15a4affde7c149819c80822324479f86d589f76dab990254bfaad22cfd3baaf536fc02827b320714dcf15ffb53ea
+  checksum: eecb77e479935ebfad8cfe6b5dbf9c7dd2af8536244d0129ca4596da13f901c77f09e2af0aed13ae7e53b3a63bd858941da26c5b90fc8d9d8b2adef26d50b897
   languageName: node
   linkType: hard
 
-"@acala-network/sdk@npm:^4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/sdk@npm:4.1.2-14"
+"@acala-network/sdk@npm:^4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/sdk@npm:4.1.4-1"
   dependencies:
-    "@acala-network/api": 4.1.2-14
+    "@acala-network/api": 4.1.4-1
     "@acala-network/bodhi": ^2.4.0
-    "@acala-network/type-definitions": 4.1.2-14
-    "@polkadot/api": ^7.1.1
-    "@polkadot/types": ^7.1.1
+    "@acala-network/type-definitions": 4.1.4-1
+    "@polkadot/api": ^8.5.1
+    "@polkadot/types": ^8.5.1
     "@types/events": ^3.0.0
     axios: ^0.24.0
     bignumber.js: ^9.0.0
@@ -170,16 +170,16 @@ __metadata:
     graphql-request: ^4.1.0
     lodash: ^4.17.20
     rxjs: ^7.4.0
-  checksum: b9840cd01f2693388c3e87a7d627fed51b767c4d4f12d377121e27b5711308bc44f13a4df04ff271a66de57599e0d8e1778b4e33617ba3be762a31d6f4afa5ce
+  checksum: 58b42d6ebffbfffeaadca310890f590213c1cc5e8c2506c405c3cac7f3b290dada68392a5519afc7fbcc17d2f3fcbdddf4a33ffedaba0af10a4ae0b0b1d32f21
   languageName: node
   linkType: hard
 
-"@acala-network/type-definitions@npm:4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/type-definitions@npm:4.1.2-14"
+"@acala-network/type-definitions@npm:4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/type-definitions@npm:4.1.4-1"
   dependencies:
     "@open-web3/orml-type-definitions": ^1.1.4
-  checksum: fbc8dbbcf9630caac6d0508667e94756eb9e66afab77f75f9f4ea44d02c8a71e3ab2c62a8334b3971ef3c22c9dcbe8e9150e75706e9158af74eb37248512ff69
+  checksum: 8a4ef8718fabb5f8f3ac8a7dcea0a965d753ecd4e8a6f6547878c1f890fc76869dae99916734ba4a027cfe34b7a45b08e79ad48eeb6f23a8e755c217dffe9839
   languageName: node
   linkType: hard
 
@@ -192,17 +192,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@acala-network/types@npm:4.1.2-14":
-  version: 4.1.2-14
-  resolution: "@acala-network/types@npm:4.1.2-14"
+"@acala-network/types@npm:4.1.4-1":
+  version: 4.1.4-1
+  resolution: "@acala-network/types@npm:4.1.4-1"
   dependencies:
-    "@acala-network/type-definitions": 4.1.2-14
+    "@acala-network/type-definitions": 4.1.4-1
     "@babel/runtime": ^7.10.2
     "@open-web3/api-mobx": ^1.1.4
     "@open-web3/orml-types": ^1.1.4
   peerDependencies:
-    "@polkadot/api": ">7.1.1"
-  checksum: b4ebdb68db3ea73754db3b11ea8e4b81782634fcead44d279b426d98e306a8ec293f6b5a8035fd3bbc52acb073afdc1dbd98a947a2cd614c39ed10c56a7de546
+    "@polkadot/api": ">8.5.1"
+  checksum: 3c09cd9a2ee78febc3968d4160392ddf731c11e03bfd329412699c7c593be2152d5f169e420be6609cbbf0e9cdec6509a5e404e96c42c0ec77545134463a50c5
   languageName: node
   linkType: hard
 
@@ -8119,10 +8119,10 @@ resolve@^2.0.0-next.3:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@acala-network/api": ^4.1.2-14
-    "@acala-network/sdk": ^4.1.2-14
-    "@acala-network/sdk-core": ^4.1.2-14
-    "@acala-network/sdk-swap": ^4.1.2-14
+    "@acala-network/api": ^4.1.4-1
+    "@acala-network/sdk": ^4.1.4-1
+    "@acala-network/sdk-core": ^4.1.4-1
+    "@acala-network/sdk-swap": ^4.1.4-1
     "@headlessui/react": ^1.4.2
     "@heroicons/react": ^1.0.5
     "@polkadot/api": ^7.1.1

@@ -16,7 +16,7 @@ export const TxNotifications = () => {
           duration: null,
           icon: <Loading />,
           key: item.trackId,
-          message: 'waiting signed',
+          message: 'wait signed',
           /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
           title: item.message || `${item.call.method.method}-${item.call.method.section}`,
         });

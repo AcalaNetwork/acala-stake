@@ -17,6 +17,8 @@ interface StakeContextData {
   stakingInput: StakingInputData;
   stakeImmediately: ReturnType<typeof useBoolean>;
   callData: StakeCallData;
+  hash: string;
+  setHash: (value: string) => void;
 }
 
 export const StakeContext = createContext<StakeContextData>({} as StakeContextData);
@@ -26,7 +28,8 @@ export const StakeProvider = memo<PropsWithChildren<{ network: SDKNetwork }>>(({
   const conts = useHomaConts(network);
   const { stakingToken, liquidToken } = conts;
   const stakingInput = useStakeInput({ network, stakingToken });
-  const stakeImmediately = useBoolean(false);
+  const [hash, setHash] = useState<string>('');
+  const stakeImmediately = useBoolean(true);
   const callData = useStakeCall({
     network,
     amount: stakingInput?.inputProps?.value?.toString(),
@@ -43,8 +46,10 @@ export const StakeProvider = memo<PropsWithChildren<{ network: SDKNetwork }>>(({
     setStep,
     stakingInput,
     stakeImmediately,
-    callData
-  }), [stakingToken, liquidToken, network, step, stakingInput, stakeImmediately, callData]);
+    callData,
+    hash,
+    setHash
+  }), [stakingToken, liquidToken, network, step, stakingInput, stakeImmediately, callData, hash]);
 
   return (
     <StakeContext.Provider
