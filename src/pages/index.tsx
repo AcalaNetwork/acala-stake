@@ -1,3 +1,3 @@
-import { Home } from '../views/home';
+import { Bridge } from '@views/bridge';
 
-export default Home;
+export default Bridge;

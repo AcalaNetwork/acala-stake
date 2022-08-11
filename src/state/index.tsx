@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { applicationReducer } from './application/reducers';
+import { application } from './application/slice';
 
 const rootPersistConfig = {
   key: 'root',
@@ -17,7 +17,7 @@ const applicationPersistConfig = {
 };
 
 const reducers = combineReducers({
-  application: persistReducer(applicationPersistConfig, applicationReducer),
+  application: persistReducer(applicationPersistConfig, application.reducer),
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, reducers);
@@ -33,10 +33,9 @@ export const store = configureStore({
 
 export const persistor = persistStore(store);
 
-export type StoreState = ReturnType<typeof store.getState>;
+export type AppState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-export type StoreDispatch = typeof store.dispatch;
-
-// reExport all usefull hooks and components
+export * from './hooks';
 export * from './application/hooks';
 export * from './application/types';

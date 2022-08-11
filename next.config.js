@@ -5,11 +5,22 @@ module.exports = {
     ]
   },
   webpack(config) {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      'fs': false
+    };
+
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true
+    };
+
     config.module.rules.push({
       test: /\.mjs$/,
       include: /node_modules/,
       type: "javascript/auto",
     });
+
     config.module.rules.push({
       test: /\.svg$/,
       use: [

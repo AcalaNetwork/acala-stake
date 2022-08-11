@@ -12,7 +12,6 @@ import { AddressAvatar } from '../AddressAvatar';
 interface WalletProps {
   className?: string;
   isConnected?: boolean;
-  isStake?: boolean;
 }
 
 const ConnectBtn: FC<{ className: string }> = memo(({ className }) => {
@@ -28,13 +27,10 @@ const ConnectBtn: FC<{ className: string }> = memo(({ className }) => {
   );
 });
 
-const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className, isStake }) => {
+const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className }) => {
   const ss58 = useSS58();
   const active = useActiveAccount();
   const { open: openSelectAccountModal } = useModal(ModalType.SelectAccount);
-  const router = useRouter();
-
-  const toWalletPage = useCallback(() => router.push(isStake ? '/stake/wallet' : '/wallet'), [isStake, router]);
 
   if (!active) return null;
 
@@ -42,7 +38,6 @@ const Connected: FC<Omit<WalletProps, 'isConnected'>> = memo(({ className, isSta
     <div className={`flex items-stretch font-medium ${className}`}>
       <div
         className='flex-center text-16 leading-20 pl-16 pr-8 py-8 text-primary border-r-2 border-grey-66 underline'
-        onClick={toWalletPage}
       >
         Wallet
       </div>

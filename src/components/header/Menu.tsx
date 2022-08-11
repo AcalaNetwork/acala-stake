@@ -73,25 +73,7 @@ const MenuItem: FC<MenuItem> = memo(({ matchPattern, children, link }) => {
 export const Menu = memo(() => {
   return (
     <ul className='flex flex-row'>
-      <MenuItem link='/'>Home</MenuItem>
-      <MenuItem
-        link={[
-          { path: '/stake/acala', label: 'Stake DOT' },
-          { path: '/stake/karura', label: 'Stake KSM' },
-        ]}
-        matchPattern='/stake'
-      >
-        Stake
-      </MenuItem>
-      <MenuItem
-        link={[
-          { path: '/bridge/acala', label: 'Bridge DOT' },
-          { path: '/bridge/karura', label: 'Bridge KSM' },
-        ]}
-        matchPattern='/bridge'
-      >
-        Bridge
-      </MenuItem>
+      <MenuItem link='/'>Bridge</MenuItem>
     </ul>
   );
 });

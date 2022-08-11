@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react';
 import { Modal } from '../components/Modal';
-import { useModal, useOpenModal } from '../state';
+import { useModal, useOpenModal } from '../state/application/hooks';
 import { ModalType } from '../state/application/types';
 import Logo from '/public/images/acala-circle.svg';
 import PolkadotExtensionLogo from '/public/images/polkadot-extension-logo.svg';

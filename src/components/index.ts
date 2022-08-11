@@ -1,6 +1,5 @@
 export * from './Address';
 export * from './AddressAvatar';
-export * from './BalanceValue';
 export * from './Button';
 export * from './Card';
 export * from './Copy';
@@ -22,7 +21,6 @@ export * from './Spacing';
 export * from './Step';
 export * from './SubPageTabs';
 export * from './SwitchSelector';
-export * from './Table';
 export * from './Tabs';
 export * from './Toggle';
 export * from './TokenImage';

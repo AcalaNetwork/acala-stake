@@ -5,44 +5,32 @@
 import 'tailwindcss/tailwind.css';
 import { Provider as ReduxProvider } from 'react-redux';
 import dynamic from 'next/dynamic';
-import { ConnectExtensionModal } from '../modals/ConnectExtension';
+import { useCallback } from 'react';
+import { PersistGate } from 'redux-persist/integration/react';
 import { InjectedAccount } from '@polkadot/extension-inject/types';
-import { persistor, store, useSelectedAddress, useSetSelectedAddress } from '../state';
+import { setSelectedAddress } from '@state/application/slice';
+import { ConnectExtensionModal } from '../modals/ConnectExtension';
+import { persistor, store, useAppDispatch, useAppSelector } from '../state';
 import configs from '../config';
-import { SDKProvider } from '../sdk';
-import '../styles/index.css';
 import { SelectActiveAccount } from '../modals/SelectActiveAccount';
 import { NotificationProvider } from '../notification';
 import { TxNotifications } from '../components/TxNotifications';
-import { useCallback } from 'react';
-import { PersistGate } from 'redux-persist/integration/react';
-import { EnsureSDKReady } from '@sdk/components/EnsureSDKReady';
+import '../styles/index.css';
 
 const SubstrateConnector = dynamic(() => import('../connector/components/SubstrateConnector').then((i) => i.default), { ssr: false });
 
 const connectorConfigs = Object.values(configs.apis);
 
-const WithSDK = ({ Component, pageProps }) => {
-  return (
-    <SDKProvider>
-      <EnsureSDKReady requires={['acala-wallet', 'karura-wallet']}>
-        <ConnectExtensionModal />
-        <SelectActiveAccount />
-        <Component {...pageProps} />
-      </EnsureSDKReady>
-    </SDKProvider>
-  );
-};
-
-const WithSubstrate = (props) => {
-  const defaultAddress = useSelectedAddress();
-  const setSelectedAddress = useSetSelectedAddress();
+const WithSubstrate = ({ Component, pageProps }) => {
+  const defaultAddress = useAppSelector((state) => state.application.selectedAddress);
+  const dispatch = useAppDispatch();
 
   const handleActiveSelected = useCallback(
     (account: InjectedAccount) => {
       setSelectedAddress(account.address);
+      dispatch(setSelectedAddress(account.address));
     },
-    [setSelectedAddress]
+    [dispatch]
   );
 
   return (
@@ -53,7 +41,9 @@ const WithSubstrate = (props) => {
       onActiveSelected={handleActiveSelected}
     >
       <TxNotifications />
-      <WithSDK {...props} />
+      <ConnectExtensionModal />
+      <SelectActiveAccount />
+      <Component {...pageProps} />
     </SubstrateConnector>
   );
 };
